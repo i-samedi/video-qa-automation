@@ -175,34 +175,22 @@ def main():
                 st.success(f"Test cases extracted and saved to {output_filename}")
 
                 split_test_case_file(output_filename)
-                st.session_state['all_test_cases'] = test_cases
-
-        # Display checkboxes for test case selection
-        # if 'all_test_cases' in st.session_state:
-        #     st.subheader("Select Test Cases")
-
-        #     # Initialize selected_test_cases in session state if it doesn't exist
-        #     if 'selected_test_cases' not in st.session_state:
-        #         st.session_state['selected_test_cases'] = []
-
-        #     # Add select all checkbox
-        #     select_all = st.checkbox("Select All")
-            
-        #     for test_case in st.session_state['all_test_cases']:
-        #         if select_all:
-        #             st.checkbox(test_case['title'], key=test_case['title'], value=True)
-        #             if test_case not in st.session_state['selected_test_cases']:
-        #                 st.session_state['selected_test_cases'].append(test_case)
-        #         else:
-        #             if st.checkbox(test_case['title'], key=test_case['title']):
-        #                 if test_case not in st.session_state['selected_test_cases']:
-        #                     st.session_state['selected_test_cases'].append(test_case)
-        #             else:
-        #                 if test_case in st.session_state['selected_test_cases']:
-        #                     st.session_state['selected_test_cases'].remove(test_case)
-
-        #     # Display the number of selected test cases
-        #     st.write(f"Selected {len(st.session_state['selected_test_cases'])} test cases")
+                
+                # Mostrar los escenarios Gherkin generados
+                features_dir = "features"
+                if os.path.exists(features_dir):
+                    st.success("Gherkin scenarios generated in 'features' directory")
+                    
+                    # Mostrar cada escenario en un expander
+                    for feature_folder in sorted(os.listdir(features_dir)):
+                        if feature_folder.startswith('features_'):
+                            folder_path = os.path.join(features_dir, feature_folder)
+                            if os.path.isdir(folder_path):
+                                with st.expander(f"Scenario {feature_folder}"):
+                                    for feature_file in os.listdir(folder_path):
+                                        if feature_file.endswith('.feature'):
+                                            with open(os.path.join(folder_path, feature_file), 'r') as f:
+                                                st.code(f.read(), language='gherkin')
 
         
 

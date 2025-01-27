@@ -19,16 +19,16 @@
 {Person1}{00:00:02:20} donde aquella sucursal donde voy a realizar el despacho. Hay clientes que cuentan con
 {Person1}{00:00:02:24} una o varias sucursales distintas. Eso lo puedo seleccionar desplegando acá el combo
 {Person1}{00:00:02:34} o en su defecto. Voy a tomar el dato directamente de lo que viene en la plantilla que voy a
-
 {Person1}{00:00:02:43} cargar. Las condiciones de venta. Voy a seleccionar una. Le damos un Enter. Digitamos la orden
+
 {Person1}{00:00:02:55} de compra del cliente. Le damos un Enter. Automáticamente cada vez que doy un Enter
 {Person1}{00:00:03:00} al sistema, la aplicación permite que se vaya cambiando de cajita para que yo ingrese
-
 {Person1}{00:00:03:05} el dato correspondiente. En este caso ahora me está viendo el porcentaje de descuento.
 {Person1}{00:00:03:09} Voy a poner un 15 por ciento. Le doy un Enter. Y ahora se posicionó directamente en el botón
 {Person1}{00:00:03:17} para la lectura del archivo que voy a leer. Selecciono el botón. Selecciono el archivo
-{Person1}{00:00:03:25} que es del tipo CSV. Le doy doble clic. Y ya en este minuto la aplicación lo que está
 
+{Person1}{00:00:03:17} para la lectura del archivo que voy a leer. Selecciono el botón. Selecciono el archivo
+{Person1}{00:00:03:25} que es del tipo CSV. Le doy doble clic. Y ya en este minuto la aplicación lo que está
 {Person1}{00:00:03:33} haciendo es leer este archivo con toda la cantidad de registro y validando cada uno
 {Person1}{00:00:03:37} de ellos. La validación que se realiza corresponde al código de tienda que viene en la planilla.
 {Person1}{00:00:03:49} El código modelo, color y talla. Y por defecto cada validación, si está correcta,
@@ -71,14 +71,16 @@
 {Person1}{00:00:07:50} si la presiono. Lo que va a hacer acá directamente en la aplicación es registrar los pedidos y nos
 {Person1}{00:00:08:01} va a entregar un número de pedido asOCiado a los datos que tenemos. En este caso, por ejemplo,
 
+{Person1}{00:00:08:01} va a entregar un número de pedido asOCiado a los datos que tenemos. En este caso, por ejemplo,
 {Person1}{00:00:08:07} generó dos números de pedido. Generó el 16438364 y otro pedido que generó es el 16438385. Cierto?
 {Person1}{00:00:08:18} Dado que, en el fondo, la línea corresponde a un género distinto. Este es mujer, los otros son
 {Person1}{00:00:08:27} todos hombres, columna, vestuario. Por eso generó un pedido asOCiado a todas estas líneas y un
 {Person1}{00:00:08:34} pedido distinto para lo que es un género distinto, siendo que es la misma marca y clase de vestuario.
+{Person1}{00:00:08:41} Eso es todo lo que hace esta aplicación de carga masiva.
 
+{Person1}{00:00:08:49} De carga masiva. Con esto yo puedo generar ahora o exportar los datos de lo que me hizo
 {Person1}{00:00:09:07} esta inyección. Vamos a poner acá pruebas de inyección y guardamos.
 {Person1}{00:00:09:19} Lo activo y ya puedo cerrar la aplicación sin ningún problema. Y en el fondo, el respaldo que
-
 {Person1}{00:00:09:28} generó esta prueba de inyección del tipo DBF nos va a entregar lo mismo detalle que estábamos
 {Person1}{00:00:09:38} viendo en la grilla de la pantalla principal del pedido. Le saca un modelo color, los números de
 {Person1}{00:00:09:45} pedido que se generaron, la OC del cliente, lo cual le sirve al usuario para que
