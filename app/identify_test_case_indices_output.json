@@ -1,0 +1,49 @@
+{
+  "test_cases": [
+    {
+      "name": "Login and Initial Navigation",
+      "start_time": "00:00:00:00",
+      "end_time": "00:00:00:11"
+    },
+    {
+      "name": "Selecting Dispatch Origin",
+      "start_time": "00:00:00:22",
+      "end_time": "00:00:00:51"
+    },
+    {
+      "name": "Entering Customer RUT",
+      "start_time": "00:00:00:59",
+      "end_time": "00:00:01:55"
+    },
+    {
+      "name": "Checking Credit and Selecting Dispatch Destination",
+      "start_time": "00:00:02:06",
+      "end_time": "00:00:02:43"
+    },
+    {
+      "name": "Entering Order Details",
+      "start_time": "00:00:02:55",
+      "end_time": "00:00:03:17"
+    },
+    {
+      "name": "File Upload and Validation",
+      "start_time": "00:00:03:17",
+      "end_time": "00:00:05:53"
+    },
+    {
+      "name": "Order Generation",
+      "start_time": "00:00:06:00",
+      "end_time": "00:00:08:01"
+    },
+    {
+      "name": "Order Confirmation",
+      "start_time": "00:00:08:01",
+      "end_time": "00:00:08:41"
+    },
+    {
+      "name": "Data Export",
+      "start_time": "00:00:08:49",
+      "end_time": "00:00:09:53"
+    }
+  ]
+}
