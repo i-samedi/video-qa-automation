@@ -26,7 +26,7 @@ def setup_page_config():
         <style>
         .stButton>button {
             width: 100%;
-            margin-top: 10px;
+            margin-top: 5px;
         }
         .stTextArea>div>div>textarea {
             font-family: monospace;
@@ -34,23 +34,25 @@ def setup_page_config():
         .stMarkdown {
             font-size: 1.1em;
         }
+        img {
+            width: 100% !important;
+        }
         </style>
     """, unsafe_allow_html=True)
     
-video_file = None
 
 def sidebar_content():
     with st.sidebar:
         st.image("https://static.wixstatic.com/media/0b7cad_d93db1cbf404473fa826423825390a4b~mv2.png/v1/fill/w_534,h_128,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/logo%20botman.png", width=200)
-        st.title("🛠️ Configuración")
+        st.title("*Transforme su negocio con el poder de la Inteligencia Artificial.*")
         
         st.markdown("### ℹ️ Ayuda")
-        with st.expander("Guía Rápida"):
+        with st.expander("🚀 Guía de Uso Rápida"):
             st.markdown("""
-                1. Sube un video de prueba
-                2. Espera la transcripción
-                3. Revisa el análisis
-                4. Descarga el script generado
+                1. Sube video de prueba (MP4, MOV, AVI).
+                2. Obtener la transcripción del video.
+                3. Identificar los escenarios de prueba.
+                4. Generar los escenarios en formato Gherkin.
             """)
 
 
@@ -58,9 +60,9 @@ def main():
     setup_page_config()
     sidebar_content()
     
-    st.title("🎥 Video QA Automation - BotMan v0.1.5")
+    st.title("*🎥 Video QA Automatizado - BotMan IA beta*")
     
-    tabs = st.tabs(["📹 Análisis de Video", "📊 Resultados", "🤖 Script Generator"])
+    tabs = st.tabs(["📹 Análisis del Video", "🎬 Escenarios de Prueba", "BETA"])
     
     with tabs[0]:
         st.markdown("### 📤 Subir Video")
@@ -84,7 +86,7 @@ def main():
             
             with col2:
                 st.markdown("### 🎯 Acciones")
-                if st.button("🔍 Iniciar Transcripción del Video"):
+                if st.button("📝 Iniciar Transcripción del Video"):
                     if video_file:
                         with st.spinner("Extrayendo audio..."):
                             with open("temp_video.mp4", "wb") as f:
@@ -106,9 +108,8 @@ def main():
                     else:
                         st.error("Audio file not found. Please extract audio first.")
 
-                if st.button("🔍 Identificar Escenarios de Prueba"):
+                if st.button("🚀 Identificar Escenarios de Prueba"):
                     with st.spinner("Reading transcript..."):
-                        # transcript = transcript_file.getvalue().decode("utf-8")
                         transcript = open("extracted_transcript.txt", "r").read()
 
                     st.success("Transcript read successfully!")
@@ -118,19 +119,15 @@ def main():
 
                     if test_case_indices:
                         st.success("Test case indices extracted successfully!")
-
-                        # Save test case indices to a file
                         with open("identify_test_case_indices_output.json", "w") as f:
                             json.dump(test_case_indices, f, indent=2)                                  
                             
     with tabs[1]:
-        if st.button("Extraer Casos de Prueba"):
-            with st.spinner("Extracting test cases..."):
+        if st.button("🎭 Extraer Escenarios de Prueba"):
+            with st.spinner("Extrayendo escenarios de prueba..."):
                 input_filename_converted = "extracted_transcript.txt"
                 with open(input_filename_converted, 'r') as file:
                     transcript_text = file.read()
-
-                # Read the test case indices from the JSON file
                 try:
                     with open("identify_test_case_indices_output.json", "r") as f:
                         indices_data = json.load(f)
@@ -159,38 +156,54 @@ def main():
                                 break
 
                     test_case = extract_test_case(lines, start, end)
-                    test_cases.append({
-                        "title": f"Test Case {i+1}: {test_case_info['name']}",
-                        "content": test_case
-                    })
-
-                for i, test_case in enumerate(test_cases, 1):
-                    st.text_area(f"Test Case {i}", test_case['content'], height=200)
+                    test_cases.append(test_case)  # Simplemente agregamos el contenido del test case
 
                 # Save test cases to a file
                 output_filename = "extracted_test_cases.txt"
                 with open(output_filename, "w") as f:
-                    f.write("\n\n".join([tc['content'] for tc in test_cases]))
+                    f.write("\n\n".join(test_cases))  # Unimos los test cases con doble salto de línea
 
-                st.success(f"Test cases extracted and saved to {output_filename}")
+                st.success(f"Escenarios de prueba extraídos en {output_filename}")
 
                 split_test_case_file(output_filename)
                 
                 # Mostrar los escenarios Gherkin generados
                 features_dir = "features"
                 if os.path.exists(features_dir):
-                    st.success("Gherkin scenarios generated in 'features' directory")
+                    st.success("Escenarios de prueba generados en 'features'")
                     
-                    # Mostrar cada escenario en un expander
-                    for feature_folder in sorted(os.listdir(features_dir)):
-                        if feature_folder.startswith('features_'):
-                            folder_path = os.path.join(features_dir, feature_folder)
-                            if os.path.isdir(folder_path):
-                                with st.expander(f"Scenario {feature_folder}"):
-                                    for feature_file in os.listdir(folder_path):
-                                        if feature_file.endswith('.feature'):
-                                            with open(os.path.join(folder_path, feature_file), 'r') as f:
-                                                st.code(f.read(), language='gherkin')
+                    # Contenedor para mostrar los escenarios
+                    with st.container():
+                        # Estilo CSS para un diseño más minimalista
+                        st.markdown("""
+                            <style>
+                            .stExpander {
+                                border: none;
+                                box-shadow: none;
+                                background-color: transparent;
+                            }
+                            .streamlit-expanderHeader {
+                                font-size: 1rem;
+                                color: #262730;
+                                background-color: #f0f2f6;
+                                border-radius: 4px;
+                                margin-bottom: 0.5rem;
+                            }
+                            </style>
+                        """, unsafe_allow_html=True)
+                        
+                        # Ordenar los archivos numéricamente
+                        feature_files = sorted(
+                            [f for f in os.listdir(features_dir) if f.endswith('.feature')],
+                            key=lambda x: int(''.join(filter(str.isdigit, x)))
+                        )
+                        
+                        # Mostrar cada escenario en un expander con formato mejorado
+                        for feature_file in feature_files:
+                            with st.expander(f"📀 Escenario {feature_file.split('_')[1].split('.')[0]}"):
+                                with open(os.path.join(features_dir, feature_file), 'r') as f:
+                                    content = f.read()
+                                    st.code(content, language='gherkin')
 
         
 

@@ -4,8 +4,8 @@
 {Person1}{00:00:00:30} del despacho, desde donde voy a despachar la mercadería. Puedo desplegar el combo para
 {Person1}{00:00:00:40} seleccionar la bodega desde donde quiero que se realice este despacho en particular. Por
 {Person1}{00:00:00:45} defecto, viene SDFORCE o puedo seleccionar cualquier otra bodega sin ningún problema.
-{Person1}{00:00:00:51} Vamos a dejar la que está por defecto. Le damos un Enter. Y ahí el cursor automáticamente
 
+{Person1}{00:00:00:51} Vamos a dejar la que está por defecto. Le damos un Enter. Y ahí el cursor automáticamente
 {Person1}{00:00:00:59} se posiciona en el RUT para que se digite el RUT correspondiente al cliente que le voy
 {Person1}{00:00:01:07} a despachar. Si no conozco el RUT, obviamente existe este bontOCito con el signo de interrogación.
 {Person1}{00:00:01:15} Lo presiono y puedo buscar al cliente digitando parte de su relación sOCial. Le doy un Enter.
@@ -20,15 +20,14 @@
 {Person1}{00:00:02:24} una o varias sucursales distintas. Eso lo puedo seleccionar desplegando acá el combo
 {Person1}{00:00:02:34} o en su defecto. Voy a tomar el dato directamente de lo que viene en la plantilla que voy a
 {Person1}{00:00:02:43} cargar. Las condiciones de venta. Voy a seleccionar una. Le damos un Enter. Digitamos la orden
-
 {Person1}{00:00:02:55} de compra del cliente. Le damos un Enter. Automáticamente cada vez que doy un Enter
+
 {Person1}{00:00:03:00} al sistema, la aplicación permite que se vaya cambiando de cajita para que yo ingrese
 {Person1}{00:00:03:05} el dato correspondiente. En este caso ahora me está viendo el porcentaje de descuento.
 {Person1}{00:00:03:09} Voy a poner un 15 por ciento. Le doy un Enter. Y ahora se posicionó directamente en el botón
 {Person1}{00:00:03:17} para la lectura del archivo que voy a leer. Selecciono el botón. Selecciono el archivo
-
-{Person1}{00:00:03:17} para la lectura del archivo que voy a leer. Selecciono el botón. Selecciono el archivo
 {Person1}{00:00:03:25} que es del tipo CSV. Le doy doble clic. Y ya en este minuto la aplicación lo que está
+
 {Person1}{00:00:03:33} haciendo es leer este archivo con toda la cantidad de registro y validando cada uno
 {Person1}{00:00:03:37} de ellos. La validación que se realiza corresponde al código de tienda que viene en la planilla.
 {Person1}{00:00:03:49} El código modelo, color y talla. Y por defecto cada validación, si está correcta,
@@ -69,7 +68,6 @@
 {Person1}{00:00:07:40} que se haya activado este botón de grabar pedidos y cancelar. Cancelar, en el fondo,
 {Person1}{00:00:07:45} es si no quiero continuar con la grabación de pedido. Y grabar pedido, obviamente,
 {Person1}{00:00:07:50} si la presiono. Lo que va a hacer acá directamente en la aplicación es registrar los pedidos y nos
-{Person1}{00:00:08:01} va a entregar un número de pedido asOCiado a los datos que tenemos. En este caso, por ejemplo,
 
 {Person1}{00:00:08:01} va a entregar un número de pedido asOCiado a los datos que tenemos. En este caso, por ejemplo,
 {Person1}{00:00:08:07} generó dos números de pedido. Generó el 16438364 y otro pedido que generó es el 16438385. Cierto?
