@@ -2,7 +2,9 @@ import streamlit as st
 from openai import OpenAI
 from datetime import timedelta
 from service.glossary import GLOSSARY, apply_glossary
+import os
 
+# Add this new function to extract transcript using Whisper
 def extract_transcript(audio_file_path):
     try:
         client = OpenAI(
@@ -71,6 +73,8 @@ def extract_transcript(audio_file_path):
         # Guardar la transcripción formateada
         with open("extracted_transcript.txt", "w", encoding="utf-8") as transcript_file:
             transcript_file.write("\n".join(formatted_transcript))
+
+        st.success("Transcripción guardada como 'extracted_transcript.txt'")
 
     except Exception as e:
         st.error(f"Error extracting transcript: {str(e)}")

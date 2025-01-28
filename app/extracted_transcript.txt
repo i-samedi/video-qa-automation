@@ -48,31 +48,31 @@
 {Person1}{00:00:06:00} A la derecha tenemos más datos que son ya relacionados con la validación. Acá en el
 {Person1}{00:00:06:07} fondo me está validando que este cliente en particular que es SOCiedad Comercial Valcao
 {Person1}{00:00:06:11} exista en el maestro de clientes del RPI y por eso me está trayendo la ID con el cual está
-{Person1}{00:00:06:19} registrado ese cliente. El SiteUsageID que corresponde a la dirección de envío de ese
-{Person1}{00:00:06:26} cliente. El SiteUsageID2 que corresponde a la dirección de facturación de ese cliente.
-{Person1}{00:00:06:32} Por el TypeID el tipo y origen de producto. El ItemID es el identificador de producto.
-{Person1}{00:00:06:42} La unidad de medida del producto, que en este caso es UND. Todos estos datos los recupera
+{Person1}{00:00:06:19} registrado ese cliente. El Site Usage ID que corresponde a la dirección de envío de ese
+{Person1}{00:00:06:26} cliente. El Site Usage ID2 que corresponde a la dirección de facturación de ese cliente.
+{Person1}{00:00:06:32} Por el Type ID, el tipo y origen de producto. El Item ID es el identificador de producto.
+{Person1}{00:00:06:42} La unidad de medida del producto que en este caso es UND. Todos estos datos los recupera
 {Person1}{00:00:06:49} directamente desde el RPI de cada uno de los maestros. Eso significa, por ejemplo,
-{Person1}{00:00:06:53} este ItemID o unidad de medida lo está recuperando del maestro de productos del RPI. Lo que está
-{Person1}{00:00:07:00} relacionado con el cliente del maestro de productos del cliente del RPI. La lista de
-{Person1}{00:00:07:05} precios donde está registrado el precio de cada producto en el RPI y datos adicionales como
-{Person1}{00:00:07:13} género, marca, clase, que se recuperan y se anexan a esta grilla para poder separar los
-{Person1}{00:00:07:19} pedidos en base a la marca, clase y género. O sea, de acuerdo a la configuración que haya
-{Person1}{00:00:07:25} entregado el centro de distribución. Una vez que ya tenemos la variación,
-{Person1}{00:00:07:29} en este caso están todos los registros con la opción de generar en sí. Lo que nos permite
-{Person1}{00:00:07:40} que se haya activado este botón de grabar pedidos y cancelar. Cancelar, en el fondo,
-{Person1}{00:00:07:45} es si no quiero continuar con la grabación de pedido. Y grabar pedido, obviamente,
-{Person1}{00:00:07:50} si la presiono. Lo que va a hacer acá directamente en la aplicación es registrar los pedidos y nos
-{Person1}{00:00:08:01} va a entregar un número de pedido asOCiado a los datos que tenemos. En este caso, por ejemplo,
-{Person1}{00:00:08:07} generó dos números de pedido. Generó el 16438364 y otro pedido que generó es el 16438385. Cierto?
-{Person1}{00:00:08:18} Dado que, en el fondo, la línea corresponde a un género distinto. Este es mujer, los otros son
-{Person1}{00:00:08:27} todos hombres, columna, vestuario. Por eso generó un pedido asOCiado a todas estas líneas y un
-{Person1}{00:00:08:34} pedido distinto para lo que es un género distinto, siendo que es la misma marca y clase de vestuario.
-{Person1}{00:00:08:41} Eso es todo lo que hace esta aplicación de carga masiva.
-{Person1}{00:00:08:49} De carga masiva. Con esto yo puedo generar ahora o exportar los datos de lo que me hizo
-{Person1}{00:00:09:07} esta inyección. Vamos a poner acá pruebas de inyección y guardamos.
-{Person1}{00:00:09:19} Lo activo y ya puedo cerrar la aplicación sin ningún problema. Y en el fondo, el respaldo que
-{Person1}{00:00:09:28} generó esta prueba de inyección del tipo DBF nos va a entregar lo mismo detalle que estábamos
-{Person1}{00:00:09:38} viendo en la grilla de la pantalla principal del pedido. Le saca un modelo color, los números de
-{Person1}{00:00:09:45} pedido que se generaron, la OC del cliente, lo cual le sirve al usuario para que
-{Person1}{00:00:09:53} valide que si su carga se hizo en forma satisfactoria. Eso es cómo opera esta aplicación de carga masiva.
+{Person1}{00:00:06:53} este Item ID o unidad de medida lo está recuperando del maestro de productos del RPI.
+{Person1}{00:00:06:59} Lo que está relacionado con el cliente del maestro de productos del cliente del RPI.
+{Person1}{00:00:07:04} La lista de precios donde está registrado el precio de cada producto en el RPI y datos
+{Person1}{00:00:07:12} adicionales como género, marca, clase que se recuperan y se anexan a esta guía para poder
+{Person1}{00:00:07:18} separar los pedidos en base a la marca, clase y género. O sea, de acuerdo a la configuración
+{Person1}{00:00:07:24} que haya entregado el centro de distribución. Una vez que ya tenemos la variación, en este
+{Person1}{00:00:07:31} caso están todos los registros con la opción de generar en sí. Lo que nos permite que se
+{Person1}{00:00:07:40} haya activado este botón de grabar pedidos y cancelar. Cancelar, en el fondo, es si no
+{Person1}{00:00:07:46} quiero continuar con la grabación de pedido y grabar pedido, obviamente, si la presiono.
+{Person1}{00:00:07:52} Lo que va a hacer acá directamente la aplicación es registrar los pedidos y nos va a entregar
+{Person1}{00:00:08:02} un número de pedido asOCiado a los datos que tenemos. En este caso, por ejemplo, generó
+{Person1}{00:00:08:08} dos números de pedido. Generó el 16438364 y otro pedido generó el 16438385. Dado que
+{Person1}{00:00:08:19} en el fondo la línea corresponde a un género distinto. Este es mujer, los otros son todos
+{Person1}{00:00:08:27} hombres, columbia, vestuario. Por eso generó un pedido asOCiado a todas estas líneas y
+{Person1}{00:00:08:33} un pedido distinto para lo que es un género distinto, siendo que es la misma marca y
+{Person1}{00:00:08:40} clase de vestuario. Eso es todo lo que hace esta aplicación de carga masiva. Con esto
+{Person1}{00:00:09:01} yo puedo generar ahora, exportar los datos, ¿cierto? De lo que me hizo esta inyección.
+{Person1}{00:00:09:09} Vamos a poner acá prueba de inyección. Lo guardamos. Le activo. Ya puedo cerrar la aplicación
+{Person1}{00:00:09:24} sin ningún problema. Y en el fondo, el respaldo que generó esta prueba de inyección del
+{Person1}{00:00:09:31} tipo DBF nos va a entregar lo mismo detalle que estábamos viendo en la grilla de la pantalla
+{Person1}{00:00:09:40} principal del pedido. Le saca humo, el color, los números de pedido que se generaron, ¿cierto?
+{Person1}{00:00:09:48} El cliente. Lo cual le sirve al usuario para que valide que si su carga se hizo en forma
+{Person1}{00:00:09:56} satisfactoria. Eso es cómo opera esta aplicación de carga masiva.

@@ -6,6 +6,7 @@
 3. source venv/bin/activate
 4. pip install --upgrade pip
 5. pip install -r requirements.txt
+6. playwright install
 
 ## Creación archivo .env
 - Crear archivo .env en la raiz del proyecto con las siguientes variables:
