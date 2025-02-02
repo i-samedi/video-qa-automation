@@ -1,44 +1,32 @@
-Feature: Operación de la aplicación de carga masiva
+Feature: Proceso de carga de pedidos a bodegas
 
-Scenario: Selección de bodega y cliente
-Given el usuario está en la pantalla principal de la aplicación
-When selecciona la bodega por defecto
-And ingresa el RUT del cliente
-Then el sistema muestra la razón social del cliente
+Background:
+  Given El usuario ha iniciado sesión en el sistema
+  And Se encuentra en la pantalla de carga de pedidos
 
-Scenario: Búsqueda de cliente por razón social
-Given el usuario no conoce el RUT del cliente
-When presiona el botón de búsqueda
-And ingresa parte de la razón social del cliente
-Then el sistema muestra una lista de clientes coincidentes
-And el usuario selecciona el cliente deseado
 
-Scenario: Validación de crédito y selección de sucursal
-Given el usuario ha seleccionado un cliente
-When el sistema verifica el crédito disponible
-Then el usuario selecciona la sucursal de destino
+@paso_1 @modulo_seleccion @tipo_entrada
+Scenario: 1. Selección de la bodega origen del despacho
+  When El usuario selecciona la "Bodega 2" como bodega origen del despacho
+  Then La "Bodega 2" queda seleccionada como origen
 
-Scenario: Ingreso de condiciones de venta y orden de compra
-Given el usuario ha seleccionado la sucursal de destino
-When ingresa las condiciones de venta
-And ingresa la orden de compra del cliente
-Then el sistema permite el ingreso del porcentaje de descuento
+@paso_2 @modulo_entrada_datos @tipo_entrada
+Scenario: 2. Completar el RUT del pedido
+  When El usuario completa el campo RUT con "1, 2, 3, 4, 5, 6, 7, 8, 9"
+  Then El RUT "1, 2, 3, 4, 5, 6, 7, 8, 9" queda registrado en el campo correspondiente
 
-Scenario: Carga y validación de archivo CSV
-Given el usuario ha ingresado el porcentaje de descuento
-When selecciona el archivo CSV para cargar
-Then el sistema valida los registros del archivo
-And muestra los datos validados en la pantalla
+@paso_3 @modulo_seleccion @tipo_entrada
+Scenario: 3. Selección del destino del pedido
+  When El usuario selecciona la "Ubicación número 1" como destino del pedido
+  Then La "Ubicación número 1" queda seleccionada como destino
 
-Scenario: Generación de pedidos
-Given los datos del archivo han sido validados
-When el usuario presiona el botón de grabar pedidos
-Then el sistema genera números de pedido
-And muestra los números de pedido generados
+@paso_4 @modulo_entrada_datos @tipo_entrada
+Scenario: 4. Completar el número de pedido
+  When El usuario completa el campo número de pedido con "9, 8, 7"
+  Then El número de pedido "9, 8, 7" queda registrado en el campo correspondiente
 
-Scenario: Exportación de datos de inyección
-Given los pedidos han sido generados
-When el usuario exporta los datos de inyección
-Then el sistema guarda un archivo de respaldo
-And el usuario puede cerrar la aplicación
+@paso_5 @modulo_confirmacion @tipo_accion
+Scenario: 5. Confirmación y grabación del pedido
+  When El usuario hace clic en el botón "Grabar pedidos"
+  Then El pedido queda grabado y persistido en la base de datos
 

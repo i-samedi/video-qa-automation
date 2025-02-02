@@ -1,0 +1,125 @@
+Feature: Proceso de carga de pedidos a bodegas # app/features/scenario.feature:1
+
+  Background:   # app/features/scenario.feature:3
+
+  @paso_1 @modulo_seleccion @tipo_entrada
+  Scenario: 1. Selección de la bodega origen del despacho                    # app/features/scenario.feature:9
+    Given El usuario ha iniciado sesión en el sistema                        # app/features/steps/scenario_steps_playwright.py:11
+    And Se encuentra en la pantalla de carga de pedidos                      # app/features/steps/scenario_steps_playwright.py:14
+    When El usuario selecciona la "Bodega 2" como bodega origen del despacho # app/features/steps/scenario_steps_playwright.py:19
+    Then La "Bodega 2" queda seleccionada como origen                        # app/features/steps/scenario_steps_playwright.py:26
+      Traceback (most recent call last):
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+          ~~~~~~~~~^^^^^^^^^^^^^^^^
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "app/features/steps/scenario_steps_playwright.py", line 28, in step_verificar_bodega_origen_seleccionada
+          selected_option = context.page.locator(LOCATORS['groupBox1']['selects']['bodega']).input_value()
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/sync_api/_generated.py", line 16897, in input_value
+          self._sync(self._impl_obj.input_value(timeout=timeout))
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+          return task.result()
+                 ~~~~~~~~~~~^^
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_locator.py", line 452, in input_value
+          return await self._frame.input_value(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          ...<3 lines>...
+          )
+          ^
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_frame.py", line 686, in input_value
+          return await self._channel.send("inputValue", locals_to_params(locals()))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 61, in send
+          return await self._connection.wrap_api_call(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          ...<2 lines>...
+          )
+          ^
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 528, in wrap_api_call
+          raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+      playwright._impl._errors.TimeoutError: Locator.input_value: Timeout 30000ms exceeded.
+      Call log:
+        - waiting for locator("#combobodega")
+
+
+  @paso_2 @modulo_entrada_datos @tipo_entrada
+  Scenario: 2. Completar el RUT del pedido                                               # app/features/scenario.feature:14
+    Given El usuario ha iniciado sesión en el sistema                                    # app/features/steps/scenario_steps_playwright.py:11
+    And Se encuentra en la pantalla de carga de pedidos                                  # app/features/steps/scenario_steps_playwright.py:14
+    When El usuario completa el campo RUT con "1, 2, 3, 4, 5, 6, 7, 8, 9"                # app/features/steps/scenario_steps_playwright.py:30
+    Then El RUT "1, 2, 3, 4, 5, 6, 7, 8, 9" queda registrado en el campo correspondiente # app/features/steps/scenario_steps_playwright.py:37
+      Traceback (most recent call last):
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+          ~~~~~~~~~^^^^^^^^^^^^^^^^
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "app/features/steps/scenario_steps_playwright.py", line 40, in step_verificar_rut_registrado
+          expect(rut_value).to_equal("1, 2, 3, 4, 5, 6, 7, 8, 9")
+          ~~~~~~^^^^^^^^^^^
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/sync_api/__init__.py", line 142, in __call__
+          raise ValueError(f"Unsupported type: {type(actual)}")
+      ValueError: Unsupported type: <class 'str'>
+
+
+  @paso_3 @modulo_seleccion @tipo_entrada
+  Scenario: 3. Selección del destino del pedido                                # app/features/scenario.feature:19
+    Given El usuario ha iniciado sesión en el sistema                          # app/features/steps/scenario_steps_playwright.py:11
+    And Se encuentra en la pantalla de carga de pedidos                        # app/features/steps/scenario_steps_playwright.py:14
+    When El usuario selecciona la "Ubicación número 1" como destino del pedido # app/features/steps/scenario_steps_playwright.py:41
+    Then La "Ubicación número 1" queda seleccionada como destino               # app/features/steps/scenario_steps_playwright.py:48
+      Traceback (most recent call last):
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+          ~~~~~~~~~^^^^^^^^^^^^^^^^
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "app/features/steps/scenario_steps_playwright.py", line 50, in step_verificar_destino_seleccionado
+          selected_option = context.page.locator(LOCATORS['groupBox3']['selects']['ubicacion']).input_value()
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/sync_api/_generated.py", line 16897, in input_value
+          self._sync(self._impl_obj.input_value(timeout=timeout))
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+          return task.result()
+                 ~~~~~~~~~~~^^
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_locator.py", line 452, in input_value
+          return await self._frame.input_value(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          ...<3 lines>...
+          )
+          ^
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_frame.py", line 686, in input_value
+          return await self._channel.send("inputValue", locals_to_params(locals()))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 61, in send
+          return await self._connection.wrap_api_call(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          ...<2 lines>...
+          )
+          ^
+        File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 528, in wrap_api_call
+          raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+      playwright._impl._errors.TargetClosedError: Locator.input_value: Target page, context or browser has been closed
+      Call log:
+        - waiting for locator("#comboubicacion")
+
+
+  @paso_4 @modulo_entrada_datos @tipo_entrada
+  Scenario: 4. Completar el número de pedido                                        # app/features/scenario.feature:24
+    Given El usuario ha iniciado sesión en el sistema                               # None
+    And Se encuentra en la pantalla de carga de pedidos                             # None
+    When El usuario completa el campo número de pedido con "9, 8, 7"                # None
+    Then El número de pedido "9, 8, 7" queda registrado en el campo correspondiente # None
+
+  @paso_5 @modulo_confirmacion @tipo_accion
+  Scenario: 5. Confirmación y grabación del pedido                # app/features/scenario.feature:29
+    Given El usuario ha iniciado sesión en el sistema             # app/features/steps/scenario_steps_playwright.py:11
+    And Se encuentra en la pantalla de carga de pedidos           # app/features/steps/scenario_steps_playwright.py:14
+    When El usuario hace clic en el botón "Grabar pedidos"        # app/features/steps/scenario_steps_playwright.py:63
+      ABORTED: By user (KeyboardInterrupt).
+

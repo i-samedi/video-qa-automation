@@ -1,0 +1,173 @@
+Aquí tienes la estructura organizada en formato lista jerárquica:
+
+---
+
+**Page**  
+- **Title**: "Carga de Pedidos a Bodegas"
+
+---
+
+**Panel1**  
+- **Container**: #panel1  
+- **Inputs**:  
+  - Observaciones: #editobs  
+  - Líneas Rechazadas: #editlinerechazo  
+  - Cantidad Rechazada: #editcantrechazo  
+- **Buttons**:  
+  - Grabar Pedidos: #botongenerar  
+  - Cancelar: #botoncancelar  
+  - Exportar Datos: #botonexportar  
+  - Exportar OTR: #botonexporotr  
+  - Salir: #botonsalir  
+
+---
+
+**Panel2**  
+- **Container**: #panel2  
+- **Buttons**:  
+  - Button1: #button1  
+  - Button2: #button2  
+
+---
+
+**Panel5**  
+- **Container**: #panel5  
+- **Tabs**:  
+  - Pedido: button[value="pedido"]  
+  - Stock: button[value="stock"]  
+  - OTR: button[value="otr"]  
+- **Textareas**:  
+  - Mensaje Email: #mensajeemail  
+
+---
+
+**GroupBox1**  
+- **Container**: #groupbox1  
+- **Title**: "Origen Despacho"  
+- **Selects**:  
+  - Bodega: #combobodega  
+- **Checkboxes**:  
+  - Homologar Cliente: #checkboxhomologaclte  
+  - Solo Stock: #checkboxstock  
+- **Buttons**:  
+  - Asignar Stock: #botonstock  
+
+---
+
+**GroupBox2**  
+- **Container**: #groupbox2  
+- **Title**: "CSV Separado Por"  
+- **RadioButtons**:  
+  - Punto y Coma: #rbpuntocoma  
+  - Coma: #rbcoma  
+
+---
+
+**GroupBox3**  
+- **Container**: #groupbox3  
+- **Inputs**:  
+  - Rut: #editrut  
+  - Cliente: #editcliente  
+  - Orden Compra: #editoc  
+  - Porcentaje Descuento: #editpordcto  
+  - Número Pedido: #editnropedido  
+  - Fecha Entrega Inicial: #fechaentinicial  
+  - Fecha Entrega Final: #fechaentfinal  
+  - Fecha Expiracion: #fechaexpiracion  
+- **Selects**:  
+  - Ubicación: #comboubicacion  
+  - Condición Venta: #combocondicionventa  
+- **Buttons**:  
+  - Archivo: #botonarchivo  
+
+---
+
+**GroupBox4**  
+- **Container**: #groupbox4  
+- **Title**: "Tipo Pedido"  
+- **RadioButtons**:  
+  - Normal: #rbnormal  
+  - Apertura: #rbapertura  
+  - Llenado: #rbllenado  
+  - Cross: #rbcross  
+  - NoCol: #rbnocol  
+  - ACC: #rbacc  
+  - RT: #rbrt  
+  - Foto: #rbfoto  
+  - VTAEC: #rbvtaec  
+  - Campaña: #rbcampana  
+  - Reserva: #rbreserva  
+  - Stock Reservado: #rbstockreservado  
+  - Traspaso WHS: #rbtraspasowhs  
+  - Desarme: #rbdesarme  
+  - Regula: #rbregula  
+  - Consigna: #rbconsigna  
+  - Repo AS: #rbrepoas  
+  - Llenado AS: #rbllenadoas  
+  - Carrito: #rbcarrito  
+
+---
+
+**Grillas (Tablas)**  
+1. **Detalle**  
+   - **Container**: #grilladetalle  
+   - **Headers**:  
+     - C/Tienda  
+     - Tienda  
+     - C/Modelo  
+     - C/Color  
+     - Modelo  
+     - Color  
+     - Nº  
+     - SKU  
+     - Pedido  
+     - P/Venta  
+     - Saldo Stock  
+     - Genera  
+     - Nro Pedido  
+     - OBS  
+     - OC  
+     - CodClte  
+     - Origen  
+     - Prioridad  
+     - Org.ID/CustomerID  
+     - Secondary/SiteUseID1  
+     - Cuenta/SiteUseID2  
+     - DeliveryLocation/OrderTypeID  
+     - ItemID  
+     - UomCode  
+     - Ct.Tarea  
+     - PriceList  
+     - Oracle  
+     - PrecioOracle  
+     - LPN  
+     - Genero  
+     - Fecha Final  
+     - Marca  
+     - Clase  
+
+2. **Stock**  
+   - **Container**: #grillastock  
+   - **Headers**:  
+     - C/Modelo  
+     - C/Color  
+     - Nº  
+     - SKU  
+     - Stock  
+
+3. **OTR**  
+   - **Container**: #grillaotr  
+   - **Headers**:  
+     - IDTienda  
+     - Marca  
+     - Clase  
+     - Otr  
+     - Digitado  
+     - Carga  
+     - Autorizado  
+     - Excedente  
+     - Archivo  
+
+--- 
+
+Este formato lista refleja la estructura jerárquica de los componentes y sus propiedades.

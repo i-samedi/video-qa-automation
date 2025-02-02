@@ -63,7 +63,7 @@ def main():
     st.title("*🎥 Video QA Automatizado - BotMan IA beta*")
     
     #crear tabs 
-    tab1, tab2, tab3 = st.tabs(["🎥 Análisis del Video", "🎭 Escenarios de Prueba", "📝 Definiciones de Pasos"])
+    tab1, tab2, tab3, tab4 = st.tabs(["🎥 Análisis del Video", "🎭 Escenarios de Prueba", "📝 Definiciones de Pasos", "🎭 Actualizar con Playwright"])
     
     with tab1:
         st.markdown("### 📤 Subir Video")
@@ -74,7 +74,7 @@ def main():
         )
     
         if video_file:
-            col1, col2 = st.columns([2,3])
+            col1, col2 = st.columns([3,2])
             
             with col1:
                 st.video(video_file)
@@ -90,24 +90,25 @@ def main():
                 if st.button("📝 Generar Transcripción de la Prueba"):
                     if video_file:
                         try:
-                            # 1. Extraer audio
-                            if not os.path.exists("extracted_audio.ogg"):
-                                with st.spinner("Extrayendo audio..."):
-                                    with open("temp_video.mp4", "wb") as f:
-                                        f.write(video_file.getbuffer())
-                                extract_audio("temp_video.mp4")
-                                if os.path.exists("temp_video.mp4"):
-                                    os.remove("temp_video.mp4")
-                                st.success("Audio extraído correctamente")
-                            else:
-                                st.info("El archivo de audio ya existe. No se extraerá nuevamente.")
-
+                            # 1. Extraer audio    
+                            with st.spinner("Extrayendo audio..."):
+                                with open("temp_video.mp4", "wb") as f:
+                                    f.write(video_file.getbuffer())
+                            extract_audio("temp_video.mp4")
+                            if os.path.exists("temp_video.mp4"):
+                                os.remove("temp_video.mp4")
+                            st.success("Audio extraído correctamente")
+                           
                             # 2. Transcribir audio
                             if not video_file:
                                 st.error("Please upload a video file first.")
                             elif os.path.exists("extracted_audio.ogg"):
                                 with st.spinner("Transcribiendo audio..."):
                                     extract_transcript("extracted_audio.ogg")
+                                    # 3. Procesar transcripción con GPT-4
+                                    with st.spinner("Mejorando la transcripción con IA..."):
+                                        from service.end_transcript import process_final_transcript
+                                        process_final_transcript()
                             else:
                                 st.error("El archivo de audio no existe. Por favor, extrae el audio primero.")
                         except Exception as e:
@@ -154,38 +155,33 @@ def main():
                             
                         except Exception as e:
                             st.error(f"Error al generar los escenarios: {str(e)}")
+                
                         
     with tab2:
         st.markdown("### 📀 Features Generados")
-        
-        feature_file = os.path.join("features", "scenario.feature")
-        if os.path.exists(feature_file):
-            with open(feature_file, 'r', encoding='utf-8') as f:
-                gherkin_content = f.read()
-            
-            scenarios_dict = parse_gherkin_scenarios(gherkin_content)
-            
-            st.success(f"Se encontraron {len(scenarios_dict['scenarios'])} escenarios de prueba")
-            
-            with st.expander("📝 Feature General", expanded=True):
-                st.code(scenarios_dict['feature'], language='gherkin')
-            
-            for i, scenario in enumerate(scenarios_dict['scenarios'], 1):
-                with st.expander(f"🎭 Escenario {i}", expanded=False):
-                    st.code(scenario, language='gherkin')
-                    
-            # Opción para descargar el archivo feature
-            # st.download_button(
-            #     label="⬇️ Descargar archivo .feature",
-            #     data=gherkin_content,
-            #     file_name="scenario.feature",
-            #     mime="text/plain"
-            # )
-        else:
-            st.error("*Aún no se ha generado ningún escenario de prueba. Por favor, sube un video y genera escenarios en la pestaña 'Análisis del Video'*")
+        col1, col2 = st.columns([2,1])
 
-        col1, col2 = st.columns([2,3])
         with col1:
+            feature_file = os.path.join("features", "scenario.feature")
+            if os.path.exists(feature_file):
+                with open(feature_file, 'r', encoding='utf-8') as f:
+                    gherkin_content = f.read()
+                
+                scenarios_dict = parse_gherkin_scenarios(gherkin_content)
+                
+                st.success(f"Se encontraron {len(scenarios_dict['scenarios'])} escenarios de prueba")
+                
+                with st.expander("📝 Feature General", expanded=True):
+                    st.code(scenarios_dict['feature'], language='gherkin')
+                
+                for i, scenario in enumerate(scenarios_dict['scenarios'], 1):
+                    with st.expander(f"🎭 Escenario {i}", expanded=False):
+                        st.code(scenario, language='gherkin')
+                        
+            else:
+                st.error("*Aún no se ha generado ningún escenario de prueba. Por favor, sube un video y genera escenarios en la pestaña 'Análisis del Video'*")
+
+        with col2:
             if st.button("🎭 Generar Definition"):
                 try:
                     feature_file = os.path.join("features", "scenario.feature")
@@ -203,18 +199,46 @@ def main():
     with tab3:
         st.markdown("### 📝 Definiciones de Pasos")
 
-        if os.path.exists("features/steps/scenario_steps.py"):
-            steps_dir = os.path.join("features", "steps")
-            step_file = os.path.join(steps_dir, "scenario_steps.py")
-            if os.path.exists(step_file):
-                with st.expander("📝 Definiciones de pasos", expanded=True):
-                    with open(step_file, 'r', encoding='utf-8') as f:
-                        st.code(f.read(), language='python')
-        else:
-            st.error("*Aún no se han generado las definiciones de pasos. Por favor, genera primero los escenarios.*")
+        col1, col2 = st.columns([2,1])
+        
+        with col1:
+            if os.path.exists("features/steps/scenario_steps.py"):
+                steps_dir = os.path.join("features", "steps")
+                step_file = os.path.join(steps_dir, "scenario_steps.py")
+                if os.path.exists(step_file):
+                    with st.expander("📝 Definiciones de pasos", expanded=True):
+                        with open(step_file, 'r', encoding='utf-8') as f:
+                            st.code(f.read(), language='python')
+            else:
+                st.error("*Aún no se han generado las definiciones de pasos. Por favor, genera primero los escenarios.*")
+        
+        with col2:
+            if st.button("🎭 Actualizar con Playwright"):
+                try:
+                    from service.update_steps import update_steps_file
                     
-                    
-                    
+                    with st.spinner("Actualizando steps con Playwright..."):
+                        output_file = update_steps_file()
+                        
+                    st.success("Steps actualizados con Playwright exitosamente")
+                        
+                except FileNotFoundError as e:
+                    st.error(f"Error: {str(e)}")
+                except Exception as e:
+                    st.error(f"Error inesperado al actualizar los steps: {str(e)}")
+    
+    with tab4:
+        st.markdown("### 🎭 Definitions con Playwright")
+        col1, col2 = st.columns([2,1])
+
+        with col1:
+            #modificar para que se muestre el archivo con playwright
+            if os.path.exists("features/steps/scenario_steps_playwright.py"):
+                with open("features/steps/scenario_steps_playwright.py", 'r', encoding='utf-8') as f:
+                    st.code(f.read(), language='python')
+            else:
+                st.error("*Aún no se han generado las actualizaciones con Playwright. Por favor, genera primero los definitions.*")
+
 if __name__ == "__main__":
     main()
 

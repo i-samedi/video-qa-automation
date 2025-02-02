@@ -17,6 +17,7 @@ openai>=1.12.0
 vertexai
 langgraph>=0.0.3
 whisper
+anthropic
 
 # Web UI
 streamlit>=1.0.0
@@ -50,6 +51,7 @@ pytest-html>=4.1.0
 pytest-xdist>=3.3.0
 allure-pytest>=2.13.2
 http.client
+behave
 
 
 

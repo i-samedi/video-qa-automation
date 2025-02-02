@@ -1,78 +1,21 @@
-{Person1}{00:00:00:00} Ahora veremos cómo opera la aplicación de carga masiva. Vamos a digitar el usuario.
-{Person1}{00:00:00:11} Paso por el pendente. Estamos viendo ya la pantalla principal de la aplicación. Al lado
-{Person1}{00:00:00:22} izquierdo aparecen los tipos de pedido. Por defecto, viene marcado el tipo normal, el origen
-{Person1}{00:00:00:30} del despacho, desde donde voy a despachar la mercadería. Puedo desplegar el combo para
-{Person1}{00:00:00:40} seleccionar la bodega desde donde quiero que se realice este despacho en particular. Por
-{Person1}{00:00:00:45} defecto, viene SDFORCE o puedo seleccionar cualquier otra bodega sin ningún problema.
-{Person1}{00:00:00:51} Vamos a dejar la que está por defecto. Le damos un Enter. Y ahí el cursor automáticamente
-{Person1}{00:00:00:59} se posiciona en el RUT para que se digite el RUT correspondiente al cliente que le voy
-{Person1}{00:00:01:07} a despachar. Si no conozco el RUT, obviamente existe este bontOCito con el signo de interrogación.
-{Person1}{00:00:01:15} Lo presiono y puedo buscar al cliente digitando parte de su relación sOCial. Le doy un Enter.
-{Person1}{00:00:01:27} Y automáticamente me va a aparecer todos los que concuerden con el patrón de búsqueda
-{Person1}{00:00:01:33} que puse, que es Falcao. En este caso la aplicación me está devolviendo dos clientes que cumplen
-{Person1}{00:00:01:41} con ese patrón y selecciono el conveniente. Doble clic, ¿cierto? Selecciono al RUT. Automáticamente
-{Person1}{00:00:01:55} me aparece aquí en la pantalla principal el RUT y la razón sOCial y le doy un Enter.
-{Person1}{00:00:02:06} Automáticamente aquí ya la aplicación me está mostrando que cuento con el crédito
-{Person1}{00:00:02:09} suficiente para la inyección del pedido que voy a realizar. La ubicación de destino,
-{Person1}{00:00:02:20} donde aquella sucursal donde voy a realizar el despacho. Hay clientes que cuentan con
-{Person1}{00:00:02:24} una o varias sucursales distintas. Eso lo puedo seleccionar desplegando acá el combo
-{Person1}{00:00:02:34} o en su defecto. Voy a tomar el dato directamente de lo que viene en la plantilla que voy a
-{Person1}{00:00:02:43} cargar. Las condiciones de venta. Voy a seleccionar una. Le damos un Enter. Digitamos la orden
-{Person1}{00:00:02:55} de compra del cliente. Le damos un Enter. Automáticamente cada vez que doy un Enter
-{Person1}{00:00:03:00} al sistema, la aplicación permite que se vaya cambiando de cajita para que yo ingrese
-{Person1}{00:00:03:05} el dato correspondiente. En este caso ahora me está viendo el porcentaje de descuento.
-{Person1}{00:00:03:09} Voy a poner un 15 por ciento. Le doy un Enter. Y ahora se posicionó directamente en el botón
-{Person1}{00:00:03:17} para la lectura del archivo que voy a leer. Selecciono el botón. Selecciono el archivo
-{Person1}{00:00:03:25} que es del tipo CSV. Le doy doble clic. Y ya en este minuto la aplicación lo que está
-{Person1}{00:00:03:33} haciendo es leer este archivo con toda la cantidad de registro y validando cada uno
-{Person1}{00:00:03:37} de ellos. La validación que se realiza corresponde al código de tienda que viene en la planilla.
-{Person1}{00:00:03:49} El código modelo, color y talla. Y por defecto cada validación, si está correcta,
-{Person1}{00:00:03:56} nos va a traer el dato correcto. En este caso, por ejemplo, si vemos el archivo original y el
-{Person1}{00:00:04:01} que estamos viendo acá, ¿cierto? Nosotros podemos ver acá que viene lo que está en amarillo,
-{Person1}{00:00:04:08} son los campos obligatorios. Y los datos que vienen acá, por ejemplo, es el código cero,
-{Person1}{00:00:04:13} que está asOCiado a una tienda DNN. No es necesario que el usuario ponga el nombre de
-{Person1}{00:00:04:18} la tienda, sino que lo puede asumir directamente el aplicativo. Lo mismo pasa con el código modelo,
-{Person1}{00:00:04:23} color y talla, que aquí el usuario le puso NNN, pero con la validación se va a recuperar el nombre
-{Person1}{00:00:04:31} del modelo y color que corresponde. El otro campo obligatorio acá es la cantidad de pedido. Y los
-{Person1}{00:00:04:39} campos en particular, si no viene el dato, el sistema va a asumir directamente desde el maestro
-{Person1}{00:00:04:49} producto el respectivo precio que corresponda y el respectivo SKU que corresponda. Número de la
-{Person1}{00:00:04:56} OC, ¿cierto? Y como se trata de una carga vacía, yo podría tener distintas
-{Person1}{00:00:05:01} órdenes de compra en base a las distintas sucursales que esté cargando.
-{Person1}{00:00:05:10} En este caso ya se hizo la validación, ¿cierto? Tenemos los datos validados, tenemos la casa matriz,
-{Person1}{00:00:05:15} tenemos los nombres de los modelos y color correspondiente. El sistema recuperó el SKU.
-{Person1}{00:00:05:21} Acá si se dan cuenta venía en cero, pero acá el sistema recuperó el SKU real. El precio de venta
-{Person1}{00:00:05:31} del producto, en este caso el sistema ha asumido lo que viene en el archivo, ¿cierto?
-{Person1}{00:00:05:39} Y como no hay ningún problema con los datos, están todos 100% validados, significa que cada
-{Person1}{00:00:05:47} una de estas líneas va a poder generar un pedido. Si tuviéramos alguna línea con algún tipo de
-{Person1}{00:00:05:53} error, aquí marcaría un no y la línea se marcaría completamente en rojo.
-{Person1}{00:00:06:00} A la derecha tenemos más datos que son ya relacionados con la validación. Acá en el
-{Person1}{00:00:06:07} fondo me está validando que este cliente en particular que es SOCiedad Comercial Valcao
-{Person1}{00:00:06:11} exista en el maestro de clientes del RPI y por eso me está trayendo la ID con el cual está
-{Person1}{00:00:06:19} registrado ese cliente. El Site Usage ID que corresponde a la dirección de envío de ese
-{Person1}{00:00:06:26} cliente. El Site Usage ID2 que corresponde a la dirección de facturación de ese cliente.
-{Person1}{00:00:06:32} Por el Type ID, el tipo y origen de producto. El Item ID es el identificador de producto.
-{Person1}{00:00:06:42} La unidad de medida del producto que en este caso es UND. Todos estos datos los recupera
-{Person1}{00:00:06:49} directamente desde el RPI de cada uno de los maestros. Eso significa, por ejemplo,
-{Person1}{00:00:06:53} este Item ID o unidad de medida lo está recuperando del maestro de productos del RPI.
-{Person1}{00:00:06:59} Lo que está relacionado con el cliente del maestro de productos del cliente del RPI.
-{Person1}{00:00:07:04} La lista de precios donde está registrado el precio de cada producto en el RPI y datos
-{Person1}{00:00:07:12} adicionales como género, marca, clase que se recuperan y se anexan a esta guía para poder
-{Person1}{00:00:07:18} separar los pedidos en base a la marca, clase y género. O sea, de acuerdo a la configuración
-{Person1}{00:00:07:24} que haya entregado el centro de distribución. Una vez que ya tenemos la variación, en este
-{Person1}{00:00:07:31} caso están todos los registros con la opción de generar en sí. Lo que nos permite que se
-{Person1}{00:00:07:40} haya activado este botón de grabar pedidos y cancelar. Cancelar, en el fondo, es si no
-{Person1}{00:00:07:46} quiero continuar con la grabación de pedido y grabar pedido, obviamente, si la presiono.
-{Person1}{00:00:07:52} Lo que va a hacer acá directamente la aplicación es registrar los pedidos y nos va a entregar
-{Person1}{00:00:08:02} un número de pedido asOCiado a los datos que tenemos. En este caso, por ejemplo, generó
-{Person1}{00:00:08:08} dos números de pedido. Generó el 16438364 y otro pedido generó el 16438385. Dado que
-{Person1}{00:00:08:19} en el fondo la línea corresponde a un género distinto. Este es mujer, los otros son todos
-{Person1}{00:00:08:27} hombres, columbia, vestuario. Por eso generó un pedido asOCiado a todas estas líneas y
-{Person1}{00:00:08:33} un pedido distinto para lo que es un género distinto, siendo que es la misma marca y
-{Person1}{00:00:08:40} clase de vestuario. Eso es todo lo que hace esta aplicación de carga masiva. Con esto
-{Person1}{00:00:09:01} yo puedo generar ahora, exportar los datos, ¿cierto? De lo que me hizo esta inyección.
-{Person1}{00:00:09:09} Vamos a poner acá prueba de inyección. Lo guardamos. Le activo. Ya puedo cerrar la aplicación
-{Person1}{00:00:09:24} sin ningún problema. Y en el fondo, el respaldo que generó esta prueba de inyección del
-{Person1}{00:00:09:31} tipo DBF nos va a entregar lo mismo detalle que estábamos viendo en la grilla de la pantalla
-{Person1}{00:00:09:40} principal del pedido. Le saca humo, el color, los números de pedido que se generaron, ¿cierto?
-{Person1}{00:00:09:48} El cliente. Lo cual le sirve al usuario para que valide que si su carga se hizo en forma
-{Person1}{00:00:09:56} satisfactoria. Eso es cómo opera esta aplicación de carga masiva.
+La pantalla sirve para el proceso de carga de pedidos a bodegas.
+El proceso se da cuando desde el almacén central se hace algún pedido a las distintas bodegas.
+Se completa el pedido y queda persistido en la base de datos.
+
+Pasamos a cómo funciona la pantalla.
+El primer punto es seleccionar la bodega origen del despacho.
+En el control se tienen las opciones a distintas bodegas.
+Seleccionamos la bodega 2.
+
+Después completamos el RUT que corresponde al pedido.
+Usamos 1, 2, 3, 4, 5, 6, 7, 8, 9 como número de RUT a llenar en ese campo.
+
+El siguiente paso es seleccionar un destino en el dropdown.
+Seleccionamos la ubicación número 1.
+
+Es necesario completar el número de pedido en el campo número de pedido.
+Ponemos como número de pedido 9, 8, 7.
+
+Para que se complete la operación es necesario hacer clic en el botón grabar pedidos que está debajo del formulario.
+Hacemos clic.
+El proceso queda completado.

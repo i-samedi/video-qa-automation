@@ -71,10 +71,10 @@ def extract_transcript(audio_file_path):
                 formatted_transcript.append(formatted_line)
 
         # Guardar la transcripción formateada
-        with open("extracted_transcript.txt", "w", encoding="utf-8") as transcript_file:
+        with open("transcript.txt", "w", encoding="utf-8") as transcript_file:
             transcript_file.write("\n".join(formatted_transcript))
 
-        st.success("Transcripción guardada como 'extracted_transcript.txt'")
+        st.success("Transcripción guardada como 'transcript.txt'")
 
     except Exception as e:
         st.error(f"Error extracting transcript: {str(e)}")
