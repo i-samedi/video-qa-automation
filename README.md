@@ -16,4 +16,5 @@
 
 ## Ejecutar el proyecto
 - streamlit run main.py
+- behave
 - behave --tags=@flujo_exitoso

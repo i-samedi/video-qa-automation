@@ -1,0 +1,182 @@
+<testsuite name="scenario.Proceso de carga de pedidos a bodegas" tests="5" errors="2" failures="0" skipped="0" time="45.131666" timestamp="2025-02-03T16:18:45.340376" hostname="MacBook-Pro-de-Ignacio.local"><testcase classname="scenario.Proceso de carga de pedidos a bodegas" name="1 Selección de bodega origen" status="failed" time="15.048421"><error type="Exception" message="Error al seleccionar bodega: Locator expected to be visible&#10;Actual value: &lt;element(s) not found&gt; &#10;Call log:&#10;  - LocatorAssertions.to_be_visible with timeout 15000ms&#10;  -   - waiting for locator(&quot;#groupbox1 #combobodega&quot;)&#10;">
+<![CDATA[
+Failing step: When el usuario selecciona la bodega origen del despacho ... failed in 15.018s
+Location: app/features/scenario.feature:11
+Traceback (most recent call last):
+  File "app/features/steps/scenario_steps_playwright.py", line 49, in step_impl_seleccion_bodega
+    expect(combo).to_be_visible(timeout=TIMEOUT)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/sync_api/_generated.py", line 20168, in to_be_visible
+    self._sync(self._impl_obj.to_be_visible(visible=visible, timeout=timeout))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ~~~~~~~~~~~^^
+  File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_assertions.py", line 669, in to_be_visible
+    await self._expect_impl(
+    ...<4 lines>...
+    )
+  File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_assertions.py", line 74, in _expect_impl
+    raise AssertionError(
+        f"{out_message}\nActual value: {actual} {format_call_log(result.get('log'))}"
+    )
+AssertionError: Locator expected to be visible
+Actual value: <element(s) not found> 
+Call log:
+  - LocatorAssertions.to_be_visible with timeout 15000ms
+  -   - waiting for locator("#groupbox1 #combobodega")
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/behave/model.py", line 1329, in run
+    match.run(runner.context)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/behave/matchers.py", line 98, in run
+    self.func(context, *args, **kwargs)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "app/features/steps/scenario_steps_playwright.py", line 73, in step_impl_seleccion_bodega
+    raise Exception(f"Error al seleccionar bodega: {str(e)}")
+Exception: Error al seleccionar bodega: Locator expected to be visible
+Actual value: <element(s) not found> 
+Call log:
+  - LocatorAssertions.to_be_visible with timeout 15000ms
+  -   - waiting for locator("#groupbox1 #combobodega")
+
+
+Captured logging:
+2025-02-03 16:17:59,803 - behave.steps - DEBUG - Esperando que el contenedor esté visible: #groupbox1
+2025-02-03 16:17:59,805 - behave.steps - DEBUG - Buscando select de bodega con el selector: #combobodega
+2025-02-03 16:17:59,808 - behave.steps - DEBUG - No se encontró el elemento con #combobodega de forma directa. Buscando dentro de #groupbox1.
+2025-02-03 16:18:14,958 - behave - DEBUG - Captura de pantalla del paso fallido guardada en: error_el_usuario_selecciona_la_bodega_origen_del_despacho.png
+2025-02-03 16:18:14,963 - behave - DEBUG - HTML del paso fallido guardado en: error_el_usuario_selecciona_la_bodega_origen_del_despacho.html]]>
+</error><system-out>
+<![CDATA[
+@scenario.begin
+
+  @paso_1 @modulo_carga_pedidos @tipo_seleccion
+  Scenario: 1 Selección de bodega origen
+    Given el usuario está en la pantalla de carga de pedidos ... passed in 0.024s
+    And tiene acceso a todas las opciones necesarias ... passed in 0.003s
+    And los parámetros iniciales están configurados ... passed in 0.003s
+    When el usuario selecciona la bodega origen del despacho ... failed in 15.018s
+    Then la bodega 2 es seleccionada correctamente ... skipped in 0.000s
+
+@scenario.end
+--------------------------------------------------------------------------------
+]]>
+</system-out></testcase><testcase classname="scenario.Proceso de carga de pedidos a bodegas" name="2 Ingreso de RUT" status="passed" time="0.022837"><system-out>
+<![CDATA[
+@scenario.begin
+
+  @paso_2 @modulo_carga_pedidos @tipo_ingreso
+  Scenario: 2 Ingreso de RUT
+    Given el usuario está en la pantalla de carga de pedidos ... passed in 0.003s
+    And tiene acceso a todas las opciones necesarias ... passed in 0.002s
+    And los parámetros iniciales están configurados ... passed in 0.002s
+    When el usuario ingresa el RUT correspondiente al pedido ... passed in 0.011s
+    Then el RUT 123456789 es ingresado correctamente ... passed in 0.005s
+
+@scenario.end
+--------------------------------------------------------------------------------
+]]>
+</system-out></testcase><testcase classname="scenario.Proceso de carga de pedidos a bodegas" name="3 Selección de destino" status="failed" time="15.025118"><error type="Exception" message="Error al seleccionar ubicación: Locator expected to be visible&#10;Actual value: &lt;element(s) not found&gt; &#10;Call log:&#10;  - LocatorAssertions.to_be_visible with timeout 15000ms&#10;  -   - waiting for locator(&quot;#groupbox3 #comboubicacion&quot;)&#10;">
+<![CDATA[
+Failing step: When el usuario selecciona el destino en el dropdown ... failed in 15.019s
+Location: app/features/scenario.feature:21
+Traceback (most recent call last):
+  File "app/features/steps/scenario_steps_playwright.py", line 109, in step_impl_seleccion_destino
+    expect(combo).to_be_visible(timeout=TIMEOUT)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/sync_api/_generated.py", line 20168, in to_be_visible
+    self._sync(self._impl_obj.to_be_visible(visible=visible, timeout=timeout))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ~~~~~~~~~~~^^
+  File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_assertions.py", line 669, in to_be_visible
+    await self._expect_impl(
+    ...<4 lines>...
+    )
+  File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/playwright/_impl/_assertions.py", line 74, in _expect_impl
+    raise AssertionError(
+        f"{out_message}\nActual value: {actual} {format_call_log(result.get('log'))}"
+    )
+AssertionError: Locator expected to be visible
+Actual value: <element(s) not found> 
+Call log:
+  - LocatorAssertions.to_be_visible with timeout 15000ms
+  -   - waiting for locator("#groupbox3 #comboubicacion")
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/behave/model.py", line 1329, in run
+    match.run(runner.context)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/samedi/Documents/GitHub/video-qa-IA/venv/lib/python3.13/site-packages/behave/matchers.py", line 98, in run
+    self.func(context, *args, **kwargs)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "app/features/steps/scenario_steps_playwright.py", line 126, in step_impl_seleccion_destino
+    raise Exception(f"Error al seleccionar ubicación: {str(e)}")
+Exception: Error al seleccionar ubicación: Locator expected to be visible
+Actual value: <element(s) not found> 
+Call log:
+  - LocatorAssertions.to_be_visible with timeout 15000ms
+  -   - waiting for locator("#groupbox3 #comboubicacion")
+
+
+Captured logging:
+2025-02-03 16:18:15,081 - behave.steps - DEBUG - Esperando que el contenedor esté visible: #groupbox3
+2025-02-03 16:18:15,083 - behave.steps - DEBUG - Buscando select de ubicación con el selector: #comboubicacion
+2025-02-03 16:18:15,084 - behave.steps - DEBUG - No se encontró el elemento con #comboubicacion de forma directa. Buscando dentro de #groupbox3.
+2025-02-03 16:18:30,211 - behave - DEBUG - Captura de pantalla del paso fallido guardada en: error_el_usuario_selecciona_el_destino_en_el_dropdown.png
+2025-02-03 16:18:30,214 - behave - DEBUG - HTML del paso fallido guardado en: error_el_usuario_selecciona_el_destino_en_el_dropdown.html]]>
+</error><system-out>
+<![CDATA[
+@scenario.begin
+
+  @paso_3 @modulo_carga_pedidos @tipo_seleccion
+  Scenario: 3 Selección de destino
+    Given el usuario está en la pantalla de carga de pedidos ... passed in 0.003s
+    And tiene acceso a todas las opciones necesarias ... passed in 0.002s
+    And los parámetros iniciales están configurados ... passed in 0.002s
+    When el usuario selecciona el destino en el dropdown ... failed in 15.019s
+    Then la ubicación número 1 es seleccionada correctamente ... skipped in 0.000s
+
+@scenario.end
+--------------------------------------------------------------------------------
+]]>
+</system-out></testcase><testcase classname="scenario.Proceso de carga de pedidos a bodegas" name="4 Ingreso de número de pedido" status="passed" time="0.013577"><system-out>
+<![CDATA[
+@scenario.begin
+
+  @paso_4 @modulo_carga_pedidos @tipo_ingreso
+  Scenario: 4 Ingreso de número de pedido
+    Given el usuario está en la pantalla de carga de pedidos ... passed in 0.003s
+    And tiene acceso a todas las opciones necesarias ... passed in 0.002s
+    And los parámetros iniciales están configurados ... passed in 0.002s
+    When el usuario ingresa el número de pedido en el campo correspondiente ... passed in 0.004s
+    Then el número de pedido 987 es ingresado correctamente ... passed in 0.002s
+
+@scenario.end
+--------------------------------------------------------------------------------
+]]>
+</system-out></testcase><testcase classname="scenario.Proceso de carga de pedidos a bodegas" name="5 Confirmación de grabación de pedido" status="passed" time="15.021712"><system-out>
+<![CDATA[
+@scenario.begin
+
+  @paso_5 @modulo_carga_pedidos @tipo_confirmacion
+  Scenario: 5 Confirmación de grabación de pedido
+    Given el usuario está en la pantalla de carga de pedidos ... passed in 0.003s
+    And tiene acceso a todas las opciones necesarias ... passed in 0.002s
+    And los parámetros iniciales están configurados ... passed in 0.002s
+    When el usuario hace clic en el botón grabar pedidos ... passed in 15.015s
+    Then el pedido es grabado y el proceso queda completado ... passed in 0.000s
+
+@scenario.end
+--------------------------------------------------------------------------------
+]]>
+</system-out></testcase></testsuite>

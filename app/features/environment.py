@@ -1,57 +1,71 @@
-from playwright.sync_api import sync_playwright
-from behave import fixture, use_fixture
 import os
 import sys
-import logging
-from datetime import datetime
 import json
 import time
+import logging
+from datetime import datetime
+from playwright.sync_api import sync_playwright
+from behave import fixture, use_fixture
 
-# Cargar locators
-with open(os.path.join(os.path.dirname(__file__), 'locators', 'page_locators.json'), 'r') as f:
+# Cargar locators desde el archivo JSON
+LOCATORS_PATH = os.path.join(os.path.dirname(__file__), 'locators', 'page_locators.json')
+with open(LOCATORS_PATH, 'r') as f:
     LOCATORS = json.load(f)
 
+
 def save_error_info(context, scenario):
-    """Guarda información de debug cuando ocurre un error"""
+    """
+    Guarda información de depuración cuando ocurre un error:
+      - Captura una captura de pantalla.
+      - Guarda el HTML actual de la página.
+      - Extrae información del estado de la aplicación.
+    """
     try:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        error_dir = f"report/{timestamp}_{scenario.name.replace(' ', '_')}"
+        # Crea un directorio de error único para el escenario
+        error_dir = os.path.join("report", f"{timestamp}_{scenario.name.replace(' ', '_')}")
         os.makedirs(error_dir, exist_ok=True)
-        
-        # Screenshot
+
         if hasattr(context, 'page'):
-            context.page.screenshot(path=f"{error_dir}/error.png")
-            
-            # HTML
-            with open(f"{error_dir}/page.html", "w", encoding='utf-8') as f:
-                f.write(context.page.content())
-            
-            # Estado de la aplicación
+            # Guardar captura de pantalla
+            screenshot_path = os.path.join(error_dir, "error.png")
+            context.page.screenshot(path=screenshot_path)
+            context.logger.debug(f"Captura de pantalla guardada en: {screenshot_path}")
+
+            # Guardar HTML de la página
+            html_path = os.path.join(error_dir, "page.html")
+            with open(html_path, "w", encoding='utf-8') as f_html:
+                f_html.write(context.page.content())
+            context.logger.debug(f"HTML de la página guardado en: {html_path}")
+
+            # Guardar estado de la aplicación (por ejemplo, información de React y elementos presentes)
             app_state = context.page.evaluate("""
                 () => ({
                     react: {
-                        version: window.React?.version,
-                        mounted: !!document.querySelector('#root')?.children.length
+                        version: window.React ? window.React.version : null,
+                        mounted: !!document.querySelector('#root') && document.querySelector('#root').children.length > 0
                     },
-                    elements: {
-                        available: Array.from(document.querySelectorAll('[id]')).map(el => el.id)
-                    }
+                    elements: Array.from(document.querySelectorAll('[id]')).map(el => el.id)
                 })
             """)
-            
-            with open(f"{error_dir}/app_state.json", "w") as f:
-                json.dump(app_state, f, indent=2)
-                
+            app_state_path = os.path.join(error_dir, "app_state.json")
+            with open(app_state_path, "w") as f_state:
+                json.dump(app_state, f_state, indent=2)
+            context.logger.debug(f"Estado de la aplicación guardado en: {app_state_path}")
     except Exception as e:
-        context.logger.error(f"Error guardando información de debug: {str(e)}")
+        context.logger.error(f"Error guardando información de depuración: {str(e)}")
+
 
 def before_all(context):
-    """Inicializa Playwright y configura el navegador"""
+    """
+    Inicializa Playwright y configura el navegador, el contexto y la página.
+    También configura el logging y navega a la URL inicial de la aplicación.
+    """
     try:
-        # Crear directorios necesarios
+        # Crear directorios para reportes y resultados de pruebas
         os.makedirs("report", exist_ok=True)
         os.makedirs("app/test-results", exist_ok=True)
-        
+
         # Configurar logging
         log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         logging.basicConfig(
@@ -62,74 +76,113 @@ def before_all(context):
                 logging.StreamHandler()
             ]
         )
-        context.logger = logging.getLogger('behave')
-        
-        # Iniciar Playwright
+        context.logger = logging.getLogger("behave")
+        context.logger.info("Iniciando before_all...")
+
+        # Iniciar Playwright y lanzar el navegador (en modo no headless para debug)
         context.playwright = sync_playwright().start()
         context.browser = context.playwright.chromium.launch(
             headless=False,
             args=['--start-maximized', '--disable-web-security', '--disable-features=IsolateOrigins']
         )
-        
-        # Crear contexto y página con timeouts más largos
+
+        # Crear un contexto de navegador con viewport personalizado e ignorar errores HTTPS
         context.browser_context = context.browser.new_context(
             viewport={'width': 1920, 'height': 1080},
             ignore_https_errors=True
         )
+
+        # Crear una nueva página
         context.page = context.browser_context.new_page()
-        context.page.set_default_timeout(30000)  # 30 segundos
-        
-        # Configurar event listeners para debugging
+        context.page.set_default_timeout(30000)  # 30 segundos de timeout por defecto
+
+        # Configurar listeners para consola y errores de la página
         context.page.on("console", lambda msg: context.logger.debug(f"Browser Console: {msg.text}"))
         context.page.on("pageerror", lambda err: context.logger.error(f"Page Error: {err}"))
-        
-        # Configuración de timeouts
+
+        # Configuración adicional de timeouts (puedes ajustar estos valores según tus necesidades)
         context.timeouts = {
-            'element': 10000,  # 10 segundos para elementos
-            'navigation': 30000,  # 30 segundos para navegación
-            'retry_interval': 1000,  # 1 segundo entre reintentos
-            'max_retries': 3  # número máximo de reintentos
+            'element': 10000,       # 10 segundos para elementos
+            'navigation': 30000,    # 30 segundos para navegación
+            'retry_interval': 1000, # 1 segundo entre reintentos
+            'max_retries': 3        # número máximo de reintentos
         }
-        
-        # Navegar a la aplicación al inicio
+
+        # Navegar a la URL de la aplicación
+        context.logger.info("Navegando a la URL de la aplicación...")
         context.page.goto("http://localhost:3000", wait_until="networkidle")
-        
+        context.logger.info("Aplicación cargada correctamente.")
+
     except Exception as e:
         context.logger.error(f"Error en before_all: {str(e)}")
         cleanup_context(context)
         raise
 
+
 def before_scenario(context, scenario):
-    """Prepara cada escenario sin reiniciar la página"""
+    """
+    Se ejecuta antes de cada escenario. Se utiliza para verificar que la página
+    esté completamente cargada y que los elementos principales existan.
+    """
     try:
         context.logger.info(f"Iniciando escenario: {scenario.name}")
-        
-        # Verificar que la página está lista
+        # Espera a que la página esté completamente cargada y que los contenedores principales existan.
         context.page.wait_for_function("""
             () => {
-                return document.readyState === 'complete' && 
+                return document.readyState === 'complete' &&
                        !!document.querySelector('#panel1') &&
                        !!document.querySelector('#groupbox1') &&
-                       !!document.querySelector('#groupbox3')
+                       !!document.querySelector('#groupbox3');
             }
         """, timeout=30000)
-        
     except Exception as e:
         context.logger.error(f"Error en before_scenario: {str(e)}")
         save_error_info(context, scenario)
         raise
 
+
 def after_scenario(context, scenario):
-    """Captura errores sin cerrar la página"""
+    """
+    Se ejecuta después de cada escenario. Si el escenario falla, se guarda la información
+    de depuración (captura de pantalla, HTML, etc.).
+    """
     if scenario.status == "failed":
+        context.logger.error(f"Escenario fallido: {scenario.name}")
         save_error_info(context, scenario)
+    else:
+        context.logger.info(f"Escenario completado correctamente: {scenario.name}")
+
+
+def after_step(context, step):
+    """
+    Se ejecuta después de cada paso. Si el paso falla, se captura una captura de pantalla y
+    se guarda el HTML de la página para facilitar el debug.
+    """
+    if step.status == "failed":
+        step_name = step.name.replace(' ', '_')
+        screenshot_path = f"error_{step_name}.png"
+        context.page.screenshot(path=screenshot_path)
+        context.logger.debug(f"Captura de pantalla del paso fallido guardada en: {screenshot_path}")
+
+        # Guardar el HTML de la página en un archivo
+        html_path = f"error_{step_name}.html"
+        with open(html_path, "w", encoding="utf-8") as f_html:
+            f_html.write(context.page.content())
+        context.logger.debug(f"HTML del paso fallido guardado en: {html_path}")
+
 
 def after_all(context):
-    """Limpia todos los recursos al final"""
+    """
+    Se ejecuta al finalizar todas las pruebas y se encarga de limpiar los recursos.
+    """
+    context.logger.info("Finalizando pruebas... limpiando recursos.")
     cleanup_context(context)
 
+
 def cleanup_context(context):
-    """Limpia los recursos de Playwright"""
+    """
+    Cierra la página, el contexto del navegador, el navegador y detiene Playwright.
+    """
     try:
         if hasattr(context, 'page'):
             context.page.close()
@@ -139,16 +192,7 @@ def cleanup_context(context):
             context.browser.close()
         if hasattr(context, 'playwright'):
             context.playwright.stop()
+        context.logger.info("Recursos limpiados correctamente.")
     except Exception as e:
         if hasattr(context, 'logger'):
             context.logger.error(f"Error durante la limpieza: {str(e)}")
-
-def after_step(context, step):
-    if step.status == "failed":
-        step_name = step.name.replace(' ', '_')
-        context.page.screenshot(path=f"error_{step_name}.png")
-        
-        # Guardar el HTML de la página
-        html_content = context.page.content()
-        with open(f"error_{step_name}.html", "w", encoding="utf-8") as f:
-            f.write(html_content)
