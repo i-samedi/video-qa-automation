@@ -15,7 +15,7 @@ def save_error_info(context, scenario):
     """Guarda información de debug cuando ocurre un error"""
     try:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        error_dir = f"error_logs/{timestamp}_{scenario.name.replace(' ', '_')}"
+        error_dir = f"report/{timestamp}_{scenario.name.replace(' ', '_')}"
         os.makedirs(error_dir, exist_ok=True)
         
         # Screenshot
@@ -49,7 +49,7 @@ def before_all(context):
     """Inicializa Playwright y configura el navegador"""
     try:
         # Crear directorios necesarios
-        os.makedirs("error_logs", exist_ok=True)
+        os.makedirs("report", exist_ok=True)
         os.makedirs("app/test-results", exist_ok=True)
         
         # Configurar logging
