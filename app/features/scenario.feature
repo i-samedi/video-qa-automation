@@ -1,32 +1,33 @@
 Feature: Proceso de carga de pedidos a bodegas
 
 Background:
-  Given El usuario ha iniciado sesión en el sistema
-  And Se encuentra en la pantalla de carga de pedidos
+  Given el usuario está en la pantalla de carga de pedidos
+  And tiene acceso a todas las opciones necesarias
+  And los parámetros iniciales están configurados
 
 
-@paso_1 @modulo_seleccion @tipo_entrada
-Scenario: 1. Selección de la bodega origen del despacho
-  When El usuario selecciona la "Bodega 2" como bodega origen del despacho
-  Then La "Bodega 2" queda seleccionada como origen
+@paso_1 @modulo_carga_pedidos @tipo_seleccion
+Scenario: 1 Selección de bodega origen
+  When el usuario selecciona la bodega origen del despacho
+  Then la bodega 2 es seleccionada correctamente
 
-@paso_2 @modulo_entrada_datos @tipo_entrada
-Scenario: 2. Completar el RUT del pedido
-  When El usuario completa el campo RUT con "1, 2, 3, 4, 5, 6, 7, 8, 9"
-  Then El RUT "1, 2, 3, 4, 5, 6, 7, 8, 9" queda registrado en el campo correspondiente
+@paso_2 @modulo_carga_pedidos @tipo_ingreso
+Scenario: 2 Ingreso de RUT
+  When el usuario ingresa el RUT correspondiente al pedido
+  Then el RUT 123456789 es ingresado correctamente
 
-@paso_3 @modulo_seleccion @tipo_entrada
-Scenario: 3. Selección del destino del pedido
-  When El usuario selecciona la "Ubicación número 1" como destino del pedido
-  Then La "Ubicación número 1" queda seleccionada como destino
+@paso_3 @modulo_carga_pedidos @tipo_seleccion
+Scenario: 3 Selección de destino
+  When el usuario selecciona el destino en el dropdown
+  Then la ubicación número 1 es seleccionada correctamente
 
-@paso_4 @modulo_entrada_datos @tipo_entrada
-Scenario: 4. Completar el número de pedido
-  When El usuario completa el campo número de pedido con "9, 8, 7"
-  Then El número de pedido "9, 8, 7" queda registrado en el campo correspondiente
+@paso_4 @modulo_carga_pedidos @tipo_ingreso
+Scenario: 4 Ingreso de número de pedido
+  When el usuario ingresa el número de pedido en el campo correspondiente
+  Then el número de pedido 987 es ingresado correctamente
 
-@paso_5 @modulo_confirmacion @tipo_accion
-Scenario: 5. Confirmación y grabación del pedido
-  When El usuario hace clic en el botón "Grabar pedidos"
-  Then El pedido queda grabado y persistido en la base de datos
+@paso_5 @modulo_carga_pedidos @tipo_confirmacion
+Scenario: 5 Confirmación de grabación de pedido
+  When el usuario hace clic en el botón grabar pedidos
+  Then el pedido es grabado y el proceso queda completado
 

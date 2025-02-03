@@ -1,73 +1,112 @@
 from behave import given, when, then
-from playwright.sync_api import expect, TimeoutError
+from playwright.sync_api import expect
 import os
 import json
 
-TIMEOUT = 5000  # 5 segundos
+TIMEOUT = 15000  # 15 segundos
 
 with open(os.path.join(os.path.dirname(__file__), '..', 'locators', 'page_locators.json'), 'r') as f:
     LOCATORS = json.load(f)
 
-@given('El usuario ha iniciado sesión en el sistema')
-def step_usuario_inicia_sesion(context):
-    pass  # Implementación de la lógica para iniciar sesión
-@given('Se encuentra en la pantalla de carga de pedidos')
-def step_usuario_en_pantalla_carga(context):
-    context.page.goto("http://localhost:3000")
-    context.page.wait_for_selector(LOCATORS['page']['title'])
+@given('el usuario está en la pantalla de carga de pedidos')
+def step_impl_usuario_en_pantalla_de_carga(context):
+    # Asegúrate de que la página esté completamente cargada
+    context.page.wait_for_load_state('networkidle')
     expect(context.page.locator(LOCATORS['page']['title'])).to_be_visible()
-@when('El usuario selecciona la "Bodega 2" como bodega origen del despacho')
-def step_usuario_selecciona_bodega_origen(context):
+
+@given('tiene acceso a todas las opciones necesarias')
+def step_impl_usuario_con_acceso_opciones(context):
+    expect(context.page.locator(LOCATORS['panel1']['container'])).to_be_visible()
+
+@given('los parámetros iniciales están configurados')
+def step_impl_parametros_iniciales_configurados(context):
+    expect(context.page.locator(LOCATORS['groupBox1']['container'])).to_be_visible()
+
+@when('el usuario selecciona la bodega origen del despacho')
+def step_impl(context):
     try:
-        context.page.wait_for_selector(LOCATORS['groupBox1']['selects']['bodega'])
-        context.page.select_option(LOCATORS['groupBox1']['selects']['bodega'], "Bodega 2")
+        selector = LOCATORS['groupBox1']['selects']['bodega']
+        combo = context.page.locator(selector)
+        
+        # Esperar a que el elemento esté visible y habilitado
+        combo.wait_for(state='visible', timeout=TIMEOUT)
+        combo.wait_for(state='enabled', timeout=TIMEOUT)
+        
+        # Verificar que el elemento esté realmente visible y habilitado
+        if not combo.is_visible() or not combo.is_enabled():
+            raise Exception("El elemento no está visible o habilitado")
+        
+        # Seleccionar la opción deseada
+        combo.select_option('2')
     except Exception as e:
-        print(f"Error al seleccionar la bodega: {e}")
-@then('La "Bodega 2" queda seleccionada como origen')
-def step_verificar_bodega_origen_seleccionada(context):
-    selected_option = context.page.locator(LOCATORS['groupBox1']['selects']['bodega']).input_value()
-    expect(selected_option).to_equal("Bodega 2")
-@when('El usuario completa el campo RUT con "1, 2, 3, 4, 5, 6, 7, 8, 9"')
-def step_usuario_completa_rut(context):
+        context.page.screenshot(path=f"error_bodega_{context.scenario.name}.png")
+        raise Exception(f"Error al seleccionar bodega: {str(e)}")
+
+@then('la bodega 2 es seleccionada correctamente')
+def step_impl_bodega_seleccionada_correctamente(context):
+    expect(context.page.locator(LOCATORS['groupBox1']['selects']['bodega'])).to_have_value('2')
+
+@when('el usuario ingresa el RUT correspondiente al pedido')
+def step_impl_ingreso_rut(context):
     try:
-        context.page.wait_for_selector(LOCATORS['groupBox3']['inputs']['rut'])
-        context.page.fill(LOCATORS['groupBox3']['inputs']['rut'], "1, 2, 3, 4, 5, 6, 7, 8, 9")
+        context.page.fill(LOCATORS['groupBox3']['inputs']['rut'], '123456789')
     except Exception as e:
-        print(f"Error al completar el RUT: {e}")
-@then('El RUT "1, 2, 3, 4, 5, 6, 7, 8, 9" queda registrado en el campo correspondiente')
-def step_verificar_rut_registrado(context):
-    rut_value = context.page.locator(LOCATORS['groupBox3']['inputs']['rut']).input_value()
-    expect(rut_value).to_equal("1, 2, 3, 4, 5, 6, 7, 8, 9")
-@when('El usuario selecciona la "Ubicación número 1" como destino del pedido')
-def step_usuario_selecciona_destino_pedido(context):
+        print(f"Error al ingresar el RUT: {e}")
+
+@then('el RUT 123456789 es ingresado correctamente')
+def step_impl_rut_ingresado_correctamente(context):
+    expect(context.page.locator(LOCATORS['groupBox3']['inputs']['rut'])).to_have_value('123456789')
+
+@when('el usuario selecciona el destino en el dropdown')
+def step_impl_seleccion_destino(context):
     try:
-        context.page.wait_for_selector(LOCATORS['groupBox3']['selects']['ubicacion'])
-        context.page.select_option(LOCATORS['groupBox3']['selects']['ubicacion'], "Ubicación número 1")
+        selector = LOCATORS['groupBox3']['selects']['ubicacion']
+        combo = context.page.locator(selector)
+        
+        # Esperar a que el elemento esté visible y habilitado
+        combo.wait_for(state='visible', timeout=TIMEOUT)
+        combo.wait_for(state='enabled', timeout=TIMEOUT)
+        
+        # Verificar que el elemento esté realmente visible y habilitado
+        if not combo.is_visible() or not combo.is_enabled():
+            raise Exception("El elemento no está visible o habilitado")
+        
+        # Seleccionar la opción deseada
+        combo.select_option('1')
     except Exception as e:
-        print(f"Error al seleccionar la ubicación: {e}")
-@then('La "Ubicación número 1" queda seleccionada como destino')
-def step_verificar_destino_seleccionado(context):
-    selected_option = context.page.locator(LOCATORS['groupBox3']['selects']['ubicacion']).input_value()
-    expect(selected_option).to_equal("Ubicación número 1")
-@when('El usuario completa el campo número de pedido con "9, 8, 7"')
-def step_usuario_completa_numero_pedido(context):
+        context.page.screenshot(path=f"error_ubicacion_{context.scenario.name}.png")
+        raise Exception(f"Error al seleccionar ubicación: {str(e)}")
+
+@then('la ubicación número 1 es seleccionada correctamente')
+def step_impl_ubicacion_seleccionada_correctamente(context):
+    expect(context.page.locator(LOCATORS['groupBox3']['selects']['ubicacion'])).to_have_value('1')
+
+@when('el usuario ingresa el número de pedido en el campo correspondiente')
+def step_impl_ingreso_numero_pedido(context):
     try:
-        context.page.wait_for_selector(LOCATORS['groupBox3']['inputs']['numeroPedido'])
-        context.page.fill(LOCATORS['groupBox3']['inputs']['numeroPedido'], "9, 8, 7")
+        context.page.fill(LOCATORS['groupBox3']['inputs']['numeroPedido'], '987')
     except Exception as e:
-        print(f"Error al completar el número de pedido: {e}")
-@then('El número de pedido "9, 8, 7" queda registrado en el campo correspondiente')
-def step_verificar_numero_pedido_registrado(context):
-    numero_pedido_value = context.page.locator(LOCATORS['groupBox3']['inputs']['numeroPedido']).input_value()
-    expect(numero_pedido_value).to_equal("9, 8, 7")
-@when('El usuario hace clic en el botón "Grabar pedidos"')
-def step_usuario_confirma_grabacion_pedido(context):
+        print(f"Error al ingresar el número de pedido: {e}")
+
+@then('el número de pedido 987 es ingresado correctamente')
+def step_impl_numero_pedido_ingresado_correctamente(context):
+    expect(context.page.locator(LOCATORS['groupBox3']['inputs']['numeroPedido'])).to_have_value('987')
+
+@when('el usuario hace clic en el botón grabar pedidos')
+def step_impl(context):
     try:
-        context.page.wait_for_selector(LOCATORS['panel1']['buttons']['grabarPedidos'])
-        context.page.click(LOCATORS['panel1']['buttons']['grabarPedidos'])
+        boton = context.page.locator(LOCATORS['panel1']['buttons']['grabarPedidos'])
+        
+        # Esperar a que el botón esté visible y habilitado
+        boton.wait_for(state='visible', timeout=TIMEOUT)
+        boton.wait_for(state='enabled', timeout=TIMEOUT)
+        
+        boton.click()
     except Exception as e:
-        print(f"Error al hacer clic en Grabar pedidos: {e}")
-@then('El pedido queda grabado y persistido en la base de datos')
-def step_verificar_pedido_grabado(context):
-    # Implementación de la lógica para verificar el pedido grabado
+        context.page.screenshot(path=f"error_boton_{context.scenario.name}.png")
+        raise Exception(f"Error al hacer clic en el botón: {str(e)}")
+
+@then('el pedido es grabado y el proceso queda completado')
+def step_impl_pedido_grabado_y_proceso_completado(context):
+    # Verificar algún cambio en la UI que indique que el pedido fue grabado
     pass

@@ -1,0 +1,38 @@
+2025-02-02 23:10:43,734 - parse - DEBUG - format 'el usuario está en la pantalla de carga de pedidos' -> 'el usuario está en la pantalla de carga de pedidos'
+2025-02-02 23:10:43,734 - parse - DEBUG - format 'tiene acceso a todas las opciones necesarias' -> 'tiene acceso a todas las opciones necesarias'
+2025-02-02 23:10:43,735 - parse - DEBUG - format 'los parámetros iniciales están configurados' -> 'los parámetros iniciales están configurados'
+2025-02-02 23:10:43,735 - parse - DEBUG - format 'el usuario selecciona la bodega origen del despacho' -> 'el usuario selecciona la bodega origen del despacho'
+2025-02-02 23:10:43,735 - parse - DEBUG - format 'la bodega 2 es seleccionada correctamente' -> 'la bodega 2 es seleccionada correctamente'
+2025-02-02 23:10:43,735 - parse - DEBUG - format 'el usuario ingresa el RUT correspondiente al pedido' -> 'el usuario ingresa el RUT correspondiente al pedido'
+2025-02-02 23:10:43,735 - parse - DEBUG - format 'el RUT 123456789 es ingresado correctamente' -> 'el RUT 123456789 es ingresado correctamente'
+2025-02-02 23:10:43,735 - parse - DEBUG - format 'el usuario selecciona el destino en el dropdown' -> 'el usuario selecciona el destino en el dropdown'
+2025-02-02 23:10:43,735 - parse - DEBUG - format 'la ubicación número 1 es seleccionada correctamente' -> 'la ubicación número 1 es seleccionada correctamente'
+2025-02-02 23:10:43,735 - parse - DEBUG - format 'el usuario ingresa el número de pedido en el campo correspondiente' -> 'el usuario ingresa el número de pedido en el campo correspondiente'
+2025-02-02 23:10:43,735 - parse - DEBUG - format 'el número de pedido 987 es ingresado correctamente' -> 'el número de pedido 987 es ingresado correctamente'
+2025-02-02 23:10:43,735 - parse - DEBUG - format 'el usuario hace clic en el botón grabar pedidos' -> 'el usuario hace clic en el botón grabar pedidos'
+2025-02-02 23:10:43,735 - parse - DEBUG - format 'el pedido es grabado y el proceso queda completado' -> 'el pedido es grabado y el proceso queda completado'
+2025-02-02 23:10:43,737 - asyncio - DEBUG - Using selector: KqueueSelector
+2025-02-02 23:10:45,470 - behave - DEBUG - Browser Console: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+2025-02-02 23:10:45,516 - behave - DEBUG - Browser Console: Failed to load resource: the server responded with a status of 404 (Not Found)
+2025-02-02 23:10:45,594 - behave - DEBUG - Browser Console: [Fast Refresh] rebuilding
+2025-02-02 23:11:16,075 - behave - ERROR - Error en before_all: Page.wait_for_function: Timeout 30000ms exceeded.
+2025-02-02 23:11:16,292 - behave - ERROR - Error durante la limpieza: Event loop is closed! Is Playwright already stopped?
+2025-02-02 23:14:20,209 - parse - DEBUG - format 'el usuario está en la pantalla de carga de pedidos' -> 'el usuario está en la pantalla de carga de pedidos'
+2025-02-02 23:14:20,209 - parse - DEBUG - format 'tiene acceso a todas las opciones necesarias' -> 'tiene acceso a todas las opciones necesarias'
+2025-02-02 23:14:20,209 - parse - DEBUG - format 'los parámetros iniciales están configurados' -> 'los parámetros iniciales están configurados'
+2025-02-02 23:14:20,209 - parse - DEBUG - format 'el usuario selecciona la bodega origen del despacho' -> 'el usuario selecciona la bodega origen del despacho'
+2025-02-02 23:14:20,209 - parse - DEBUG - format 'la bodega 2 es seleccionada correctamente' -> 'la bodega 2 es seleccionada correctamente'
+2025-02-02 23:14:20,210 - parse - DEBUG - format 'el usuario ingresa el RUT correspondiente al pedido' -> 'el usuario ingresa el RUT correspondiente al pedido'
+2025-02-02 23:14:20,210 - parse - DEBUG - format 'el RUT 123456789 es ingresado correctamente' -> 'el RUT 123456789 es ingresado correctamente'
+2025-02-02 23:14:20,210 - parse - DEBUG - format 'el usuario selecciona el destino en el dropdown' -> 'el usuario selecciona el destino en el dropdown'
+2025-02-02 23:14:20,210 - parse - DEBUG - format 'la ubicación número 1 es seleccionada correctamente' -> 'la ubicación número 1 es seleccionada correctamente'
+2025-02-02 23:14:20,210 - parse - DEBUG - format 'el usuario ingresa el número de pedido en el campo correspondiente' -> 'el usuario ingresa el número de pedido en el campo correspondiente'
+2025-02-02 23:14:20,210 - parse - DEBUG - format 'el número de pedido 987 es ingresado correctamente' -> 'el número de pedido 987 es ingresado correctamente'
+2025-02-02 23:14:20,210 - parse - DEBUG - format 'el usuario hace clic en el botón grabar pedidos' -> 'el usuario hace clic en el botón grabar pedidos'
+2025-02-02 23:14:20,210 - parse - DEBUG - format 'el pedido es grabado y el proceso queda completado' -> 'el pedido es grabado y el proceso queda completado'
+2025-02-02 23:14:20,212 - asyncio - DEBUG - Using selector: KqueueSelector
+2025-02-02 23:14:21,830 - behave - DEBUG - Browser Console: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+2025-02-02 23:14:21,872 - behave - DEBUG - Browser Console: Failed to load resource: the server responded with a status of 404 (Not Found)
+2025-02-02 23:14:21,925 - behave - DEBUG - Browser Console: [Fast Refresh] rebuilding
+2025-02-02 23:14:52,438 - behave - ERROR - Error en before_all: Page.wait_for_function: Timeout 30000ms exceeded.
+2025-02-02 23:14:52,714 - behave - ERROR - Error durante la limpieza: Event loop is closed! Is Playwright already stopped?

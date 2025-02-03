@@ -106,7 +106,7 @@ El resultado debe ser un JSON válido con la estructura jerárquica de los locat
 
 def generate_playwright_steps_with_gpt4(steps_content: str, locators_file: str) -> str:
     """
-    Genera código Playwright para los steps de Behave utilizando GPT-4.
+    Genera código Playwright para los steps de Behave utilizando GPT-4o.
 
     El código generado usará solo los locators disponibles en el JSON proporcionado y
     seguirá una estructura que incluya:

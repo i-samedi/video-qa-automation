@@ -2,7 +2,7 @@ from langchain_openai import ChatOpenAI
 import os
 from typing import List, Dict
 
-def get_gherkin_from_gpt(transcript: str, model: str = "gpt-4-0125-preview", temperature: float = 0.0, language: str = "es") -> str:
+def get_gherkin_from_gpt(transcript: str, model: str = "gpt-4o", temperature: float = 0.0, language: str = "es") -> str:
     """
     Convierte la transcripción en escenarios Gherkin secuenciales que forman un flujo completo.
 
@@ -30,27 +30,36 @@ Los escenarios deben estar conectados y seguir un orden lógico.
 IMPORTANTE: 
 1. Cada escenario debe representar UN SOLO paso atómico del flujo.
 2. Los escenarios deben estar numerados y seguir una secuencia lógica.
-3. Se debe incluir un Background que contenga las precondiciones comunes.
+3. El Background debe tener UN SOLO Given que agrupe todas las condiciones relacionadas a la misma pantalla/contexto:
+   - INCORRECTO:
+     Given el usuario está en la pantalla de carga
+     Given el usuario tiene acceso a las opciones
+   - CORRECTO:
+     Given el usuario está en la pantalla de carga
+     And tiene acceso a las opciones
 4. Cada escenario debe tener tags relevantes:
    - @paso_{numero} - Indica el orden del paso.
    - @modulo_<nombre> - Indica el módulo principal.
    - @tipo_<tipo_operacion> - Indica el tipo de operación.
+5. Cuando se usen números, NO incluir puntos ni comas entre ellos (ejemplo: usar "123" en lugar de "1,2,3" o "1.2.3")
+6. Los steps deben seguir el formato para poder generar automáticamente los step definitions:
+   - Background debe tener UN SOLO Given que agrupe el contexto completo
+   - Usar And para condiciones adicionales del mismo contexto
+   - Los steps de escenarios deben usar 'When' para acciones y 'Then' para validaciones
+   - Usar nombres de steps descriptivos y únicos
 
 Formato esperado:
 Feature: [Nombre del Feature]
 
 Background:
-  Given [precondiciones comunes]
+  Given el usuario está en la pantalla de carga del sistema
+  And tiene acceso a todas las opciones necesarias
+  And los parámetros iniciales están configurados
 
 @paso_1 @modulo_login @tipo_validacion
-Scenario: 1. Inicio de sesión en el sistema
-  When ...
-  Then ...
-
-@paso_2 @modulo_seleccion @tipo_entrada
-Scenario: 2. Selección de parámetros iniciales
-  When ...
-  Then ...
+Scenario: 1 Inicio del proceso
+  When el usuario ingresa los datos requeridos
+  Then los datos son validados correctamente
 
 [... y así sucesivamente para cada paso]
         """,
@@ -63,13 +72,15 @@ Scenario: 2. Selección de parámetros iniciales
         'es': """
 Sigue estas reglas:
 1. Comienza con una línea que indique 'Feature:'.
-2. Agrega un bloque 'Background:' para las condiciones comunes.
+2. El Background debe tener UN SOLO Given que agrupe todo el contexto de la misma pantalla.
 3. Divide el flujo en escenarios atómicos y secuenciales.
 4. Cada escenario debe representar UN SOLO paso del flujo.
 5. Numera los escenarios en orden secuencial.
-6. Usa When/Then principalmente (Given va en Background).
+6. Usa When para acciones y Then para validaciones.
 7. Cada escenario debe incluir los tags: @paso_X, @modulo_<nombre> y @tipo_<tipo_operacion>.
 8. Mantén continuidad lógica en el flujo.
+9. Los steps deben ser únicos y descriptivos.
+10. NUNCA uses múltiples Given para el mismo contexto o pantalla.
         """,
         'en': """
 [Similar rules in English...]
@@ -98,6 +109,9 @@ def parse_gherkin_scenarios(gherkin_text: str, include_tags: bool = True) -> Dic
     Returns:
         Dict: Diccionario con las claves 'feature', 'background' y 'scenarios' (lista de escenarios).
     """
+    # Limpiar marcadores de código si existen
+    gherkin_text = gherkin_text.replace('```gherkin', '').replace('```', '').strip()
+    
     lines = gherkin_text.strip().splitlines()
     feature = ""
     background = ""
@@ -198,7 +212,7 @@ def generate_feature_file(gherkin_dict: Dict, output_path: str, encoding: str = 
 def process_transcript_to_scenarios(
     transcript: str, 
     output_path: str, 
-    model: str = "gpt-4-0125-preview",
+    model: str = "gpt-4o",
     temperature: float = 0.0,
     language: str = "es",
     include_tags: bool = True,
