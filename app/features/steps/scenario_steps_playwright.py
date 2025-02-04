@@ -3,14 +3,12 @@ from playwright.sync_api import expect, TimeoutError
 import os
 import json
 import logging
-import time  # <-- Se agrega para los bucles de espera
+import time  
 
-TIMEOUT = 15000  # 15 segundos
+TIMEOUT = 15000  
 
-# Configurar logger (asegúrate de que se inicialice en environment.py o aquí)
 logger = logging.getLogger("behave.steps")
 
-# Cargar locators desde el archivo JSON
 LOCATORS_PATH = os.path.join(os.path.dirname(__file__), '..', 'locators', 'page_locators.json')
 with open(LOCATORS_PATH, 'r') as f:
     LOCATORS = json.load(f)
@@ -36,46 +34,34 @@ def step_impl_seleccion_bodega(context):
         logger.debug(f"Esperando que el contenedor esté visible: {groupbox_selector}")
         expect(context.page.locator(groupbox_selector)).to_be_visible(timeout=TIMEOUT)
         
-        # 2. Localizar el <select> de bodega.
-        bodega_selector = LOCATORS['groupBox1']['selects']['bodega']  # Ejemplo: "#combobodega"
-        logger.debug(f"Buscando select de bodega con el selector: {bodega_selector}")
+        # 2. Localizar el dropdown de bodega usando un selector simplificado.
+        bodega_selector = "#groupbox1 button[role='combobox']"
+        logger.debug(f"Buscando dropdown de bodega con el selector: {bodega_selector}")
         combo = context.page.locator(bodega_selector)
-        # Si no se encontró el elemento de forma directa, se busca dentro del contenedor principal.
-        if combo.count() == 0:
-            logger.debug(f"No se encontró el elemento con {bodega_selector} de forma directa. Buscando dentro de {groupbox_selector}.")
-            combo = context.page.locator(f"{groupbox_selector} {bodega_selector}")
         
-        # 3. Esperar a que el <select> esté visible y habilitado.
+        # 3. Esperar a que el dropdown esté visible y habilitado.
         expect(combo).to_be_visible(timeout=TIMEOUT)
         expect(combo).to_be_enabled(timeout=TIMEOUT)
         
-        # 4. Realizar mouse over sobre el select para simular la acción del usuario.
-        logger.debug("Realizando mouse over en el select de bodega.")
-        combo.hover()
-        context.page.wait_for_timeout(1000)  # Espera adicional para que las opciones se desplieguen
-        
-        # 5. (Opcional) Verificar las opciones disponibles para mayor debug.
-        opciones = combo.locator("option").all_inner_texts()
-        logger.debug(f"Opciones disponibles en el select de bodega: {opciones}")
-        if 'Bodega 2' not in opciones:
-            raise Exception("La opción 'Bodega 2' no se encuentra en el dropdown. Opciones disponibles: " + ", ".join(opciones))
-        
-        # 6. Seleccionar la opción "Bodega 2" mediante su label.
-        combo.select_option(label='Bodega 2')
+        # 4. Hacer clic en el dropdown para desplegar las opciones.
+        combo.click()
+        option_locator = context.page.locator('[role="option"]', has_text="Bodega 2")
+        expect(option_locator).to_be_visible(timeout=TIMEOUT)
+        # Seleccionar la opción "Bodega 2"
+        option_locator.click()
         logger.info("Opción 'Bodega 2' seleccionada correctamente.")
         
     except TimeoutError:
-        # En caso de timeout, se registra el contenido parcial de la página para debug.
-        logger.error("Timeout al esperar el select del dropdown de bodega. Contenido de la página:\n" +
+        logger.error("Timeout al esperar el dropdown de bodega. Contenido de la página:\n" +
                      context.page.content()[:1000])
-        raise Exception("Timeout al esperar el select del dropdown de bodega.")
+        raise Exception("Timeout al esperar el dropdown de bodega.")
     except Exception as e:
         raise Exception(f"Error al seleccionar bodega: {str(e)}")
 
 @then('la bodega 2 es seleccionada correctamente')
 def step_impl_bodega_seleccionada_correctamente(context):
     # Se valida que el <select> muestre el valor esperado.
-    expect(context.page.locator(LOCATORS['groupBox1']['selects']['bodega'])).to_have_value('2', timeout=TIMEOUT)
+    expect(context.page.locator("#groupbox1 button[role='combobox']")).to_have_text("Bodega 2", timeout=TIMEOUT)
 
 @when('el usuario ingresa el RUT correspondiente al pedido')
 def step_impl_ingreso_rut(context):
@@ -96,55 +82,65 @@ def step_impl_seleccion_destino(context):
         logger.debug(f"Esperando que el contenedor esté visible: {groupbox_selector}")
         expect(context.page.locator(groupbox_selector)).to_be_visible(timeout=TIMEOUT)
         
-        # 2. Localizar el <select> de ubicación.
-        dropdown_selector = LOCATORS['groupBox3']['selects']['ubicacion']  # Ejemplo: "#comboubicacion"
-        logger.debug(f"Buscando select de ubicación con el selector: {dropdown_selector}")
-        combo = context.page.locator(dropdown_selector)
-        # Si no se encontró el elemento directamente, se busca dentro del contenedor.
-        if combo.count() == 0:
-            logger.debug(f"No se encontró el elemento con {dropdown_selector} de forma directa. Buscando dentro de {groupbox_selector}.")
-            combo = context.page.locator(f"{groupbox_selector} {dropdown_selector}")
-        
-        # 3. Esperar a que el <select> esté visible y habilitado.
+        # 2. Localizar el dropdown de destino filtrado por el texto que lo identifica.
+        dropdown_selector = "#groupbox3 button[role='combobox']"
+        logger.debug(f"Buscando dropdown de destino con el selector: {dropdown_selector} y filtrando por 'Seleccione ubicación'")
+        combo = context.page.locator(dropdown_selector, has_text="Seleccione ubicación")
+        # 3. Esperar que el dropdown filtrado esté visible y habilitado.
         expect(combo).to_be_visible(timeout=TIMEOUT)
         expect(combo).to_be_enabled(timeout=TIMEOUT)
         
-        # 4. Realizar mouse over sobre el select.
-        logger.debug("Realizando mouse over en el select de ubicación.")
-        combo.hover()
-        context.page.wait_for_timeout(1000)  # Espera adicional para que las opciones se desplieguen
-        
-        # 5. Seleccionar la opción con valor '1'.
-        combo.select_option('1')
-        logger.info("Opción de ubicación '1' seleccionada correctamente.")
+        # 4. Hacer clic en el dropdown para desplegar las opciones.
+        combo.click()
+        # Esperar a que la opción con texto "1" sea visible.
+        option_locator = context.page.locator('[role="option"]', has_text="1")
+        expect(option_locator).to_be_visible(timeout=TIMEOUT)
+        # Seleccionar la opción "1"
+        option_locator.click()
+        logger.info("Opción de destino '1' seleccionada correctamente.")
         
     except TimeoutError:
-        logger.error("Timeout al esperar el select del dropdown de ubicación. Contenido de la página:\n" +
+        logger.error("Timeout al esperar el dropdown de destino. Contenido de la página:\n" +
                      context.page.content()[:1000])
-        raise Exception("Timeout al esperar el select del dropdown de ubicación.")
+        raise Exception("Timeout al esperar el dropdown de destino.")
     except Exception as e:
-        raise Exception(f"Error al seleccionar ubicación: {str(e)}")
+        raise Exception(f"Error al seleccionar destino: {str(e)}")
 
 @then('la ubicación número 1 es seleccionada correctamente')
 def step_impl_ubicacion_seleccionada_correctamente(context):
-    expect(context.page.locator(LOCATORS['groupBox3']['selects']['ubicacion'])).to_have_value('1', timeout=TIMEOUT)
+    expect(context.page.locator("#groupbox3 button[role='combobox']", has_text="1")).to_have_text("Ubicación 1", timeout=TIMEOUT)
 
 @when('el usuario ingresa el número de pedido en el campo correspondiente')
 def step_impl_ingreso_numero_pedido(context):
     try:
-        context.page.fill(LOCATORS['groupBox3']['inputs']['numeroPedido'], '987')
+        # Localizar el input para el número de pedido.
+        numero_pedido_locator = context.page.locator(LOCATORS['groupBox3']['inputs']['numeroPedido'])
+        # Esperar que el input sea visible.
+        expect(numero_pedido_locator).to_be_visible(timeout=TIMEOUT)
+        # Hacer clic en el input (force=True para asegurar la acción, en caso de overlays o estilos personalizados)
+        numero_pedido_locator.click(force=True)
+        # Limpiar el campo antes de ingresar el valor.
+        numero_pedido_locator.fill('')
+        # Ingresar el número de pedido '987'
+        numero_pedido_locator.fill('987')
+        # Presionar TAB para forzar el blure y actualizar el valor en pantalla si es necesario.
+        context.page.keyboard.press("Tab")
+        logger.info("Número de pedido '987' ingresado correctamente.")
     except Exception as e:
         raise Exception(f"Error al ingresar el número de pedido: {e}")
 
 @then('el número de pedido 987 es ingresado correctamente')
 def step_impl_numero_pedido_ingresado_correctamente(context):
-    expect(context.page.locator(LOCATORS['groupBox3']['inputs']['numeroPedido'])).to_have_value('987', timeout=TIMEOUT)
+    # Se verifica que el campo de número de pedido contenga el valor '987'
+    expect(
+        context.page.locator(LOCATORS['groupBox3']['inputs']['numeroPedido'])
+    ).to_have_value('987', timeout=TIMEOUT)
 
 @when('el usuario hace clic en el botón grabar pedidos')
 def step_impl_click_grabar_pedidos(context):
     try:
         # Usar locator() en lugar de wait_for_selector para obtener un Locator, no un ElementHandle.
-        boton_selector = LOCATORS['panel1']['buttons']['grabarPedidos']  # Ejemplo: "#botongenerar"
+        boton_selector = LOCATORS['panel1']['buttons']['grabarPedidos'] 
         logger.debug(f"Buscando botón grabar pedidos con el selector: {boton_selector}")
         boton = context.page.locator(boton_selector)
         

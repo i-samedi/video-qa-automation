@@ -1,0 +1,282 @@
+// ---------------------------
+// Verificar locators de page_locators.json
+// ---------------------------
+
+// 1. Página
+// Verificar el título de la página, definido como h1 con el texto "Carga de Pedidos a Bodegas"
+const pageTitle = document.querySelector("h1");
+if (pageTitle) {
+  console.log("✓ Título de página encontrado:", pageTitle.textContent.trim());
+} else {
+  console.error("✗ Título de página NO encontrado");
+}
+
+// 2. Panel1
+const panel1 = document.querySelector("#panel1");
+if (panel1) {
+  console.log("✓ Panel1 container encontrado:", panel1);
+} else {
+  console.error("✗ Panel1 container NO encontrado");
+}
+
+// Panel1 - Inputs
+const inputObservaciones = document.querySelector("#editobs");
+console.log("Input 'observaciones':", inputObservaciones);
+
+const inputLineasRechazadas = document.querySelector("#editlinerechazo");
+console.log("Input 'lineasRechazadas':", inputLineasRechazadas);
+
+const inputCantidadRechazada = document.querySelector("#editcantrechazo");
+console.log("Input 'cantidadRechazada':", inputCantidadRechazada);
+
+// Panel1 - Botones
+const btnGrabarPedidos = document.querySelector("#botongenerar");
+console.log("Botón 'grabarPedidos':", btnGrabarPedidos, "- Visible:", btnGrabarPedidos && btnGrabarPedidos.offsetParent !== null);
+
+const btnCancelar = document.querySelector("#botoncancelar");
+console.log("Botón 'cancelar':", btnCancelar, "- Visible:", btnCancelar && btnCancelar.offsetParent !== null);
+
+const btnExportarDatos = document.querySelector("#botonexportar");
+console.log("Botón 'exportarDatos':", btnExportarDatos, "- Visible:", btnExportarDatos && btnExportarDatos.offsetParent !== null);
+
+const btnExportarOTR = document.querySelector("#botonexporotr");
+console.log("Botón 'exportarOTR':", btnExportarOTR, "- Visible:", btnExportarOTR && btnExportarOTR.offsetParent !== null);
+
+const btnSalir = document.querySelector("#botonsalir");
+console.log("Botón 'salir':", btnSalir, "- Visible:", btnSalir && btnSalir.offsetParent !== null);
+
+// 3. Panel2
+const panel2 = document.querySelector("#panel2");
+if (panel2) {
+  console.log("✓ Panel2 container encontrado:", panel2);
+} else {
+  console.error("✗ Panel2 container NO encontrado");
+}
+
+const btnPanel2_1 = document.querySelector("#button1");
+console.log("Panel2 botón 'button1':", btnPanel2_1);
+
+const btnPanel2_2 = document.querySelector("#button2");
+console.log("Panel2 botón 'button2':", btnPanel2_2);
+
+// 4. Panel5
+const panel5 = document.querySelector("#panel5");
+if (panel5) {
+  console.log("✓ Panel5 container encontrado:", panel5);
+} else {
+  console.error("✗ Panel5 container NO encontrado");
+}
+
+// Panel5 - Tabs
+const tabPedido = document.querySelector('button[value="pedido"]');
+console.log("Tab 'pedido':", tabPedido);
+
+const tabStock = document.querySelector('button[value="stock"]');
+console.log("Tab 'stock':", tabStock);
+
+const tabOTR = document.querySelector('button[value="otr"]');
+console.log("Tab 'otr':", tabOTR);
+
+// Panel5 - Textarea
+const textareaMensajeEmail = document.querySelector("#mensajeemail");
+console.log("Textarea 'mensajeEmail':", textareaMensajeEmail);
+
+// 5. GroupBox1
+const groupBox1 = document.querySelector("#groupbox1");
+if (groupBox1) {
+  console.log("✓ GroupBox1 container encontrado:", groupBox1);
+} else {
+  console.error("✗ GroupBox1 container NO encontrado");
+}
+
+// Título de GroupBox1 (se espera un h3 con el texto "Origen Despacho")
+const groupBox1Title = groupBox1 ? groupBox1.querySelector("h3") : null;
+if (groupBox1Title) {
+  console.log("Título de GroupBox1:", groupBox1Title.textContent.trim());
+} else {
+  console.error("✗ Título de GroupBox1 NO encontrado");
+}
+
+// GroupBox1 - Select (Bodega)
+const selectBodega = document.querySelector("#combobodega");
+if (selectBodega) {
+  console.log("✓ Select de Bodega encontrado:", selectBodega);
+} else {
+  // Fallback: buscar dentro del contenedor groupBox1
+  const selectBodegaFallback = groupBox1 ? groupBox1.querySelector("#combobodega") : null;
+  if (selectBodegaFallback) {
+    console.log("✓ Select de Bodega encontrado dentro de GroupBox1:", selectBodegaFallback);
+  } else {
+    console.error("✗ Select de Bodega NO encontrado");
+  }
+}
+
+// GroupBox1 - Checkboxes
+const checkboxHomologar = document.querySelector("#checkboxhomologaclte");
+console.log("Checkbox 'homologarCliente':", checkboxHomologar);
+
+const checkboxSoloStock = document.querySelector("#checkboxstock");
+console.log("Checkbox 'soloStock':", checkboxSoloStock);
+
+// GroupBox1 - Botón
+const btnAsignarStock = document.querySelector("#botonstock");
+console.log("Botón 'asignarStock':", btnAsignarStock);
+
+// 6. GroupBox2
+const groupBox2 = document.querySelector("#groupbox2");
+if (groupBox2) {
+  console.log("✓ GroupBox2 container encontrado:", groupBox2);
+} else {
+  console.error("✗ GroupBox2 container NO encontrado");
+}
+
+const groupBox2Title = groupBox2 ? groupBox2.querySelector("h3") : null;
+if (groupBox2Title) {
+  console.log("Título de GroupBox2:", groupBox2Title.textContent.trim());
+} else {
+  console.error("✗ Título de GroupBox2 NO encontrado");
+}
+
+// GroupBox2 - Radio Buttons
+const radioPuntoComa = document.querySelector("#rbpuntocoma");
+console.log("Radio 'puntoComa':", radioPuntoComa);
+
+const radioComa = document.querySelector("#rbcoma");
+console.log("Radio 'coma':", radioComa);
+
+// 7. GroupBox3
+const groupBox3 = document.querySelector("#groupbox3");
+if (groupBox3) {
+  console.log("✓ GroupBox3 container encontrado:", groupBox3);
+} else {
+  console.error("✗ GroupBox3 container NO encontrado");
+}
+
+// GroupBox3 - Inputs
+const inputRut = document.querySelector("#editrut");
+console.log("Input 'rut':", inputRut);
+
+const inputCliente = document.querySelector("#editcliente");
+console.log("Input 'cliente':", inputCliente);
+
+const inputOrdenCompra = document.querySelector("#editoc");
+console.log("Input 'ordenCompra':", inputOrdenCompra);
+
+const inputPorcentajeDescuento = document.querySelector("#editpordcto");
+console.log("Input 'porcentajeDescuento':", inputPorcentajeDescuento);
+
+const inputNumeroPedido = document.querySelector("#editnropedido");
+console.log("Input 'numeroPedido':", inputNumeroPedido);
+
+const inputFechaEntregaInicial = document.querySelector("#fechaentinicial");
+console.log("Input 'fechaEntregaInicial':", inputFechaEntregaInicial);
+
+const inputFechaEntregaFinal = document.querySelector("#fechaentfinal");
+console.log("Input 'fechaEntregaFinal':", inputFechaEntregaFinal);
+
+const inputFechaExpiracion = document.querySelector("#fechaexpiracion");
+console.log("Input 'fechaExpiracion':", inputFechaExpiracion);
+
+// GroupBox3 - Selects
+const selectUbicacion = document.querySelector("#comboubicacion");
+if (selectUbicacion) {
+  console.log("✓ Select 'ubicacion' encontrado:", selectUbicacion);
+} else {
+  // Fallback: buscar dentro de GroupBox3
+  const selectUbicacionFallback = groupBox3 ? groupBox3.querySelector("#comboubicacion") : null;
+  if (selectUbicacionFallback) {
+    console.log("✓ Select 'ubicacion' encontrado dentro de GroupBox3:", selectUbicacionFallback);
+  } else {
+    console.error("✗ Select 'ubicacion' NO encontrado");
+  }
+}
+
+const selectCondicionVenta = document.querySelector("#combocondicionventa");
+console.log("Select 'condicionVenta':", selectCondicionVenta);
+
+// GroupBox3 - Botón
+const btnArchivo = document.querySelector("#botonarchivo");
+console.log("Botón 'archivo':", btnArchivo);
+
+// 8. GroupBox4
+const groupBox4 = document.querySelector("#groupbox4");
+if (groupBox4) {
+  console.log("✓ GroupBox4 container encontrado:", groupBox4);
+} else {
+  console.error("✗ GroupBox4 container NO encontrado");
+}
+
+const groupBox4Title = groupBox4 ? groupBox4.querySelector("h3") : null;
+if (groupBox4Title) {
+  console.log("Título de GroupBox4:", groupBox4Title.textContent.trim());
+} else {
+  console.error("✗ Título de GroupBox4 NO encontrado");
+}
+
+// GroupBox4 - Radio Buttons
+const radioNormal = document.querySelector("#rbnormal");
+console.log("Radio 'normal':", radioNormal);
+
+const radioApertura = document.querySelector("#rbapertura");
+console.log("Radio 'apertura':", radioApertura);
+
+const radioLlenado = document.querySelector("#rbllenado");
+console.log("Radio 'llenado':", radioLlenado);
+
+const radioCross = document.querySelector("#rbcross");
+console.log("Radio 'cross':", radioCross);
+
+const radioNoCol = document.querySelector("#rbnocol");
+console.log("Radio 'noCol':", radioNoCol);
+
+const radioAcc = document.querySelector("#rbacc");
+console.log("Radio 'acc':", radioAcc);
+
+const radioRt = document.querySelector("#rbrt");
+console.log("Radio 'rt':", radioRt);
+
+const radioFoto = document.querySelector("#rbfoto");
+console.log("Radio 'foto':", radioFoto);
+
+const radioVtaec = document.querySelector("#rbvtaec");
+console.log("Radio 'vtaec':", radioVtaec);
+
+const radioCampana = document.querySelector("#rbcampana");
+console.log("Radio 'campana':", radioCampana);
+
+const radioReserva = document.querySelector("#rbreserva");
+console.log("Radio 'reserva':", radioReserva);
+
+const radioStockReservado = document.querySelector("#rbstockreservado");
+console.log("Radio 'stockReservado':", radioStockReservado);
+
+const radioTraspasoWhs = document.querySelector("#rbtraspasowhs");
+console.log("Radio 'traspasoWhs':", radioTraspasoWhs);
+
+const radioDesarme = document.querySelector("#rbdesarme");
+console.log("Radio 'desarme':", radioDesarme);
+
+const radioRegula = document.querySelector("#rbregula");
+console.log("Radio 'regula':", radioRegula);
+
+const radioConsigna = document.querySelector("#rbconsigna");
+console.log("Radio 'consigna':", radioConsigna);
+
+const radioRepoAs = document.querySelector("#rbrepoas");
+console.log("Radio 'repoAs':", radioRepoAs);
+
+const radioLlenadoAs = document.querySelector("#rbllenadoas");
+console.log("Radio 'llenadoAs':", radioLlenadoAs);
+
+const radioCarrito = document.querySelector("#rbcarrito");
+console.log("Radio 'carrito':", radioCarrito);
+
+// 9. Grillas
+const grillaDetalle = document.querySelector("#grilladetalle");
+console.log("Grilla 'detalle' container:", grillaDetalle);
+
+const grillaStock = document.querySelector("#grillastock");
+console.log("Grilla 'stock' container:", grillaStock);
+
+const grillaOTR = document.querySelector("#grillaotr");
+console.log("Grilla 'otr' container:", grillaOTR);

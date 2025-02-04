@@ -171,3 +171,15 @@ Aquí tienes la estructura organizada en formato lista jerárquica:
 --- 
 
 Este formato lista refleja la estructura jerárquica de los componentes y sus propiedades.
+
+
+
+
+BODEGA
+#groupbox1 > div > button.flex.h-9.items-center.justify-between.whitespace-nowrap.rounded-md.border.border-input.bg-transparent.px-3.py-2.text-sm.shadow-sm.ring-offset-background.placeholder\:text-muted-foreground.focus\:outline-none.focus\:ring-1.focus\:ring-ring.disabled\:cursor-not-allowed.disabled\:opacity-50.\[\&\>span\]\:line-clamp-1.w-\[280px\]
+
+DESTINO
+#groupbox3 > div:nth-child(2) > div:nth-child(1) > button
+
+VENTA
+#groupbox3 > div:nth-child(2) > div:nth-child(2) > button
