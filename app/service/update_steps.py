@@ -77,8 +77,8 @@ El resultado debe ser un JSON válido con la estructura jerárquica de los locat
         )
         locators_str = response.choices[0].message.content
         # Eliminar delimitadores markdown
-        locators_str = re.sub(r'```json\s*', '', locators_str)
-        locators_str = re.sub(r'```\s*', '', locators_str)
+        locators_str = re.sub(r'```(?:json)?\s*', '', locators_str)
+        locators_str = re.sub(r'\s*```', '', locators_str)
 
         try:
             locators_json = json.loads(locators_str)
@@ -87,10 +87,14 @@ El resultado debe ser un JSON válido con la estructura jerárquica de los locat
             logger.error("String problemático: %s", locators_str)
             raise
 
+        # Se determina la ruta base (3 niveles arriba de este archivo)
         base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        # Se define la carpeta donde se guardarán los locators: app/features/locators
         locators_dir = os.path.join(base_dir, "app", "features", "locators")
         os.makedirs(locators_dir, exist_ok=True)
         locators_file = os.path.join(locators_dir, "page_locators.json")
+        
+        # Se guarda el JSON de locators en la carpeta locators
         with open(locators_file, 'w', encoding='utf-8') as f:
             json.dump(locators_json, f, indent=4, ensure_ascii=False)
 
@@ -108,57 +112,59 @@ def generate_playwright_steps_with_gpt4(steps_content: str, locators_file: str) 
     """
     Genera código Playwright para los steps de Behave utilizando GPT-4o.
 
-    El código generado usará solo los locators disponibles en el JSON proporcionado y
-    seguirá una estructura que incluya:
-      - Esperas explícitas con page.wait_for_selector.
-      - Validaciones con expect.
-      - Manejo especial de listas desplegables (Dropdown lists) usando select_option o clicks en opciones.
-      - En el primer step definido con @given se incluirá una única llamada a page.goto("http://localhost:3000")
-        para ingresar a la página (si es aplicable).
-      - NO se deben repetir llamadas a page.goto en steps posteriores.
+    Se deben emplear ejemplos que muestren el manejo de componentes individuales
+    como inputs, clicks, dropdowns/selects, validaciones y la implementación correcta de los given iniciales.
 
-    Se utiliza una técnica few-shot incluyendo ejemplos basados en el siguiente código modificado:
+    Ejemplos:
+    - Input:
+      ---------------------------------------------------------------------------
+      @when('el usuario ingresa el RUT correspondiente')
+      def step_ingreso_rut(context):
+          try:
+              context.page.fill(LOCATORS['groupBox3']['inputs']['rut'], '123456789')
+          except Exception as e:
+              raise Exception(f"Error al ingresar el RUT: {{e}}")
+      ---------------------------------------------------------------------------
+    - Click / Botón:
+      ---------------------------------------------------------------------------
+      @when('el usuario hace clic en el botón grabar pedidos')
+      def step_click_grabar(context):
+          try:
+              boton = context.page.locator(LOCATORS['panel1']['buttons']['grabarPedidos'])
+              expect(boton).to_be_visible(timeout=TIMEOUT)
+              try:
+                  expect(boton).to_be_enabled(timeout=TIMEOUT)
+                  boton.click()
+              except Exception as e:
+                  boton.click(force=True)
+          except Exception as e:
+              raise Exception(f"Error al hacer clic en el botón: {{str(e)}}")
+      ---------------------------------------------------------------------------
+    - Dropdown / Select:
+      ---------------------------------------------------------------------------
+      @when('el usuario selecciona la opción en el dropdown')
+      def step_seleccion_dropdown(context):
+          try:
+              combo = context.page.locator("#groupbox1 button[role='combobox']")
+              expect(combo).to_be_visible(timeout=TIMEOUT)
+              expect(combo).to_be_enabled(timeout=TIMEOUT)
+              combo.click()
+              opcion = context.page.locator('[role="option"]', has_text="Opción 1")
+              expect(opcion).to_be_visible(timeout=TIMEOUT)
+              opcion.click()
+          except Exception as e:
+              raise Exception(f"Error al seleccionar en el dropdown: {{str(e)}}")
+      ---------------------------------------------------------------------------
+    - Validación:
+      ---------------------------------------------------------------------------
+      @then('el valor esperado se muestra en el campo')
+      def step_validacion_input(context):
+          expect(context.page.locator(LOCATORS['groupBox3']['inputs']['rut'])).to_have_value('123456789', timeout=TIMEOUT)
+      ---------------------------------------------------------------------------
 
-    Ejemplo:
-    ---------------------------------------------------------------------------
-    from behave import given, when, then
-    from playwright.sync_api import expect, TimeoutError
-    import os
-    import json
-    import logging
-    import time
+    Además, se debe generar el código completo como un profesional en Playwright, implementando correctamente
+    el given inicial (por ejemplo, el acceso a la página) y utilizando los locators extraídos de la query.
 
-    TIMEOUT = 15000  # 15 segundos
-
-    logger = logging.getLogger("behave.steps")
-
-    LOCATORS_PATH = os.path.join(os.path.dirname(__file__), '..', 'locators', 'page_locators.json')
-    with open(LOCATORS_PATH, 'r') as f:
-        LOCATORS = json.load(f)
-
-    @given('el usuario está en la pantalla de carga de pedidos')
-    def step_impl_usuario_en_pantalla_de_carga(context):
-        context.page.goto("http://localhost:3000")
-        context.page.wait_for_load_state('networkidle')
-        expect(context.page.locator(LOCATORS['page']['title'])).to_be_visible(timeout=TIMEOUT)
-
-    @when('el usuario selecciona la bodega origen del despacho')
-    def step_impl_seleccion_bodega(context):
-        try:
-            groupbox_selector = LOCATORS['groupBox1']['container']
-            expect(context.page.locator(groupbox_selector)).to_be_visible(timeout=TIMEOUT)
-            bodega_selector = "#groupbox1 button[role='combobox']"
-            combo = context.page.locator(bodega_selector)
-            expect(combo).to_be_visible(timeout=TIMEOUT)
-            expect(combo).to_be_enabled(timeout=TIMEOUT)
-            combo.click()
-            option_locator = context.page.locator('[role="option"]', has_text="Bodega 2")
-            expect(option_locator).to_be_visible(timeout=TIMEOUT)
-            option_locator.click()
-        except Exception as e:
-            raise Exception(f"Error al seleccionar bodega: {str(e)}")
-    ---------------------------------------------------------------------------
-    
     Los locators disponibles son:
     {json.dumps(json.load(open(locators_file, 'r', encoding='utf-8')), indent=2)}
 
@@ -166,92 +172,90 @@ def generate_playwright_steps_with_gpt4(steps_content: str, locators_file: str) 
     {steps_content}
 
     IMPORTANTE:
-    - NO inventes selectores o IDs que no existan en el JSON.
-    - Usa la estructura exacta de los locators proporcionados.
-    - Si un locator no existe para una acción específica, maneja el caso apropiadamente.
-    - Mantén los nombres de funciones y decoradores exactos.
+    - No inventes selectores o IDs que no existan en el JSON.
+    - Usa siempre la estructura exacta de los locators proporcionados.
+    - Maneja errores y excepciones como se muestra en los ejemplos.
     """
     with open(locators_file, 'r', encoding='utf-8') as f:
         locators = json.load(f)
 
     load_dotenv()
     client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+
     prompt = f"""
 Genera código Playwright para los steps de Behave siguiendo estas reglas:
-1. SOLO usa los locators que existen en el JSON proporcionado, NO inventes nuevos.
-2. Cada selector debe existir exactamente en el archivo de locators.
-3. Usa la estructura jerárquica correcta para acceder a los locators (ej: LOCATORS['groupBox1']['selects']['bodega']).
-4. Incluye esperas explícitas con page.wait_for_selector antes de cada interacción.
-5. Agrega validaciones con expect después de cada acción.
-6. Usa context.page para acceder a la página.
-7. Maneja errores con try/except.
-8. Identifica y maneja las listas desplegables (Dropdown lists) usando select_option o clicks en las opciones.
-9. En el primer step definido con @given, incluye una única llamada a page.goto("http://localhost:3000") para ingresar a la página; NO repitas page.goto en pasos posteriores.
-10. NO agregues comentarios ni imports adicionales, utiliza los existentes.
-11. Sigue el orden y las modificaciones de este ejemplo:
----------------------------------------------------------
-from behave import given, when, then
-from playwright.sync_api import expect, TimeoutError
-import os
-import json
-import logging
-import time
+1. Utiliza los siguientes ejemplos modulares para cada componente:
 
-TIMEOUT = 15000
-
-logger = logging.getLogger("behave.steps")
-
-LOCATORS_PATH = os.path.join(os.path.dirname(__file__), '..', 'locators', 'page_locators.json')
-with open(LOCATORS_PATH, 'r') as f:
-    LOCATORS = json.load(f)
-
-@given('el usuario está en la pantalla de carga de pedidos')
-def step_impl_usuario_en_pantalla_de_carga(context):
-    context.page.goto("http://localhost:3000")
-    context.page.wait_for_load_state('networkidle')
-    expect(context.page.locator(LOCATORS['page']['title'])).to_be_visible(timeout=TIMEOUT)
-
-@when('el usuario selecciona la bodega origen del despacho')
-def step_impl_seleccion_bodega(context):
+Ejemplo para un input:
+-----------------------------------------------------------
+@when('el usuario ingresa el RUT correspondiente')
+def step_ingreso_rut(context):
     try:
-        groupbox_selector = LOCATORS['groupBox1']['container']
-        expect(context.page.locator(groupbox_selector)).to_be_visible(timeout=TIMEOUT)
-        bodega_selector = "#groupbox1 button[role='combobox']"
-        combo = context.page.locator(bodega_selector)
+        context.page.fill(LOCATORS['groupBox3']['inputs']['rut'], '123456789')
+    except Exception as e:
+        raise Exception(f"Error al ingresar el RUT: {{e}}")
+-----------------------------------------------------------
+
+Ejemplo para un click / botón:
+-----------------------------------------------------------
+@when('el usuario hace clic en el botón grabar pedidos')
+def step_click_grabar(context):
+    try:
+        boton = context.page.locator(LOCATORS['panel1']['buttons']['grabarPedidos'])
+        expect(boton).to_be_visible(timeout=TIMEOUT)
+        try:
+            expect(boton).to_be_enabled(timeout=TIMEOUT)
+            boton.click()
+        except Exception as e:
+            boton.click(force=True)
+    except Exception as e:
+        raise Exception(f"Error al hacer clic en el botón: {{str(e)}}")
+-----------------------------------------------------------
+
+Ejemplo para un dropdown / select:
+-----------------------------------------------------------
+@when('el usuario selecciona la opción en el dropdown')
+def step_seleccion_dropdown(context):
+    try:
+        combo = context.page.locator("#groupbox1 button[role='combobox']")
         expect(combo).to_be_visible(timeout=TIMEOUT)
         expect(combo).to_be_enabled(timeout=TIMEOUT)
         combo.click()
-        option_locator = context.page.locator('[role="option"]', has_text="Bodega 2")
-        expect(option_locator).to_be_visible(timeout=TIMEOUT)
-        option_locator.click()
+        opcion = context.page.locator('[role="option"]', has_text="Opción 1")
+        expect(opcion).to_be_visible(timeout=TIMEOUT)
+        opcion.click()
     except Exception as e:
-        raise Exception(f"Error al seleccionar bodega: {{str(e)}}")
----------------------------------------------------------
+        raise Exception(f"Error al seleccionar en el dropdown: {{str(e)}}")
+-----------------------------------------------------------
+
+Ejemplo para una validación:
+-----------------------------------------------------------
+@then('el valor esperado se muestra en el campo')
+def step_validacion_input(context):
+    expect(context.page.locator(LOCATORS['groupBox3']['inputs']['rut'])).to_have_value('123456789', timeout=TIMEOUT)
+-----------------------------------------------------------
+
+Genera código Playwright completo y profesional utilizando los locators extraídos (guardados en formato JSON) para su utilización, y aplicando estos ejemplos en la generación de los steps.
+
 Los locators disponibles son:
 {json.dumps(locators, indent=2)}
 
 Steps a implementar:
 {steps_content}
-
-IMPORTANTE:
-- NO inventes selectores o IDs que no existan en el JSON.
-- Usa la estructura exacta de los locators proporcionados.
-- Si un locator no existe para una acción específica, maneja el caso apropiadamente.
-- Mantén los nombres de funciones y decoradores exactos.
     """
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
-            {"role": "system", "content": "Eres un experto en automatización con Playwright. Genera código usando SOLO los locators proporcionados, sin inventar nuevos, siguiendo el ejemplo few-shot proporcionado."},
+            {"role": "system", "content": "Eres un profesional en automatización con Playwright. Genera código para steps de Behave utilizando solo los locators proporcionados, siguiendo los ejemplos para given, inputs, clicks, dropdowns y validaciones."},
             {"role": "user", "content": prompt}
         ],
         temperature=0.1,
         max_tokens=4000
     )
     code = response.choices[0].message.content
-    # Limpiar delimitadores markdown y comentarios
-    code = re.sub(r'```python\s*', '', code)
-    code = re.sub(r'```\s*', '', code)
+    # Limpiar delimitadores markdown y comentarios innecesarios
+    code = re.sub(r'```(?:python)?\s*', '', code)
+    code = re.sub(r'\s*```', '', code)
     code = re.sub(r'^#.*$', '', code, flags=re.MULTILINE)
     code = '\n'.join(line for line in code.split('\n') if line.strip())
     # Eliminar declaraciones de importación para evitar duplicados
@@ -283,6 +287,7 @@ def update_steps_file() -> str:
       4. Respaldar (renombrar) el archivo original para evitar pasos duplicados.
       5. Prependé la configuración necesaria (imports, carga de locators, timeout).
       6. Guardar el archivo final en el directorio 'features/steps'.
+      7. No genere comentarios innecesarios, o comentarios que no sean necesarios.
 
     Returns:
         str: Ruta completa del archivo de steps generado.
@@ -299,7 +304,7 @@ def update_steps_file() -> str:
         input_file = os.path.join(steps_dir, "scenario_steps.py")
         output_file = os.path.join(steps_dir, "scenario_steps_playwright.py")
         
-        # Si existe el archivo original, respaldarlo para evitar duplicidad de pasos
+        # Respaldar el archivo original si existe
         if os.path.exists(input_file):
             backup_file = os.path.join(steps_dir, "scenario_steps_original.py")
             os.rename(input_file, backup_file)
@@ -315,8 +320,9 @@ def update_steps_file() -> str:
             "from playwright.sync_api import expect, TimeoutError\n"
             "import os\n"
             "import json\n\n"
-            "TIMEOUT = 5000  # 5 segundos\n\n"
-            "with open(os.path.join(os.path.dirname(__file__), '..', 'locators', 'page_locators.json'), 'r') as f:\n"
+            "TIMEOUT = 15000\n\n"
+            "LOCATORS_PATH = os.path.join(os.path.dirname(__file__), '..', 'locators', 'page_locators.json')\n"
+            "with open(LOCATORS_PATH, 'r') as f:\n"
             "    LOCATORS = json.load(f)\n\n"
             f"{playwright_code}\n"
         )
@@ -324,7 +330,7 @@ def update_steps_file() -> str:
             f.write(final_content)
         logger.info("Archivo de steps actualizado en: %s", output_file)
         
-        # Eliminar el archivo scenario_steps_original para evitar duplicados
+        # Eliminar el archivo original respaldado para evitar duplicados
         os.remove(os.path.join(steps_dir, "scenario_steps_original.py"))
         
         return output_file

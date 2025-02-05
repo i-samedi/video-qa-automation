@@ -7,6 +7,7 @@ import json
 import re
 from service.extract_scenary import *
 from service.generate_definition import generate_step_definitions
+import subprocess  # <-- Se importa subprocess para ejecutar comandos de forma robusta.
 
 
 # Cargar variables de entorno
@@ -41,24 +42,8 @@ def setup_page_config():
     """, unsafe_allow_html=True)
     
 
-def sidebar_content():
-    with st.sidebar:
-        st.image("https://static.wixstatic.com/media/0b7cad_d93db1cbf404473fa826423825390a4b~mv2.png/v1/fill/w_534,h_128,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/logo%20botman.png", width=200)
-        st.title("*Transforme su negocio con el poder de la Inteligencia Artificial.*")
-        
-        st.markdown("### ℹ️ Ayuda")
-        with st.expander("🚀 Guía de Uso Rápida"):
-            st.markdown("""
-                1. Sube video de prueba (MP4, MOV, AVI).
-                2. Obtener la transcripción del video.
-                3. Identificar los escenarios de prueba.
-                4. Generar los escenarios en formato Gherkin.
-            """)
-
-
 def main():
     setup_page_config()
-    sidebar_content()
     
     st.title("*🎥 Video QA Automatizado - BotMan IA beta*")
     
@@ -229,7 +214,7 @@ def main():
     
     with tab4:
         st.markdown("### 🎭 Definitions con Playwright")
-        col1, col2 = st.columns([2,1])
+        col1, col2 = st.columns([3,1])
 
         with col1:
             #modificar para que se muestre el archivo con playwright
@@ -238,6 +223,8 @@ def main():
                     st.code(f.read(), language='python')
             else:
                 st.error("*Aún no se han generado las actualizaciones con Playwright. Por favor, genera primero los definitions.*")
+        
+
 
 if __name__ == "__main__":
     main()

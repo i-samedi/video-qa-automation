@@ -6,10 +6,14 @@ import logging
 from datetime import datetime
 from playwright.sync_api import sync_playwright
 from behave import fixture, use_fixture
+from app.service.update_steps import extract_locators_to_json
 
 # Cargar locators desde el archivo JSON
 LOCATORS_PATH = os.path.join(os.path.dirname(__file__), 'locators', 'page_locators.json')
-with open(LOCATORS_PATH, 'r') as f:
+if not os.path.exists(LOCATORS_PATH):
+    # Si el archivo de locators no existe, se genera primero
+    extract_locators_to_json()
+with open(LOCATORS_PATH, 'r', encoding='utf-8') as f:
     LOCATORS = json.load(f)
 
 
