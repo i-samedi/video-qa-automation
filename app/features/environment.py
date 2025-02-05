@@ -64,7 +64,6 @@ def before_all(context):
     try:
         # Crear directorios para reportes y resultados de pruebas
         os.makedirs("report", exist_ok=True)
-        os.makedirs("app/test-results", exist_ok=True)
 
         # Configurar logging
         log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
