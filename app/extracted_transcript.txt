@@ -1,21 +1,15 @@
-La pantalla sirve para el proceso de carga de pedidos a bodegas.
-El proceso se da cuando desde el almacén central se hace algún pedido a las distintas bodegas.
-Se completa el pedido y queda persistido en la base de datos.
+Feature: Carga de pedidos a bodegas
 
-Pasamos a cómo funciona la pantalla.
-El primer punto es seleccionar la bodega origen del despacho.
-En el control se tienen las opciones a distintas bodegas.
-Seleccionamos la bodega 2.
+  Escenario: Completar proceso de carga de pedido
 
-Después completamos el RUT que corresponde al pedido.
-Usamos 1, 2, 3, 4, 5, 6, 7, 8, 9 como número de RUT a llenar en ese campo.
+    Dado que la pantalla para cargar pedidos a bodegas está abierta  
+    Y el sistema permite realizar pedidos desde el almacén central a distintas bodegas
 
-El siguiente paso es seleccionar un destino en el dropdown.
-Seleccionamos la ubicación número 1.
+    Cuando selecciono apartado "Bodega origen" y selecciono "Bodega 2"  
+    Y completo el campo "RUT" con "1,2,3,4,5,6,7,8,9"  
+    Y selecciono apartado "Destino" y selecciono "ubicación número 1"  
+    Y completo el campo "número de pedido" con "9,8,7"  
+    Y hago clic en el botón "grabar pedidos"
 
-Es necesario completar el número de pedido en el campo número de pedido.
-Ponemos como número de pedido 9, 8, 7.
-
-Para que se complete la operación es necesario hacer clic en el botón grabar pedidos que está debajo del formulario.
-Hacemos clic.
-El proceso queda completado.
+    Entonces el pedido se completa  
+    Y el pedido queda guardado en la base de datos

@@ -7,7 +7,6 @@ import logging
 from openai import OpenAI
 from dotenv import load_dotenv
 
-# Configuración de logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
@@ -47,59 +46,65 @@ def extract_locators_to_json() -> str:
                 data_bytes = res.read()
                 conn.close()
                 data = json.loads(data_bytes.decode("utf-8"))
-                break
+                
+                # --- NUEVO: Filtrar solo los resultados donde "c.locators" no sea NULL ---
+                valid_results = [row for row in data.get("results", []) if row.get("c.locators") is not None]
+                if not valid_results:
+                    raise Exception("No se encontraron locators no nulos en la respuesta de la API")
+                
+                load_dotenv()
+                client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+                prompt = f"""
+Extrae y formatea los locators del siguiente resultado de query.
+Debes extraer en JSON únicamente los c.locators que no sean NULL.
+Utiliza solamente aquellos resultados que tengan datos, por ejemplo, cuando c.name es "TFormPedidoNcr".
+
+Resultados de la query filtrados:
+{json.dumps(valid_results, indent=2)}
+
+El resultado debe ser un JSON válido con la estructura jerárquica de los locators.
+                """
+                response = client.chat.completions.create(
+                    model="gpt-4o",
+                    messages=[
+                        {"role": "system", "content": "Eres un experto en procesamiento de JSON. Extrae y formatea los locators manteniendo su estructura exacta."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.1,
+                    max_tokens=2000
+                )
+                locators_str = response.choices[0].message.content
+                # Eliminar delimitadores markdown
+                locators_str = re.sub(r'```(?:json)?\s*', '', locators_str)
+                locators_str = re.sub(r'\s*```', '', locators_str)
+
+                try:
+                    locators_json = json.loads(locators_str)
+                except json.JSONDecodeError as exc:
+                    logger.error("Error al parsear locators: %s", exc)
+                    logger.error("String problemático: %s", locators_str)
+                    raise
+
+                # Se determina la ruta base (3 niveles arriba de este archivo)
+                base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+                # Se define la carpeta donde se guardarán los locators: app/features/locators
+                locators_dir = os.path.join(base_dir, "app", "features", "locators")
+                os.makedirs(locators_dir, exist_ok=True)
+                locators_file = os.path.join(locators_dir, "page_locators.json")
+                
+                # Se guarda el JSON de locators en la carpeta locators
+                with open(locators_file, 'w', encoding='utf-8') as f:
+                    json.dump(locators_json, f, indent=4, ensure_ascii=False)
+
+                logger.info("Locators extraídos y guardados en: %s", locators_file)
+                return locators_file
+
             except Exception as exc:
                 retry_count += 1
                 logger.warning("Intento %s fallido: %s", retry_count, exc)
                 if retry_count == max_retries:
                     raise Exception(f"Error después de {max_retries} intentos: {exc}")
                 time.sleep(2)
-
-        load_dotenv()
-        client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
-        prompt = f"""
-Extrae y formatea los locators del siguiente resultado de query.
-Necesito que extraigas específicamente el contenido de c.locators donde c.name es "TFormPedidoNcr".
-
-Resultado de la query:
-{json.dumps(data, indent=2)}
-
-El resultado debe ser un JSON válido con la estructura jerárquica de los locators.
-        """
-        response = client.chat.completions.create(
-            model="gpt-4o",
-            messages=[
-                {"role": "system", "content": "Eres un experto en procesamiento de JSON. Extrae y formatea los locators manteniendo su estructura exacta."},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0.1,
-            max_tokens=2000
-        )
-        locators_str = response.choices[0].message.content
-        # Eliminar delimitadores markdown
-        locators_str = re.sub(r'```(?:json)?\s*', '', locators_str)
-        locators_str = re.sub(r'\s*```', '', locators_str)
-
-        try:
-            locators_json = json.loads(locators_str)
-        except json.JSONDecodeError as exc:
-            logger.error("Error al parsear locators: %s", exc)
-            logger.error("String problemático: %s", locators_str)
-            raise
-
-        # Se determina la ruta base (3 niveles arriba de este archivo)
-        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        # Se define la carpeta donde se guardarán los locators: app/features/locators
-        locators_dir = os.path.join(base_dir, "app", "features", "locators")
-        os.makedirs(locators_dir, exist_ok=True)
-        locators_file = os.path.join(locators_dir, "page_locators.json")
-        
-        # Se guarda el JSON de locators en la carpeta locators
-        with open(locators_file, 'w', encoding='utf-8') as f:
-            json.dump(locators_json, f, indent=4, ensure_ascii=False)
-
-        logger.info("Locators extraídos y guardados en: %s", locators_file)
-        return locators_file
 
     except Exception as e:
         logger.exception("Error al extraer locators")
@@ -175,6 +180,7 @@ def generate_playwright_steps_with_gpt4(steps_content: str, locators_file: str) 
     - No inventes selectores o IDs que no existan en el JSON.
     - Usa siempre la estructura exacta de los locators proporcionados.
     - Maneja errores y excepciones como se muestra en los ejemplos.
+    - No crees nuevos TIMEOUT, solo debes usar el TIMEOUT que ya existe. No generes un TIMEOUT= valor.
     """
     with open(locators_file, 'r', encoding='utf-8') as f:
         locators = json.load(f)
@@ -228,6 +234,19 @@ def step_seleccion_dropdown(context):
         raise Exception(f"Error al seleccionar en el dropdown: {{str(e)}}")
 -----------------------------------------------------------
 
+{{ Nuevo: Ejemplo para un checkbox }}
+-----------------------------------------------------------
+@when('el usuario marca el checkbox de aceptar términos')
+def step_checkbox_aceptar(context):
+    try:
+        checkbox = context.page.locator(LOCATORS['groupBox1']['checkboxes']['aceptarTerminos'])
+        expect(checkbox).to_be_visible(timeout=TIMEOUT)
+        if not checkbox.is_checked():
+            checkbox.check()
+    except Exception as e:
+        raise Exception(f"Error al marcar el checkbox: {{str(e)}}")
+-----------------------------------------------------------
+
 Ejemplo para una validación:
 -----------------------------------------------------------
 @then('el valor esperado se muestra en el campo')
@@ -236,6 +255,10 @@ def step_validacion_input(context):
 -----------------------------------------------------------
 
 Genera código Playwright completo y profesional utilizando los locators extraídos (guardados en formato JSON) para su utilización, y aplicando estos ejemplos en la generación de los steps.
+
+RECUERDA:
+- No generes comentarios o texto que afecten el funcionamiento del código.
+- No generes comentarios que no sean necesarios y que no afecten el funcionamiento del código.
 
 Los locators disponibles son:
 {json.dumps(locators, indent=2)}
@@ -246,7 +269,7 @@ Steps a implementar:
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
-            {"role": "system", "content": "Eres un profesional en automatización con Playwright. Genera código para steps de Behave utilizando solo los locators proporcionados, siguiendo los ejemplos para given, inputs, clicks, dropdowns y validaciones."},
+            {"role": "system", "content": "Eres un profesional en automatización con Playwright. Genera código para steps de Behave utilizando solo los locators proporcionados, siguiendo los ejemplos para given, inputs, clicks, dropdowns, checkboxes y validaciones."},
             {"role": "user", "content": prompt}
         ],
         temperature=0.1,
@@ -261,6 +284,11 @@ Steps a implementar:
     # Eliminar declaraciones de importación para evitar duplicados
     code = re.sub(r'^\s*(import|from)\s+.*$', '', code, flags=re.MULTILINE)
     code = '\n'.join(line for line in code.split('\n') if line.strip())
+    
+    # --- NUEVO: Eliminar texto adicional que pueda afectar el funcionamiento ---
+    if "This code implements" in code:
+        code = code.split("This code implements")[0].strip()
+    # -------------------------------------------------------------------------
 
     # Validar que se usen solo locators existentes
     used_locators = re.findall(r"LOCATORS\['([^']+)'\]\['([^']+)'\](?:\['([^']+)'\])?", code)
@@ -281,14 +309,15 @@ def update_steps_file() -> str:
     Actualiza el archivo de steps (scenario_steps.py) generando un archivo nuevo con el código Playwright.
 
     El proceso es:
-      1. Extraer los locators y guardarlos en JSON.
-      2. Leer el archivo de steps original.
-      3. Generar código Playwright usando GPT-4.
-      4. Respaldar (renombrar) el archivo original para evitar pasos duplicados.
-      5. Prependé la configuración necesaria (imports, carga de locators, timeout).
-      6. Guardar el archivo final en el directorio 'features/steps'.
-      7. No genere comentarios innecesarios, o comentarios que no sean necesarios.
-
+        1. Extraer los locators y guardarlos en JSON.
+        2. Leer el archivo de steps original.
+        3. Generar código Playwright usando GPT-4.
+        4. Respaldar (renombrar) el archivo original para evitar pasos duplicados.
+        5. Prependé la configuración necesaria (imports, carga de locators, timeout).
+        6. Guardar el archivo final en el directorio 'features/steps'.
+        7. NO genere comentarios que no sean necesarios y que no afecten el funcionamiento del código.
+        8. No generes comentarios o texto que afecten el funcionamiento del código.
+   
     Returns:
         str: Ruta completa del archivo de steps generado.
 

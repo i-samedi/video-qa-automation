@@ -9,7 +9,6 @@ LOCATORS_PATH = os.path.join(os.path.dirname(__file__), '..', 'locators', 'page_
 with open(LOCATORS_PATH, 'r') as f:
     LOCATORS = json.load(f)
 
-TIMEOUT = 5000  # Adjust the timeout as needed
 LOCATORS = {
     "page": {
         "title": "h1:text(\"Carga de Pedidos a Bodegas\")"
@@ -46,17 +45,15 @@ LOCATORS = {
         }
     }
 }
-@given('el usuario está en la pantalla de carga de pedidos')
-def step_usuario_en_pantalla_carga_pedidos(context):
+TIMEOUT = 5000
+@given(u'el usuario está en la pantalla para cargar pedidos a bodegas')
+def given_usuario_en_pantalla_carga_pedidos(context):
     pass
-@given('tiene acceso a todas las opciones necesarias')
-def step_acceso_a_opciones_necesarias(context):
+@given(u'el sistema permite realizar pedidos desde el almacén central a distintas bodegas')
+def given_sistema_permite_pedidos_desde_almacen_central(context):
     pass
-@given('los parámetros iniciales están configurados')
-def step_parametros_iniciales_configurados(context):
-    pass
-@when('el usuario selecciona la bodega origen del despacho')
-def step_usuario_selecciona_bodega_origen(context):
+@when(u'el usuario selecciona el apartado "Bodega origen" y elige "Bodega 2"')
+def when_usuario_selecciona_bodega_origen(context):
     try:
         combo = context.page.locator(LOCATORS['groupBox1']['selects']['bodega'])
         expect(combo).to_be_visible(timeout=TIMEOUT)
@@ -66,45 +63,45 @@ def step_usuario_selecciona_bodega_origen(context):
         expect(opcion).to_be_visible(timeout=TIMEOUT)
         opcion.click()
     except Exception as e:
-        raise Exception(f"Error al seleccionar la bodega: {str(e)}")
-@then('la bodega 2 es seleccionada correctamente')
-def step_bodega_2_seleccionada_correctamente(context):
+        raise Exception(f"Error al seleccionar la bodega origen: {str(e)}")
+@then(u'la bodega origen es seleccionada correctamente')
+def then_bodega_origen_seleccionada_correctamente(context):
     expect(context.page.locator(LOCATORS['groupBox1']['selects']['bodega'])).to_have_text('Bodega 2', timeout=TIMEOUT)
-@when('el usuario ingresa el RUT correspondiente al pedido')
-def step_usuario_ingresa_rut(context):
+@when(u'el usuario completa el campo "RUT" con "123456789"')
+def when_usuario_completa_campo_rut(context):
     try:
         context.page.fill(LOCATORS['groupBox3']['inputs']['rut'], '123456789')
     except Exception as e:
         raise Exception(f"Error al ingresar el RUT: {e}")
-@then('el RUT 123456789 es ingresado correctamente')
-def step_rut_ingresado_correctamente(context):
+@then(u'el RUT es ingresado correctamente')
+def then_rut_ingresado_correctamente(context):
     expect(context.page.locator(LOCATORS['groupBox3']['inputs']['rut'])).to_have_value('123456789', timeout=TIMEOUT)
-@when('el usuario selecciona el destino en el dropdown')
-def step_usuario_selecciona_destino(context):
+@when(u'el usuario selecciona el apartado "Destino" y elige "ubicación número 1"')
+def when_usuario_selecciona_destino(context):
     try:
         combo = context.page.locator(LOCATORS['groupBox3']['selects']['ubicacion'])
         expect(combo).to_be_visible(timeout=TIMEOUT)
         expect(combo).to_be_enabled(timeout=TIMEOUT)
         combo.click()
-        opcion = context.page.locator('[role="option"]', has_text="Ubicación 1")
+        opcion = context.page.locator('[role="option"]', has_text="ubicación número 1")
         expect(opcion).to_be_visible(timeout=TIMEOUT)
         opcion.click()
     except Exception as e:
         raise Exception(f"Error al seleccionar el destino: {str(e)}")
-@then('la ubicación número 1 es seleccionada correctamente')
-def step_ubicacion_1_seleccionada_correctamente(context):
-    expect(context.page.locator(LOCATORS['groupBox3']['selects']['ubicacion'])).to_have_text('Ubicación 1', timeout=TIMEOUT)
-@when('el usuario ingresa el número de pedido en el campo correspondiente')
-def step_usuario_ingresa_numero_pedido(context):
+@then(u'el destino es seleccionado correctamente')
+def then_destino_seleccionado_correctamente(context):
+    expect(context.page.locator(LOCATORS['groupBox3']['selects']['ubicacion'])).to_have_text('ubicación número 1', timeout=TIMEOUT)
+@when(u'el usuario completa el campo "número de pedido" con "987"')
+def when_usuario_completa_campo_numero_de_pedido(context):
     try:
         context.page.fill(LOCATORS['groupBox3']['inputs']['numeroPedido'], '987')
     except Exception as e:
         raise Exception(f"Error al ingresar el número de pedido: {e}")
-@then('el número de pedido 987 es ingresado correctamente')
-def step_numero_pedido_ingresado_correctamente(context):
+@then(u'el número de pedido es ingresado correctamente')
+def then_numero_de_pedido_ingresado_correctamente(context):
     expect(context.page.locator(LOCATORS['groupBox3']['inputs']['numeroPedido'])).to_have_value('987', timeout=TIMEOUT)
-@when('el usuario hace clic en el botón grabar pedidos')
-def step_usuario_clic_boton_grabar_pedidos(context):
+@when(u'el usuario hace clic en el botón "grabar pedidos"')
+def when_usuario_hace_clic_en_boton_grabar_pedidos(context):
     try:
         boton = context.page.locator(LOCATORS['panel1']['buttons']['grabarPedidos'])
         expect(boton).to_be_visible(timeout=TIMEOUT)
@@ -114,8 +111,12 @@ def step_usuario_clic_boton_grabar_pedidos(context):
         except Exception as e:
             boton.click(force=True)
     except Exception as e:
-        raise Exception(f"Error al hacer clic en el botón grabar pedidos: {str(e)}")
-@then('el pedido es grabado y el proceso queda completado')
-def step_pedido_grabado_proceso_completado(context):
-    # Aquí se podría agregar una validación adicional para confirmar que el proceso se completó
+        raise Exception(f"Error al hacer clic en el botón: {str(e)}")
+@then(u'el pedido se completa')
+def then_pedido_se_completa(context):
+    # Aquí se puede agregar una validación específica para confirmar que el pedido se completó
+    pass
+@then(u'el pedido queda guardado en la base de datos')
+def then_pedido_guardado_en_base_de_datos(context):
+    # Aquí se puede agregar una validación específica para confirmar que el pedido se guardó en la base de datos
     pass

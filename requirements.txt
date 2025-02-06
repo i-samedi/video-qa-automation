@@ -53,5 +53,9 @@ allure-pytest>=2.13.2
 http.client
 behave
 
+beautifulsoup4
+lxml
+html5lib
+
 
 
