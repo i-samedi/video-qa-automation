@@ -39,7 +39,7 @@ def extract_locators_to_json() -> str:
                 headers = {
                     'Content-Type': "application/json",
                     'User-Agent': "insomnia/10.3.0",
-                    'x-api-key': "4bca697be480f14731e32a9a8058f7652dbe8ee7cf75580768861ee802b3d370"
+                    'x-api-key': os.getenv('X_API_KEY')
                 }
                 conn.request("POST", "/api/v1/cypher-query", payload, headers)
                 res = conn.getresponse()
