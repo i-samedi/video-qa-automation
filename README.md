@@ -1,4 +1,4 @@
-# video-qa-IA
+# Automatización QA por Video
 
 ## Instrucciones paso a paso
 1. brew install cmake pkg-config
