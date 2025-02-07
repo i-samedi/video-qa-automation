@@ -1,4 +1,5 @@
-# video-qa-IA
+# Automatización QA con IA para Videos
+El sistema permite la generación automática de casos de prueba a partir de videos demostrativos, facilitando la creación y mantenimiento de pruebas automatizadas.
 
 ## Instrucciones paso a paso
 1. brew install cmake pkg-config
