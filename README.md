@@ -7,6 +7,7 @@
 4. pip install --upgrade pip
 5. pip install -r requirements.txt
 6. playwright install
+7. cd web && npm install
 
 ## Creación archivo .env
 - Crear archivo .env en la raiz del proyecto con las siguientes variables:
@@ -15,6 +16,6 @@
     - CLAUDE_API_KEY= ...
 
 ## Ejecutar el proyecto
-- streamlit run main.py
-- behave
-- behave --tags=@flujo_exitoso
+1. cd web && npm run dev (localhost:3000)
+2. cd app && streamlit run main.py (localhost:8501)
+3. // && behave
