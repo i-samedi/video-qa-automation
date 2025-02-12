@@ -1,12 +1,12 @@
 import streamlit as st
 import os
 from dotenv import load_dotenv
-from service.extract_audio import extract_audio
-from service.extract_transcript import extract_transcript
+from app.service.processing.extract_audio import extract_audio
+from app.service.processing.extract_transcript import extract_transcript
 import json
 import re
-from service.extract_scenary import *
-from service.generate_definition import generate_step_definitions
+from app.service.generation.extract_scenary import *
+from app.service.generation.generate_definition import generate_step_definitions
 import subprocess  # <-- Se importa subprocess para ejecutar comandos de forma robusta.
 
 
@@ -45,7 +45,7 @@ def setup_page_config():
 def main():
     setup_page_config()
     
-    st.title("*🎥 Video QA Automatizado - BotMan IA beta*")
+    st.title("*🎥 Video QA Automatizado - beta*")
     
     #crear tabs 
     tab1, tab2, tab3, tab4 = st.tabs(["🎥 Análisis del Video", "🎭 Escenarios de Prueba", "📝 Definiciones de Pasos", "🎭 Actualizar con Playwright"])
@@ -92,7 +92,7 @@ def main():
                                     extract_transcript("extracted_audio.ogg")
                                     # 3. Procesar transcripción con GPT-4
                                     with st.spinner("Mejorando la transcripción con IA..."):
-                                        from service.end_transcript import process_final_transcript
+                                        from app.service.processing.end_transcript import process_final_transcript
                                         process_final_transcript()
                             else:
                                 st.error("El archivo de audio no existe. Por favor, extrae el audio primero.")
@@ -200,7 +200,7 @@ def main():
         with col2:
             if st.button("🎭 Actualizar con Playwright"):
                 try:
-                    from service.update_steps import update_steps_file
+                    from app.service.integration.update_steps import update_steps_file
                     
                     with st.spinner("Actualizando steps con Playwright..."):
                         output_file = update_steps_file()

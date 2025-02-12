@@ -1,7 +1,7 @@
 import streamlit as st
 from openai import OpenAI
 from datetime import timedelta
-from service.glossary import GLOSSARY, apply_glossary
+from app.service.utils.glossary import GLOSSARY, apply_glossary
 import os
 
 # Add this new function to extract transcript using Whisper
