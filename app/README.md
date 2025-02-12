@@ -29,4 +29,4 @@
         - integration: Contiene los archivos .py que definen las funciones de integración con Playwright.
         - utils: Contiene los archivos .py que definen las funciones de utilidad.
 - features: Contiene los archivos .feature que definen los escenarios de prueba.
-- features/steps: Contiene los archivos .py que definen las definiciones de pasos para los escenarios de prueba.
+    - steps: Contiene los archivos .py que definen las definiciones de pasos para los escenarios de prueba.

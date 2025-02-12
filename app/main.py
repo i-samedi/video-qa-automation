@@ -1,5 +1,10 @@
-import streamlit as st
 import os
+import sys
+
+# Agregar el directorio padre al sys.path para que se reconozca el paquete "app"
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+import streamlit as st
 from dotenv import load_dotenv
 from app.service.processing.extract_audio import extract_audio
 from app.service.processing.extract_transcript import extract_transcript
