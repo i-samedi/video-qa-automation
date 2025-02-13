@@ -1,18 +1,13 @@
 import os
 import sys
-
-# Agregar el directorio padre al sys.path para que se reconozca el paquete "app"
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 import streamlit as st
 from dotenv import load_dotenv
-from app.service.processing.extract_audio import extract_audio
-from app.service.processing.extract_transcript import extract_transcript
+from service.processing.extract_audio import extract_audio
+from service.processing.extract_transcript import extract_transcript
 import json
 import re
-from app.service.generation.extract_scenary import *
-from app.service.generation.generate_definition import generate_step_definitions
-import subprocess  # <-- Se importa subprocess para ejecutar comandos de forma robusta.
+from service.generation.extract_scenary import *
+from service.generation.generate_definition import generate_step_definitions
 
 
 # Cargar variables de entorno
@@ -52,8 +47,13 @@ def main():
     
     st.title("*🎥 Video QA Automatizado - beta*")
     
-    #crear tabs 
-    tab1, tab2, tab3, tab4 = st.tabs(["🎥 Análisis del Video", "🎭 Escenarios de Prueba", "📝 Definiciones de Pasos", "🎭 Actualizar con Playwright"])
+    # Crear tabs 
+    tab1, tab2, tab3, tab4 = st.tabs([
+        "🎥 Análisis del Video",
+        "🎭 Escenarios de Prueba",
+        "📝 Definiciones de Pasos",
+        "🎭 Actualizar con Playwright"
+    ])
     
     with tab1:
         st.markdown("### 📤 Subir Video")
@@ -77,6 +77,14 @@ def main():
             
             with col2:
                 st.markdown("### 🎯 Acciones")
+                
+                if st.button("🎥 Ejecución Completa"):
+                    try:
+                        from service.integration.run_complete_execution import run_complete_execution
+                        run_complete_execution(video_file) 
+                    except Exception as e:
+                        st.error(f"Error en la ejecución completa: {str(e)}")
+                
                 if st.button("📝 Generar Transcripción de la Prueba"):
                     if video_file:
                         try:
@@ -97,7 +105,7 @@ def main():
                                     extract_transcript("extracted_audio.ogg")
                                     # 3. Procesar transcripción con GPT-4
                                     with st.spinner("Mejorando la transcripción con IA..."):
-                                        from app.service.processing.end_transcript import process_final_transcript
+                                        from service.processing.end_transcript import process_final_transcript
                                         process_final_transcript()
                             else:
                                 st.error("El archivo de audio no existe. Por favor, extrae el audio primero.")
@@ -145,32 +153,32 @@ def main():
                             
                         except Exception as e:
                             st.error(f"Error al generar los escenarios: {str(e)}")
-                
-                        
+                    
+                    
     with tab2:
         st.markdown("### 📀 Features Generados")
         col1, col2 = st.columns([2,1])
-
+    
         with col1:
             feature_file = os.path.join("features", "scenario.feature")
             if os.path.exists(feature_file):
                 with open(feature_file, 'r', encoding='utf-8') as f:
                     gherkin_content = f.read()
-                
+            
                 scenarios_dict = parse_gherkin_scenarios(gherkin_content)
-                
+            
                 st.success(f"Se encontraron {len(scenarios_dict['scenarios'])} escenarios de prueba")
-                
+            
                 with st.expander("📝 Feature General", expanded=True):
                     st.code(scenarios_dict['feature'], language='gherkin')
-                
+            
                 for i, scenario in enumerate(scenarios_dict['scenarios'], 1):
                     with st.expander(f"🎭 Escenario {i}", expanded=False):
                         st.code(scenario, language='gherkin')
                         
             else:
                 st.error("*Aún no se ha generado ningún escenario de prueba. Por favor, sube un video y genera escenarios en la pestaña 'Análisis del Video'*")
-
+    
         with col2:
             if st.button("🎭 Generar Definition"):
                 try:
@@ -185,10 +193,10 @@ def main():
                                         
                 except Exception as e:
                     st.error(f"Error al generar las definiciones: {str(e)}")
-
+    
     with tab3:
         st.markdown("### 📝 Definiciones de Pasos")
-
+    
         col1, col2 = st.columns([2,1])
         
         with col1:
@@ -205,7 +213,7 @@ def main():
         with col2:
             if st.button("🎭 Actualizar con Playwright"):
                 try:
-                    from app.service.integration.update_steps import update_steps_file
+                    from service.integration.update_steps import update_steps_file
                     
                     with st.spinner("Actualizando steps con Playwright..."):
                         output_file = update_steps_file()
@@ -220,17 +228,15 @@ def main():
     with tab4:
         st.markdown("### 🎭 Definitions con Playwright")
         col1, col2 = st.columns([3,1])
-
+    
         with col1:
-            #modificar para que se muestre el archivo con playwright
+            # Modificar para que se muestre el archivo con playwright
             if os.path.exists("features/steps/scenario_steps_playwright.py"):
                 with open("features/steps/scenario_steps_playwright.py", 'r', encoding='utf-8') as f:
                     st.code(f.read(), language='python')
             else:
                 st.error("*Aún no se han generado las actualizaciones con Playwright. Por favor, genera primero los definitions.*")
-        
-
-
+    
 if __name__ == "__main__":
     main()
 

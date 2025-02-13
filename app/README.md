@@ -24,9 +24,9 @@
 
 - app: Contiene el código principal de la aplicación.
     - service: Contiene los archivos .py que definen las funciones de procesamiento y generación de escenarios y definiciones de pasos.
-        - processing: Contiene los archivos .py que definen las funciones de procesamiento de la transcripción.
-        - generation: Contiene los archivos .py que definen las funciones de generación de escenarios y definiciones de pasos.
-        - integration: Contiene los archivos .py que definen las funciones de integración con Playwright.
-        - utils: Contiene los archivos .py que definen las funciones de utilidad.
+        - 1) processing: Contiene los archivos .py que definen las funciones de procesamiento de la transcripción.
+        - 2) generation: Contiene los archivos .py que definen las funciones de generación de escenarios y definiciones de pasos.
+        - 3) integration: Contiene los archivos .py que definen las funciones de integración con Playwright.
+        - 4) utils: Contiene los archivos .py que definen las funciones de utilidad.
 - features: Contiene los archivos .feature que definen los escenarios de prueba.
     - steps: Contiene los archivos .py que definen las definiciones de pasos para los escenarios de prueba.
