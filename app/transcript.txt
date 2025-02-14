@@ -1,16 +1,66 @@
-{Person1}{00:00:00:01} Bueno, esta pantalla sirve para el prOCeso de carga de pedidos a bodegas.
-{Person1}{00:00:00:07} Este prOCeso se da cuando desde la almacén central se hace algún pedido a las distintas bodegas.
-{Person1}{00:00:00:15} Se completa el pedido y eso queda persistido en la base de datos, queda grabado.
-{Person1}{00:00:00:23} Pasamos entonces a cómo funciona la pantalla.
-{Person1}{00:00:00:28} El primer punto es seleccionar la bodega origen del despacho.
-{Person1}{00:00:00:36} En este control tenemos las opciones a distintas bodegas.
-{Person1}{00:00:00:42} En este caso vamos a seleccionar la bodega 2.
-{Person1}{00:00:00:47} Después tenemos que completar el RUT que corresponde al pedido.
-{Person1}{00:00:00:53} En este caso vamos a usar 1, 2, 3, 4, 5, 6, 7, 8, 9 como número de RUT a llenar en ese campo.
-{Person1}{00:00:01:05} Tenemos como siguiente paso que seleccionar un destino en este dropdown.
-{Person1}{00:00:01:14} En este caso vamos a dejar la ubicación número 1, esta opción.
-{Person1}{00:00:01:19} Y por último es necesario completar el número de pedido en el campo número de pedido.
-{Person1}{00:00:01:28} En este caso vamos a poner como número de pedido 9, 8, 7.
-{Person1}{00:00:01:35} Por último para que se complete la operación es necesario hacer clic en el botón grabar pedidos que está debajo del formulario.
-{Person1}{00:00:01:45} Hacemos clic.
-{Person1}{00:00:01:49} Y el prOCeso queda completado.
+{Person1}{00:00:00:01} Hola, buen día. Me pidieron explicar en qué consiste o cómo está conformada la pantalla de
+{Person1}{00:00:00:13} seguimiento de importación. Así que nos vamos a ir a esa pantalla ahora y les voy a explicar
+{Person1}{00:00:00:20} uno a uno los campos que la conforman. Esta es la pantalla principal que utiliza actualmente
+{Person1}{00:00:00:35} el área de COMEX. Se llama seguimiento de importaciones. Está dividida entre distintos
+{Person1}{00:00:00:40} recuadros que van dando forma a lo que conforma la OC que se gestiona en Oracle,
+{Person1}{00:00:00:48} en el ERP Oracle. Una vez que la OC está aprobada en Oracle, después de pasar un
+{Person1}{00:00:00:55} circuito de aprobación, queda disponible para nosotros en esta pantalla. Ahora, vamos por pasos.
+{Person1}{00:00:01:06} La primera parte está enfOCada en la descripción, cierto, de los datos de la compañía. Foros S.A.,
+{Person1}{00:00:01:14} la dirección. Bueno, aquí aparece la dirección antigua, pero la dirección, las bodegas de entrega,
+{Person1}{00:00:01:19} el RUT, la marca, que es súper importante, la colección y la fecha de emisión de la orden de
+{Person1}{00:00:01:27} compra. Seguido de eso, tenemos los datos del proveedor, como el nombre, el RUT. Este RUT
+{Person1}{00:00:01:34} es creado de manera ficticia. Tenemos un correlativo y a cada proveedor se le asigna un
+{Person1}{00:00:01:41} número. En este caso, Shanghai Soho tiene este 100 días 678. La dirección y otros datos del
+{Person1}{00:00:01:49} proveedor. Después tenemos lo que tiene que ver con la OC, con los datos de la orden
+{Person1}{00:00:01:54} de compra. Más bien, con los datos de la proforma del proveedor. Cuando Foros compra un proveedor,
+{Person1}{00:00:02:01} este emite una proforma, que es la que se menciona acá. Y esta es la que respalda, cierto, dicha
+{Person1}{00:00:02:10} compra. Aparece el país de origen, puertos de embarque, la vía de embarque, el factor. El
+{Person1}{00:00:02:18} factor es un porcentaje bajo el cual se determina cuál es el costo de poner la mercadería en Chile.
+{Person1}{00:00:02:25} La cláusula de compra, cláusula FOP y la comisión, si es que la hubieran, y la vía de embarque
+{Person1}{00:00:02:32} marítimo, que no recuerdo si lo mencioné. Respecto a las cláusulas de compra, existen varias. Aquí
+{Person1}{00:00:02:39} están seleccionadas. Existe la posibilidad de seleccionar la cláusula de compra. Y en el caso
+{Person1}{00:00:02:45} de los puertos, también hay una base de datos. Todo eso debe venir desde la OC.
+{Person1}{00:00:02:51} Luego están las fechas, el factory date, el último plazo de embarque, la fecha de necesidad y la
+{Person1}{00:00:02:58} forma de pago. En este caso, el factory date equivale a la fecha en la que el proveedor debe
+{Person1}{00:00:03:03} entregar o debe tener lista la mercadería. El último plazo de embarque es cuando se debe embarcar
+{Person1}{00:00:03:11} esa mercadería. La fecha de necesidad, cuando la mercadería debe estar en el centro de distribución
+{Person1}{00:00:03:16} y la fecha de pago, en este caso WT. También existe la forma de pago LC, que es carta de crédito,
+{Person1}{00:00:03:27} WT, transfer y cobranza, que es otra otra forma de pago. Por lo tanto, COMEX actualmente opera
+{Person1}{00:00:03:36} con tres formas de pago. Después tenemos los datos del forward, casos expeditors, si los embarques
+{Person1}{00:00:03:43} son parciales o no. La moneda, en este caso es dólar. Y si existieran gastos adicionales. Esta
+{Person1}{00:00:03:53} parte de la pantalla hace mención a los datos de la carta de crédito. En este caso, como la cláusula
+{Person1}{00:00:04:01} de compra es WT, no aplican estos datos. Después tenemos el detalle de la OC. Cuando
+{Person1}{00:00:04:11} se repite el número de la OC, estamos hablando de clase accesorios. En Forbes se maneja
+{Person1}{00:00:04:18} accesorios, calzado, vestuario y hace muy pOCo se integró la clase perfumería. Después tenemos
+{Person1}{00:00:04:28} el género, que puede ser hombre, mujer, niño o unisex. El modelo, el nombre del producto, el
+{Person1}{00:00:04:36} color, el código, el código color, la talla y la barra. En este caso se trata de sólidos, porque el
+{Person1}{00:00:04:46} número de la barra es mucho más largo. Tiene cerca de 12 o 13 números dígitos. Y el sólido es
+{Person1}{00:00:04:54} reposición. Entonces, existe, bueno, Forbes está dividido en compras que se realizan bajo el concepto
+{Person1}{00:00:05:02} tarea y el concepto sólidos. Lo que es tarea es el llenado de canal, porque viene con la curva
+{Person1}{00:00:05:10} previamente distribuida dentro de cada uno de los cartones. Y el otro que es sólido, cierto,
+{Person1}{00:00:05:16} es que viene en un cartón una única talla. Después viene la cantidad comprada. En el caso
+{Person1}{00:00:05:23} del booking no está operativo actualmente, por lo tanto, no aparecen cantidades. Y aquí aparece la
+{Person1}{00:00:05:29} cantidad embarcada. En este caso, diferencia cero, porque la cantidad comprada es igual a
+{Person1}{00:00:05:34} la cantidad embarcada. Y el precio que aparece acá. De cada uno de los productos. Este es el
+{Person1}{00:00:05:42} número de la OC. Que si yo ingreso, le doy un enter, ahí aparece el número, los
+{Person1}{00:00:05:49} detalles de la orden, de la OC. Después seguimos con los distintos íconos que
+{Person1}{00:00:05:59} tiene incorporada esta pantalla. Que está el ícono factura, donde se ingresa la factura relacionada
+{Person1}{00:00:06:07} al embarque. Después tenemos el ícono ASN, que es donde se ingresa el embarque de la mercadería,
+{Person1}{00:00:06:14} los datos del embarque. Programa, es una pantalla que se creó para programar, para la redundancia,
+{Person1}{00:00:06:20} la mercadería, el centro de distribución. El envío, que queda registro de cuando se envió la
+{Person1}{00:00:06:26} mercadería al, perdón, cuando se enviaron los dOCumentos a la agencia de aduana. Reportes,
+{Person1}{00:00:06:34} aquí en este ícono tenemos la alternativa de reportes y consultas. Aquí ver una información,
+{Person1}{00:00:06:42} un resumen de operación. El área de pagos, donde se ingresa la información de todos los pagos
+{Person1}{00:00:06:48} relacionados a los gastos que origina una importación. Aquí el ícono borrar. Esto
+{Person1}{00:00:06:54} permite borrar una OC desde la pantalla de seguimiento. Anulación. Esto nos
+{Person1}{00:00:07:00} permite anular en la antorcha una OC que no va a ser embarcada. El Royalty,
+{Person1}{00:00:07:10} existen algunas marcas que operan con Royalty, fundamentalmente Wolverine. Este también tiene
+{Person1}{00:00:07:16} su espacio acá. Respecto a los anticipos, este anticipo actualmente está desactivado porque se
+{Person1}{00:00:07:21} creó otra antorcha que maneja el tema de los anticipos. Y esto de la carga B y ver B tiene
+{Person1}{00:00:07:27} que ver con el booking que como antes les comenté, no tiene, no está actualmente operativo. Acá
+{Person1}{00:00:07:36} abajo aparece un resumen de la compra. Las tareas, que en este caso no hay tareas porque como les
+{Person1}{00:00:07:43} comenté, todo esto de SKU corresponde a sólidos. Las unidades que equivalen, en este caso como no
+{Person1}{00:00:07:48} hay tareas, no hay equivalencia en unidades. Los sólidos son 1100, la totalidad 1100 y embarcado
+{Person1}{00:00:07:58} 1100. Por lo tanto existe una diferencia de cero. Eso es lo que tiene que ver fundamentalmente con
+{Person1}{00:00:08:04} la primera pantalla que quisimos mostrar que es seguimiento de importaciones. En las siguientes
+{Person1}{00:00:08:11} grabaciones voy a seguir mostrando cada uno de los iconos que conforman esta pantalla.

@@ -78,7 +78,7 @@ def main():
             with col2:
                 st.markdown("### 🎯 Acciones")
                 
-                if st.button("🎥 Ejecución Completa"):
+                if st.button("🎥 Ejecución Completa", type="primary"):
                     try:
                         from service.integration.run_complete_execution import run_complete_execution
                         run_complete_execution(video_file) 
@@ -180,7 +180,7 @@ def main():
                 st.error("*Aún no se ha generado ningún escenario de prueba. Por favor, sube un video y genera escenarios en la pestaña 'Análisis del Video'*")
     
         with col2:
-            if st.button("🎭 Generar Definition"):
+            if st.button("🎭 Generar Definition", type="primary"):
                 try:
                     feature_file = os.path.join("features", "scenario.feature")
                     if not os.path.exists(feature_file):
@@ -211,7 +211,7 @@ def main():
                 st.error("*Aún no se han generado las definiciones de pasos. Por favor, genera primero los escenarios.*")
         
         with col2:
-            if st.button("🎭 Actualizar con Playwright"):
+            if st.button("🎭 Actualizar con Playwright", type="primary"):
                 try:
                     from service.integration.update_steps import update_steps_file
                     

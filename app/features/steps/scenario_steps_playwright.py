@@ -30,78 +30,93 @@ LOCATORS = {
     },
     "groupBox1": {
         "container": "#groupbox1",
-        "selects": {
-            "bodega": "#combobodega"
+        "checkboxes": {
+            "homologarCliente": "#checkboxhomologaclte",
+            "soloStock": "#checkboxstock"
         }
     },
     "groupBox3": {
         "container": "#groupbox3",
         "inputs": {
-            "rut": "#editrut",
-            "numeroPedido": "#editnropedido"
-        },
-        "selects": {
-            "ubicacion": "#comboubicacion"
+            "rut": "#editrut"
         }
     }
 }
 TIMEOUT = 5000
-@given('el usuario está en la pantalla para la carga de pedidos a bodegas')
-def step_usuario_esta_en_pantalla_carga(context):
+@given('el área de COMEX utiliza la pantalla principal de seguimiento de importaciones')
+def given_comex_uses_main_tracking_screen(context):
+    pass
+@given('la OC aprobada en Oracle se muestra en esta pantalla')
+def given_approved_oc_displayed_on_screen(context):
+    pass
+@when('el usuario accede a la pantalla de seguimiento de importaciones')
+def when_user_accesses_tracking_screen(context):
+    pass
+@then('se muestra la pantalla de seguimiento de importaciones correctamente')
+def then_tracking_screen_displayed_correctly(context):
     expect(context.page.locator(LOCATORS['page']['title'])).to_be_visible(timeout=TIMEOUT)
-@given('la aplicación está conectada a la base de datos')
-def step_aplicacion_conectada_base_datos(context):
-    pass  # Implementación que verifica la conexión a la base de datos
-@when('el usuario selecciona el apartado "Bodegas de origen" y elige "Bodega 2"')
-def step_usuario_selecciona_bodega_origen(context):
-    try:
-        combo = context.page.locator(LOCATORS['groupBox1']['selects']['bodega'])
-        expect(combo).to_be_visible(timeout=TIMEOUT)
-        expect(combo).to_be_enabled(timeout=TIMEOUT)
-        combo.click()
-        opcion = context.page.locator('[role="option"]', has_text="Bodega 2")
-        expect(opcion).to_be_visible(timeout=TIMEOUT)
-        opcion.click()
-    except Exception as e:
-        raise Exception(f"Error al seleccionar la bodega de origen: {str(e)}")
-@then('la bodega de origen es seleccionada correctamente')
-def step_bodega_origen_seleccionada_correctamente(context):
-    expect(context.page.locator(LOCATORS['groupBox1']['selects']['bodega'])).to_have_text('Bodega 2', timeout=TIMEOUT)
-@when('el usuario completa el campo "RUT" con "123456789"')
-def step_usuario_completa_campo_rut(context):
+@when('el usuario visualiza los datos de la compañía')
+def when_user_views_company_data(context):
+    pass
+@then('se muestran el nombre, dirección antigua, bodegas de entrega, RUT, marca, colección y fecha de emisión de la orden de compra')
+def then_company_data_displayed(context):
+    pass
+@when('el usuario visualiza los datos del proveedor')
+def when_user_views_supplier_data(context):
+    pass
+@then('se muestran el nombre, RUT ficticio, correlativo, número asignado, dirección y otros datos relevantes')
+def then_supplier_data_displayed(context):
+    pass
+@when('el usuario visualiza los datos de la proforma del proveedor')
+def when_user_views_supplier_proforma_data(context):
+    pass
+@then('se muestran el país de origen, puertos de embarque, vía de embarque, factor, cláusula de compra, cláusula FOP y comisión si existen')
+def then_supplier_proforma_data_displayed(context):
+    pass
+@when('el usuario visualiza las fechas y forma de pago')
+def when_user_views_payment_dates_and_method(context):
+    pass
+@then('se muestran la factory date, último plazo de embarque, fecha de necesidad y forma de pago')
+def then_payment_dates_and_method_displayed(context):
+    pass
+@when('el usuario visualiza los datos del forward, expeditors y condiciones de embarque')
+def when_user_views_forward_expeditors_and_shipping_conditions(context):
+    pass
+@then('se muestran si el embarque es parcial, la moneda empleada y gastos adicionales si existen')
+def then_forward_expeditors_and_shipping_conditions_displayed(context):
+    pass
+@when('el usuario visualiza los datos relacionados a carta de crédito')
+def when_user_views_credit_letter_data(context):
+    pass
+@then('no se muestran si la cláusula de compra es WT')
+def then_credit_letter_data_not_displayed_if_wt(context):
+    pass
+@when('el usuario visualiza el detalle de la orden de compra')
+def when_user_views_purchase_order_details(context):
+    pass
+@then('se muestran el número de OC, clase de producto, género, modelo, nombre del producto, color, código, código color, talla, número de la barra, cantidad comprada, cantidad embarcada y precio')
+def then_purchase_order_details_displayed(context):
+    pass
+@when('el usuario visualiza los íconos de acción en la pantalla')
+def when_user_views_action_icons_on_screen(context):
+    pass
+@then('se muestran los íconos Factura, ASN, Programa, Envío, Reportes, área de Pagos, Borrar, Anulación, Royalty, opciones de anticipos y funciones de carga B y ver B en el booking')
+def then_action_icons_displayed_on_screen(context):
+    pass
+@when('el usuario visualiza el resumen de la compra')
+def when_user_views_purchase_summary(context):
+    pass
+@then('se muestran el total de tareas, unidades equivalentes, sólidos y total de la compra, confirmando que la diferencia es cero cuando la cantidad comprada es igual a la embarcada')
+def then_purchase_summary_displayed_correctly(context):
+    pass
+@when('el usuario ingresa el RUT correspondiente')
+def step_ingreso_rut(context):
     try:
         context.page.fill(LOCATORS['groupBox3']['inputs']['rut'], '123456789')
     except Exception as e:
         raise Exception(f"Error al ingresar el RUT: {e}")
-@then('el RUT es ingresado correctamente')
-def step_rut_ingresado_correctamente(context):
-    expect(context.page.locator(LOCATORS['groupBox3']['inputs']['rut'])).to_have_value('123456789', timeout=TIMEOUT)
-@when('el usuario selecciona el dropdown "Destino" y elige la opción "Ubicación 1"')
-def step_usuario_selecciona_destino(context):
-    try:
-        combo = context.page.locator(LOCATORS['groupBox3']['selects']['ubicacion'])
-        expect(combo).to_be_visible(timeout=TIMEOUT)
-        expect(combo).to_be_enabled(timeout=TIMEOUT)
-        combo.click()
-        opcion = context.page.locator('[role="option"]', has_text="Ubicación 1")
-        expect(opcion).to_be_visible(timeout=TIMEOUT)
-        opcion.click()
-    except Exception as e:
-        raise Exception(f"Error al seleccionar el destino: {str(e)}")
-@then('el destino es seleccionado correctamente')
-def step_destino_seleccionado_correctamente(context):
-    expect(context.page.locator(LOCATORS['groupBox3']['selects']['ubicacion'])).to_have_text('Ubicación 1', timeout=TIMEOUT)
-@when('el usuario completa el campo "Número de pedido" con "987"')
-def step_usuario_completa_campo_numero_pedido(context):
-    try:
-        context.page.fill(LOCATORS['groupBox3']['inputs']['numeroPedido'], '987')
-    except Exception as e:
-        raise Exception(f"Error al ingresar el número de pedido: {e}")
-@then('el número de pedido es ingresado correctamente')
-def step_numero_pedido_ingresado_correctamente(context):
-    expect(context.page.locator(LOCATORS['groupBox3']['inputs']['numeroPedido'])).to_have_value('987', timeout=TIMEOUT)
-@when('el usuario hace clic en el botón "Grabar pedidos"')
-def step_usuario_clic_boton_grabar_pedidos(context):
+@when('el usuario hace clic en el botón grabar pedidos')
+def step_click_grabar(context):
     try:
         boton = context.page.locator(LOCATORS['panel1']['buttons']['grabarPedidos'])
         expect(boton).to_be_visible(timeout=TIMEOUT)
@@ -112,9 +127,15 @@ def step_usuario_clic_boton_grabar_pedidos(context):
             boton.click(force=True)
     except Exception as e:
         raise Exception(f"Error al hacer clic en el botón: {str(e)}")
-@then('el pedido se graba en la base de datos')
-def step_pedido_grabado_base_datos(context):
-    pass  # Implementación que verifica que el pedido fue grabado en la base de datos
-@then('el proceso de carga de pedidos queda completado')
-def step_proceso_carga_completado(context):
-    pass  # Implementación que verifica que el proceso fue completado
+@when('el usuario marca el checkbox de homologar cliente')
+def step_checkbox_homologar_cliente(context):
+    try:
+        checkbox = context.page.locator(LOCATORS['groupBox1']['checkboxes']['homologarCliente'])
+        expect(checkbox).to_be_visible(timeout=TIMEOUT)
+        if not checkbox.is_checked():
+            checkbox.check()
+    except Exception as e:
+        raise Exception(f"Error al marcar el checkbox: {str(e)}")
+@then('el valor esperado se muestra en el campo de RUT')
+def step_validacion_input_rut(context):
+    expect(context.page.locator(LOCATORS['groupBox3']['inputs']['rut'])).to_have_value('123456789', timeout=TIMEOUT)

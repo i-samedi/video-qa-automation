@@ -1,13 +1,64 @@
-Escenario: Carga de pedidos a bodegas
+Feature: Seguimiento de Importaciones
 
-Dado que se muestra la pantalla para la carga de pedidos a bodegas  
-Y la aplicación está conectada a la base de datos  
+Scenario: Visualizar información técnica de la pantalla
 
-Cuando se selecciona el apartado "Bodegas de origen" y se selecciona "Bodega 2"  
-Y se completa el campo "RUT" con "123456789"  
-Y se selecciona el dropdown "Destino" y se selecciona la opción "Ubicación 1"  
-Y se completa el campo "Número de pedido" con "987"  
-Y se hace clic en el botón "Grabar pedidos"  
+  Dado que el área de COMEX utiliza la pantalla principal de seguimiento de importaciones  
+  Y la OC aprobada en Oracle se muestra en esta pantalla  
 
-Entonces el pedido se graba en la base de datos  
-Y el proceso de carga de pedidos queda completado
+  Cuando el usuario accede a la pantalla de seguimiento de importaciones  
+
+  Entonces se muestran los datos de la compañía  
+    • Mostrar nombre (Foros S.A.)  
+    • Mostrar dirección antigua y bodegas de entrega  
+    • Mostrar RUT, marca, colección y fecha de emisión de la orden de compra  
+
+  Entonces se muestran los datos del proveedor  
+    • Mostrar nombre y RUT ficticio  
+    • Mostrar correlativo y número asignado (por ejemplo, Shanghai Soho: 100 días 678)  
+    • Mostrar dirección y otros datos relevantes  
+
+  Entonces se muestran los datos de la proforma del proveedor  
+    • Mostrar país de origen  
+    • Mostrar puertos de embarque y vía de embarque  
+    • Mostrar factor (porcentaje para determinar costo de puesta de mercadería en Chile)  
+    • Mostrar cláusula de compra, cláusula FOP y comisión si existen  
+    • Permitir seleccionar la cláusula de compra y consultar base de datos de puertos  
+
+  Entonces se muestran las fechas y forma de pago  
+    • Mostrar factory date (fecha en que el proveedor debe entregar la mercadería)  
+    • Mostrar último plazo de embarque  
+    • Mostrar fecha de necesidad (fecha de llegada al centro de distribución)  
+    • Mostrar forma de pago (WT, LC, transfer, cobranza)  
+
+  Entonces se muestran los datos del forward, expeditors y condiciones de embarque  
+    • Mostrar si el embarque es parcial  
+    • Mostrar la moneda empleada (dólar)  
+    • Mostrar gastos adicionales si existen  
+
+  Entonces se muestran los datos relacionados a carta de crédito  
+    • No mostrar si la cláusula de compra es WT  
+
+  Entonces se muestra el detalle de la orden de compra  
+    • Mostrar número de OC y detalles asociados  
+    • Mostrar clase de producto (accesorios, calzado, vestuario, perfumería en pocos casos)  
+    • Mostrar género (hombre, mujer, niño o unisex)  
+    • Mostrar modelo, nombre del producto, color, código, código color, talla y número de la barra  
+    • Diferenciar entre pedidos sólidos y tareas  
+    • Mostrar cantidad comprada, cantidad embarcada y precio  
+    • Confirmar que la diferencia entre cantidad comprada y embarcada es cero  
+
+  Entonces se muestran los íconos de acción en la pantalla  
+    • Mostrar ícono Factura para ingresar la factura relacionada al embarque  
+    • Mostrar ícono ASN para ingresar datos del embarque  
+    • Mostrar ícono Programa para programar la redundancia de mercadería en el centro de distribución  
+    • Mostrar ícono Envío para registrar el envío de documentos a la agencia de aduana  
+    • Mostrar ícono Reportes para consultar y ver resumen de operación  
+    • Mostrar área de Pagos para ingresar información de todos los gastos de la importación  
+    • Mostrar ícono Borrar para eliminar una OC desde esta pantalla  
+    • Mostrar ícono Anulación para anular una OC que no será embarcada  
+    • Mostrar ícono Royalty para marcas que operan con este concepto (por ejemplo, Wolverine)  
+    • Mostrar opciones de anticipos (actualmente desactivado) y funciones de carga B y ver B en el booking  
+
+  Entonces se muestra un resumen de la compra  
+    • Mostrar total de tareas, unidades equivalentes, sólidos y total de la compra  
+    • Confirmar que la diferencia es cero cuando la cantidad comprada es igual a la embarcada
