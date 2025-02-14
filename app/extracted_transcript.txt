@@ -1,16 +1,13 @@
-Feature: Carga de pedidos a bodegas
+Escenario: Carga de pedidos a bodegas
 
-Escenario: Procesar y grabar un pedido
+Dado que se muestra la pantalla para la carga de pedidos a bodegas  
+Y la aplicación está conectada a la base de datos  
 
-Dado que el proceso se inicia desde el almacén central para realizar un pedido a una bodega  
-Y la información del pedido se guarda en la base de datos
+Cuando se selecciona el apartado "Bodegas de origen" y se selecciona "Bodega 2"  
+Y se completa el campo "RUT" con "123456789"  
+Y se selecciona el dropdown "Destino" y se selecciona la opción "Ubicación 1"  
+Y se completa el campo "Número de pedido" con "987"  
+Y se hace clic en el botón "Grabar pedidos"  
 
-Cuando el usuario interactúa con la pantalla de carga de pedidos  
-Y selecciona apartado "Bodegas de origen" y selecciona "Bodega 2"  
-Y completa el campo RUT con "123456789"  
-Y selecciona apartado "Destino" y selecciona "Ubicación número 1"  
-Y completa el campo "Número de pedido" con "987"  
-Y hace clic en el botón "Grabar pedidos"
-
-Entonces el sistema guarda el pedido  
-Y el proceso de carga se completa
+Entonces el pedido se graba en la base de datos  
+Y el proceso de carga de pedidos queda completado

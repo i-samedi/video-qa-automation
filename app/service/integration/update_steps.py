@@ -306,44 +306,43 @@ Steps a implementar:
 
 def update_steps_file() -> str:
     """
-    Actualiza el archivo de steps (scenario_steps.py) generando un archivo nuevo con el código Playwright.
-
+    Actualiza o crea el archivo de steps con código Playwright.
+    
     El proceso es:
         1. Extraer los locators y guardarlos en JSON.
-        2. Leer el archivo de steps original.
+        2. Crear o leer el archivo de steps.
         3. Generar código Playwright usando GPT-4.
-        4. Respaldar (renombrar) el archivo original para evitar pasos duplicados.
-        5. Prependé la configuración necesaria (imports, carga de locators, timeout).
-        6. Guardar el archivo final en el directorio 'features/steps'.
-        7. NO genere comentarios que no sean necesarios y que no afecten el funcionamiento del código.
-        8. No generes comentarios o texto que afecten el funcionamiento del código.
+        4. Guardar el archivo final en el directorio 'features/steps'.
    
     Returns:
         str: Ruta completa del archivo de steps generado.
-
-    Raises:
-        FileNotFoundError: Si no se encuentra el archivo de steps original.
-        Exception: Para otros errores durante el proceso.
     """
     try:
+        # 1. Extraer locators
         locators_file = extract_locators_to_json()
+        
+        # Configurar directorios
         base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        steps_dir = os.path.join(base_dir, "app", "features", "steps")
+        steps_dir = os.path.join(base_dir, "features", "steps")
         os.makedirs(steps_dir, exist_ok=True)
+        
         input_file = os.path.join(steps_dir, "scenario_steps.py")
         output_file = os.path.join(steps_dir, "scenario_steps_playwright.py")
         
-        # Respaldar el archivo original si existe
+        # 2. Leer o crear contenido inicial
+        original_content = ""
         if os.path.exists(input_file):
+            with open(input_file, 'r', encoding='utf-8') as f:
+                original_content = f.read()
+            # Respaldar archivo original si existe
             backup_file = os.path.join(steps_dir, "scenario_steps_original.py")
             os.rename(input_file, backup_file)
             logger.info("Archivo original respaldado como: %s", backup_file)
-        else:
-            raise FileNotFoundError(f"No se encontró el archivo de steps en: {input_file}")
         
-        with open(os.path.join(steps_dir, "scenario_steps_original.py"), 'r', encoding='utf-8') as f:
-            original_content = f.read()
+        # 3. Generar código Playwright
         playwright_code = generate_playwright_steps_with_gpt4(original_content, locators_file)
+        
+        # 4. Crear contenido final con imports y configuración
         final_content = (
             "from behave import given, when, then\n"
             "from playwright.sync_api import expect, TimeoutError\n"
@@ -355,12 +354,15 @@ def update_steps_file() -> str:
             "    LOCATORS = json.load(f)\n\n"
             f"{playwright_code}\n"
         )
+        
+        # 5. Guardar archivo final
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write(final_content)
         logger.info("Archivo de steps actualizado en: %s", output_file)
         
-        # Eliminar el archivo original respaldado para evitar duplicados
-        os.remove(os.path.join(steps_dir, "scenario_steps_original.py"))
+        # 6. Limpiar backup si existe
+        if os.path.exists(os.path.join(steps_dir, "scenario_steps_original.py")):
+            os.remove(os.path.join(steps_dir, "scenario_steps_original.py"))
         
         return output_file
 

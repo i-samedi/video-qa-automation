@@ -230,7 +230,6 @@ def main():
         col1, col2 = st.columns([3,1])
     
         with col1:
-            # Modificar para que se muestre el archivo con playwright
             if os.path.exists("features/steps/scenario_steps_playwright.py"):
                 with open("features/steps/scenario_steps_playwright.py", 'r', encoding='utf-8') as f:
                     st.code(f.read(), language='python')
