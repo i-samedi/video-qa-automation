@@ -1,66 +1,244 @@
-{Person1}{00:00:00:01} Hola, buen día. Me pidieron explicar en qué consiste o cómo está conformada la pantalla de
-{Person1}{00:00:00:13} seguimiento de importación. Así que nos vamos a ir a esa pantalla ahora y les voy a explicar
-{Person1}{00:00:00:20} uno a uno los campos que la conforman. Esta es la pantalla principal que utiliza actualmente
-{Person1}{00:00:00:35} el área de COMEX. Se llama seguimiento de importaciones. Está dividida entre distintos
-{Person1}{00:00:00:40} recuadros que van dando forma a lo que conforma la OC que se gestiona en Oracle,
-{Person1}{00:00:00:48} en el ERP Oracle. Una vez que la OC está aprobada en Oracle, después de pasar un
-{Person1}{00:00:00:55} circuito de aprobación, queda disponible para nosotros en esta pantalla. Ahora, vamos por pasos.
-{Person1}{00:00:01:06} La primera parte está enfOCada en la descripción, cierto, de los datos de la compañía. Foros S.A.,
-{Person1}{00:00:01:14} la dirección. Bueno, aquí aparece la dirección antigua, pero la dirección, las bodegas de entrega,
-{Person1}{00:00:01:19} el RUT, la marca, que es súper importante, la colección y la fecha de emisión de la orden de
-{Person1}{00:00:01:27} compra. Seguido de eso, tenemos los datos del proveedor, como el nombre, el RUT. Este RUT
-{Person1}{00:00:01:34} es creado de manera ficticia. Tenemos un correlativo y a cada proveedor se le asigna un
-{Person1}{00:00:01:41} número. En este caso, Shanghai Soho tiene este 100 días 678. La dirección y otros datos del
-{Person1}{00:00:01:49} proveedor. Después tenemos lo que tiene que ver con la OC, con los datos de la orden
-{Person1}{00:00:01:54} de compra. Más bien, con los datos de la proforma del proveedor. Cuando Foros compra un proveedor,
-{Person1}{00:00:02:01} este emite una proforma, que es la que se menciona acá. Y esta es la que respalda, cierto, dicha
-{Person1}{00:00:02:10} compra. Aparece el país de origen, puertos de embarque, la vía de embarque, el factor. El
-{Person1}{00:00:02:18} factor es un porcentaje bajo el cual se determina cuál es el costo de poner la mercadería en Chile.
-{Person1}{00:00:02:25} La cláusula de compra, cláusula FOP y la comisión, si es que la hubieran, y la vía de embarque
-{Person1}{00:00:02:32} marítimo, que no recuerdo si lo mencioné. Respecto a las cláusulas de compra, existen varias. Aquí
-{Person1}{00:00:02:39} están seleccionadas. Existe la posibilidad de seleccionar la cláusula de compra. Y en el caso
-{Person1}{00:00:02:45} de los puertos, también hay una base de datos. Todo eso debe venir desde la OC.
-{Person1}{00:00:02:51} Luego están las fechas, el factory date, el último plazo de embarque, la fecha de necesidad y la
-{Person1}{00:00:02:58} forma de pago. En este caso, el factory date equivale a la fecha en la que el proveedor debe
-{Person1}{00:00:03:03} entregar o debe tener lista la mercadería. El último plazo de embarque es cuando se debe embarcar
-{Person1}{00:00:03:11} esa mercadería. La fecha de necesidad, cuando la mercadería debe estar en el centro de distribución
-{Person1}{00:00:03:16} y la fecha de pago, en este caso WT. También existe la forma de pago LC, que es carta de crédito,
-{Person1}{00:00:03:27} WT, transfer y cobranza, que es otra otra forma de pago. Por lo tanto, COMEX actualmente opera
-{Person1}{00:00:03:36} con tres formas de pago. Después tenemos los datos del forward, casos expeditors, si los embarques
-{Person1}{00:00:03:43} son parciales o no. La moneda, en este caso es dólar. Y si existieran gastos adicionales. Esta
-{Person1}{00:00:03:53} parte de la pantalla hace mención a los datos de la carta de crédito. En este caso, como la cláusula
-{Person1}{00:00:04:01} de compra es WT, no aplican estos datos. Después tenemos el detalle de la OC. Cuando
-{Person1}{00:00:04:11} se repite el número de la OC, estamos hablando de clase accesorios. En Forbes se maneja
-{Person1}{00:00:04:18} accesorios, calzado, vestuario y hace muy pOCo se integró la clase perfumería. Después tenemos
-{Person1}{00:00:04:28} el género, que puede ser hombre, mujer, niño o unisex. El modelo, el nombre del producto, el
-{Person1}{00:00:04:36} color, el código, el código color, la talla y la barra. En este caso se trata de sólidos, porque el
-{Person1}{00:00:04:46} número de la barra es mucho más largo. Tiene cerca de 12 o 13 números dígitos. Y el sólido es
-{Person1}{00:00:04:54} reposición. Entonces, existe, bueno, Forbes está dividido en compras que se realizan bajo el concepto
-{Person1}{00:00:05:02} tarea y el concepto sólidos. Lo que es tarea es el llenado de canal, porque viene con la curva
-{Person1}{00:00:05:10} previamente distribuida dentro de cada uno de los cartones. Y el otro que es sólido, cierto,
-{Person1}{00:00:05:16} es que viene en un cartón una única talla. Después viene la cantidad comprada. En el caso
-{Person1}{00:00:05:23} del booking no está operativo actualmente, por lo tanto, no aparecen cantidades. Y aquí aparece la
-{Person1}{00:00:05:29} cantidad embarcada. En este caso, diferencia cero, porque la cantidad comprada es igual a
-{Person1}{00:00:05:34} la cantidad embarcada. Y el precio que aparece acá. De cada uno de los productos. Este es el
-{Person1}{00:00:05:42} número de la OC. Que si yo ingreso, le doy un enter, ahí aparece el número, los
-{Person1}{00:00:05:49} detalles de la orden, de la OC. Después seguimos con los distintos íconos que
-{Person1}{00:00:05:59} tiene incorporada esta pantalla. Que está el ícono factura, donde se ingresa la factura relacionada
-{Person1}{00:00:06:07} al embarque. Después tenemos el ícono ASN, que es donde se ingresa el embarque de la mercadería,
-{Person1}{00:00:06:14} los datos del embarque. Programa, es una pantalla que se creó para programar, para la redundancia,
-{Person1}{00:00:06:20} la mercadería, el centro de distribución. El envío, que queda registro de cuando se envió la
-{Person1}{00:00:06:26} mercadería al, perdón, cuando se enviaron los dOCumentos a la agencia de aduana. Reportes,
-{Person1}{00:00:06:34} aquí en este ícono tenemos la alternativa de reportes y consultas. Aquí ver una información,
-{Person1}{00:00:06:42} un resumen de operación. El área de pagos, donde se ingresa la información de todos los pagos
-{Person1}{00:00:06:48} relacionados a los gastos que origina una importación. Aquí el ícono borrar. Esto
-{Person1}{00:00:06:54} permite borrar una OC desde la pantalla de seguimiento. Anulación. Esto nos
-{Person1}{00:00:07:00} permite anular en la antorcha una OC que no va a ser embarcada. El Royalty,
-{Person1}{00:00:07:10} existen algunas marcas que operan con Royalty, fundamentalmente Wolverine. Este también tiene
-{Person1}{00:00:07:16} su espacio acá. Respecto a los anticipos, este anticipo actualmente está desactivado porque se
-{Person1}{00:00:07:21} creó otra antorcha que maneja el tema de los anticipos. Y esto de la carga B y ver B tiene
-{Person1}{00:00:07:27} que ver con el booking que como antes les comenté, no tiene, no está actualmente operativo. Acá
-{Person1}{00:00:07:36} abajo aparece un resumen de la compra. Las tareas, que en este caso no hay tareas porque como les
-{Person1}{00:00:07:43} comenté, todo esto de SKU corresponde a sólidos. Las unidades que equivalen, en este caso como no
-{Person1}{00:00:07:48} hay tareas, no hay equivalencia en unidades. Los sólidos son 1100, la totalidad 1100 y embarcado
-{Person1}{00:00:07:58} 1100. Por lo tanto existe una diferencia de cero. Eso es lo que tiene que ver fundamentalmente con
-{Person1}{00:00:08:04} la primera pantalla que quisimos mostrar que es seguimiento de importaciones. En las siguientes
-{Person1}{00:00:08:11} grabaciones voy a seguir mostrando cada uno de los iconos que conforman esta pantalla.
+{Person1}{00:00:00:00} Hola a todos, buenas tardes. Mi nombre es Noelia Carvajal y Diego Rattia me pidió que les
+{Person1}{00:00:00:10} explicara cómo funciona la pantalla de seguimiento de importaciones. Así que la voy a proyectar
+{Person1}{00:00:00:23} para que puedan ver la pantalla. Esta es la pantalla de seguimiento de importaciones,
+{Person1}{00:00:00:28} que está el título acá. Y lo que esta pantalla hace es permitirnos visualizar en el área cómics
+{Person1}{00:00:00:38} la OC. En este caso, voy a tomar como ejemplo la 425.376. Al ingresar la orden
+{Person1}{00:00:00:46} de compra, se despliega toda la información que ustedes están viendo acá. Entonces,
+{Person1}{00:00:00:51} les voy a explicar cada uno de los campos. La primera pantalla habla de la empresa,
+{Person1}{00:00:00:57} de los azuales, de los destinos. El segundo pantalla visita los cuáles son las casas
+{Person1}{00:00:01:04} y datos de los tuyos 활ícito que venden. El tercer pantalla habla de los cámaras de
+{Person1}{00:00:01:11} delincuentes. Y lo que llega a tu cabeza al final de cada uno de los campos es cuál es
+{Person1}{00:00:01:16} el número que está contenido en la entrega. Es una base de información, es la patches,
+{Person1}{00:00:01:25} la información. Pero, en general, o por lo general, se muestra la información completa.
+{Person1}{00:00:01:32} Después tenemos el dato de la proforma, que es el dOCumento que el proveedor emite para
+{Person1}{00:00:01:40} respaldar la compra que realizó FORUS. No siempre existen proformas, en otros casos
+{Person1}{00:00:01:45} existen planillas Excel que son pimponeadas entre el área comercial de FORUS y el proveedor,
+{Person1}{00:00:01:51} y en base a eso se va generando la compra. O sea, se tiene la proforma o la planilla Excel
+{Person1}{00:00:02:02} que acabo de comentar, y en base a eso se va generando la opción de compra.
+{Person1}{00:00:02:06} Ahora aparece también el país de origen, el puerto de embarque, la vía de embarque,
+{Person1}{00:00:02:16} el factor que es un porcentaje que se calcula sobre el precio. Entonces,
+{Person1}{00:00:02:22} nosotros estimamos cuál sería el costo de poner esa mercadería en Chile. Y ese factor
+{Person1}{00:00:02:28} se multiplica por el precio y ahí se determina el valor definitivo, por decirlo de alguna manera.
+{Person1}{00:00:02:33} Es un valor estimado porque luego, cuando la mercadería ya llega a Chile, contamos con los
+{Person1}{00:00:02:38} valores reales, se costea y ahí se le asigna un factor real. Bueno, en el caso de China,
+{Person1}{00:00:02:46} en uno de los puertos de uno de los países desde donde importamos, existe una base de datos con
+{Person1}{00:00:02:52} la información de todos los países, así que la persona que crea la OC va seleccionando
+{Person1}{00:00:02:57} el que corresponde. En el caso de Shanghái también existe una lista de puertos de embarque y al igual
+{Person1}{00:00:03:04} que el puerto, también se va seleccionando. Ya esto se realiza, toda esta información se realiza
+{Person1}{00:00:03:10} previo a la generación de la OC o al momento que se está generando la OC.
+{Person1}{00:00:03:16} La vía de embarque, la más utilizada por nosotros es marítimo, pero también podemos tener embarques
+{Person1}{00:00:03:21} aéreos. Terrestres, muy pOCo, muy pOCo. Y en el caso de marítimo aéreo, que es un envío
+{Person1}{00:00:03:29} combinado, no lo realizamos tampOCo o muy habitualmente. Después tenemos la comisión,
+{Person1}{00:00:03:39} que es un campo que en general queda en blanco, la verdad que el tiempo que manejamos la plataforma
+{Person1}{00:00:03:44} no he visto un valor ahí, siempre se le asigna cero. Después tenemos acá, en el campo del detalle
+{Person1}{00:00:03:51} de ese OC, las fechas de la OC. En este caso, esta OC tiene
+{Person1}{00:00:03:57} una fecha factory 15 de julio, que es la fecha en la que tiene que estar lista la mercadería. El
+{Person1}{00:00:04:03} 25 de julio, que es la fecha del último plazo de embarque. La fecha de necesidad es cuando la
+{Person1}{00:00:04:08} mercadería debe estar disponible, tiene que estar disponible en el centro de distribución. Después
+{Person1}{00:00:04:15} tenemos la forma de pago, que en este caso WP. También tenemos LC, que equivale a una carta de
+{Person1}{00:00:04:22} crédito, y también tenemos cobranza. Esas son las tres formas de pago que FORUS utiliza. Ahora,
+{Person1}{00:00:04:29} la WT es una transferencia que se realiza una a una a los proveedores a medida que ellos van
+{Person1}{00:00:04:34} embarcando. En el caso de la cobranza también es una transferencia, pero agrupa más de una factura,
+{Person1}{00:00:04:41} entonces es una forma que tenemos de poder pagar varias facturas a un proveedor en una fecha
+{Person1}{00:00:04:47} determinada. Después tenemos el dato del forwarder, en este caso es Expeditors. Nosotros
+{Person1}{00:00:04:54} actualmente trabajamos con dos forwarders, uno que es Expeditors y el otro que es THL. Aparece
+{Person1}{00:00:05:03} también aquí si se permite los embarques parciales, la moneda, los gastos adicionales. Estos gastos
+{Person1}{00:00:05:09} adicionales también quedan siempre en blanco, en general no se muestran valores adicionales. Este
+{Person1}{00:00:05:16} sector de la pantalla, ahí se completa todo lo que tiene que ver con la carta de crédito cuando
+{Person1}{00:00:05:24} aplica. Por ejemplo, en este caso si es WT, no se completa, porque se requieren estos datos siempre
+{Person1}{00:00:05:32} cuando aquí mencione LC, que es la abreviación de Letter of Credit, ya que la abreviación es en
+{Person1}{00:00:05:39} inglés. Ahora, aquí aparece el total de la OC, el monto total de la OC,
+{Person1}{00:00:05:44} y aquí se repite lo mismo. En OCasiones cuando se abre carta de crédito, en este campo que está
+{Person1}{00:00:05:50} acá, se mencionan los datos del banco y lo demás, y aquí se menciona el monto y puede haber una
+{Person1}{00:00:05:56} tolerancia. Por lo tanto, aquí aumenta el monto en base a esa tolerancia. Después seguimos con
+{Person1}{00:00:06:04} el detalle de la OC, qué tipo de clase es, en este caso es accesorios, género,
+{Person1}{00:00:06:10} hombre, modelo, el nombre del producto, el color, aquí aparece el código del color y el código,
+{Person1}{00:00:06:18} el código color, o sea, es este color pero en código. Después aparece la talla, el código de
+{Person1}{00:00:06:27} barra, la cantidad y la cantidad embarcada. Este es una OC que ya está embarcada. Aquí
+{Person1}{00:00:06:35} el código de barra, en este caso corresponde a un sólido, Foros compra de dos formas, a nivel de
+{Person1}{00:00:06:44} tareas o sólidos. En este caso es sólido porque el dígito, uno lo reconOCe inmediatamente porque
+{Person1}{00:00:06:51} el dígito tiene cerca de 13 dígitos, 12 o 13 dígitos, y es un, en este caso, una talla por
+{Person1}{00:00:07:00} cada SK1, si se fijan, una talla por cada SK1, aquí, en esta parte de acá. Cuando se compra en
+{Person1}{00:00:07:06} tarea, el código de barra tiene seis dígitos y al tener seis dígitos agrupa, agrupa un código,
+{Person1}{00:00:07:15} este que está acá, y agrupa más de una talla, ya, cuando es tarea. Nosotros lo distinguimos, reitero,
+{Person1}{00:00:07:23} por el barra que es de un número mucho más largo a un número de sólo seis dígitos. Aquí
+{Person1}{00:00:07:30} aparecen los precios de la OC, ya. Si seguimos, tenemos el icono factura, ASN,
+{Person1}{00:00:07:38} programa, envío, reportes, aquí también están las consultas, ver que es un resumen de la operación,
+{Person1}{00:00:07:47} el icono pagos, más seguimiento, esto tiene relación con una OC que uno
+{Person1}{00:00:07:54} necesite borrar porque ya no está vigente, porque se anuló en Oracle y ya no se va a embarcar. La
+{Person1}{00:00:08:02} anulación también podemos anular en Oracle, perdón, en el seguimiento de importaciones,
+{Person1}{00:00:08:08} podemos prOCeder con la anulación. El royalty, tenemos algunos proveedores, pero sólo algunos
+{Person1}{00:00:08:14} que a los que les pagamos royalty y que están incorporados dentro de este icono que se llama
+{Person1}{00:00:08:20} royalty, no son todos. Anticipo es una antorcha que está vinculada, pero actualmente no se utiliza,
+{Person1}{00:00:08:27} existe otra que está mucho más actualizada. Y tenemos este campo que es carga booking y ver
+{Person1}{00:00:08:33} booking. Si se fijan acá los valores están en cero, aquí también en cero, por lo tanto,
+{Person1}{00:00:08:39} todo lo que tiene que ver con el booking, que es la parte de acá, acá y acá, está actualmente
+{Person1}{00:00:08:46} inhabilitado. No lo utilizamos porque no logramos, hace un montón de años atrás,
+{Person1}{00:00:08:52} intentamos mantener la cantidad de productos bookeados, que es previo al embarque, pero no
+{Person1}{00:00:08:58} lo logramos. Voy a ir mostrando pantalla por pantalla, en este caso tengo la OC,
+{Person1}{00:00:09:05} ¿cierto? Al pinchar el icono ASN se despliega esta otra pantalla y esta pantalla muestra la
+{Person1}{00:00:09:13} OC, el barco, el viaje, el VL, contenedor, el sello y el tipo de contenedor,
+{Person1}{00:00:09:18} ¿ya? El origen, el destino, el CL, la abbreviación de Chile, la fecha de embarque. Esta fecha de
+{Person1}{00:00:09:26} entrega no está actualizada, la verdad que menciona las dos, la misma fecha en los dos
+{Person1}{00:00:09:33} campos. Después aparece la ETA o el ETAR. En este caso lo que hicimos hace un tiempo atrás fue
+{Person1}{00:00:09:39} diferenciar la primera fecha que se informa cuando la mercadería se embarca y la que finalmente es,
+{Person1}{00:00:09:47} ¿ya? O la fecha en la que efectivamente la mercadería arriba al puerto, ¿ya? Eso, o sea,
+{Person1}{00:00:09:55} la nave, un barco arriba y contiene, ¿cierto? Este contenedor en particular, ¿ya? A ver,
+{Person1}{00:00:10:01} acá aparece también el detalle de los productos, se vuelve a repetir el código, el código color,
+{Person1}{00:00:10:06} la talla, el SKU y la cantidad embarcada. Y aquí abajo totaliza a cuánto equivale esta información
+{Person1}{00:00:10:14} de ASN, ¿ya? Esto permite saber que esta mercadería ya está embarcada y es el resumen
+{Person1}{00:00:10:20} que aparece aquí abajo. Si se fijan, aparece tareas que en este caso no aplica porque tenemos
+{Person1}{00:00:10:27} códigos que equivalen a, perdón, barras que equivalen a sólidos. Aquí aparecen los sólidos,
+{Person1}{00:00:10:32} suma 1.100, se embarcó 1.100, el saldo es cero, ¿ya? Después, como les mostré en el tema de la
+{Person1}{00:00:10:40} ASN, aquí tenemos un VL y este VL lo voy a utilizar para ir a la pantalla de factura donde
+{Person1}{00:00:10:47} enché invoice y si yo aprieto el botón Enter, me va a aparecer todas las facturas emitidas por
+{Person1}{00:00:10:56} el proveedor extranjero que están contenidas en este VL, ¿ya? Entonces, este VL, que fue el que
+{Person1}{00:00:11:03} corté de la otra pantalla, aparece si se fijan más de una OC, 423.033,
+{Person1}{00:00:11:10} aparece es el total, este total que aparece aquí es el de la OC, ¿ya? Son 7.641 con
+{Person1}{00:00:11:27} este monto de plata, ¿ya? Después tengo la 423.439 que es exactamente lo mismo,
+{Person1}{00:00:11:35} totaliza más abajo los montos de la OC. Y si sigo más abajo, ahí aparece la orden
+{Person1}{00:00:11:43} de compra de la que hemos estado conversando, también aparecen los montos aquí abajo y la
+{Person1}{00:00:11:48} última OC es la 425.817 que también totaliza al final los montos, 2.400 unidades con
+{Person1}{00:00:12:00} 11.835. Ahora, esto que está acá se muestra por default y equivale a la información de la orden
+{Person1}{00:00:12:09} de compra, pero hacia el lado, si se fijan, aparece el número de la factura, esta factura en la que
+{Person1}{00:00:12:15} el proveedor emite antes de embarcar y es la que nosotros luego presentamos a la aduana para poder
+{Person1}{00:00:12:22} desaduanar los productos, ¿ya? Después tengo, bueno, ahí aparece el número de la reforma que fue
+{Person1}{00:00:12:28} lo que se mencionó en la pantalla inicial, la fecha de la factura y el monto de la factura. Si
+{Person1}{00:00:12:37} se fijan, en este caso, este monto que está acá equivale al mismo que el proveedor luego facturó,
+{Person1}{00:00:12:44} ¿ya? Después, en el caso anterior, por ejemplo, totalizaba 14 y aquí hay una pequeña diferencia,
+{Person1}{00:00:12:52} el proveedor facturó 14.572 y la OC por 14.334, ahí se genera una diferencia. Esa
+{Person1}{00:00:13:03} diferencia se la informamos al área comercial para que ella nos diga si los precios o las
+{Person1}{00:00:13:11} cantidades son correctas en la factura del proveedor o lo que indica la OC.
+{Person1}{00:00:13:16} Entonces, aquí está la OC y aquí está la factura del proveedor. Suele OCurrir en
+{Person1}{00:00:13:21} OCasiones que son precios que fueron actualizados de acuerdo con el conOCimiento del área comercial,
+{Person1}{00:00:13:28} pero no se actualizaron en la OC. Entonces, por eso se van generando las distintas
+{Person1}{00:00:13:35} diferencias, ¿ya? En este caso, en el caso de la 423.439, el monto es este, similar al de la
+{Person1}{00:00:13:42} factura, por lo tanto, no tenemos inconveniente. Y vamos a revisar la última, que aparece 174.852.08,
+{Person1}{00:00:13:52} cuadra perfecto con el valor facturado. Así que aquí es donde se ingresa la factura. Ahora yo
+{Person1}{00:00:13:58} estoy mostrando una operación que ya está arribada e incluso costeada, por lo tanto,
+{Person1}{00:00:14:04} está toda la información ya contenida en la en la entonces. Ahora, dentro de esta pantalla,
+{Person1}{00:00:14:10} también existe la posibilidad de eliminar invoice, se puede eliminar la información de
+{Person1}{00:00:14:15} una invoice completa o parcial. Bueno, algunas algunas consultas y salir de la pantalla. Ahora,
+{Person1}{00:00:14:26} el detalle de cómo se ingresa la invoice, lo vamos a ver más adelante en otra grabación.
+{Person1}{00:00:14:33} Tenemos también la fecha de envío de los dOCumentos a la agencia de aduanas. En este
+{Person1}{00:00:14:38} caso, podemos filtrar por OC o por VL. Si lo doy un enter, aparece que este VL
+{Person1}{00:00:14:47} corresponde a todas estas órdenes de compra. La agencia está en la fecha de entrega y aquí
+{Person1}{00:00:14:53} aparece el resumen que estaba antes en la pantalla de programación o programa. Que es esta. Voy a
+{Person1}{00:00:15:02} llamar al VL. Aquí aparece la información a nivel de VL. En este caso, como se trata de un
+{Person1}{00:00:15:11} contenedor full, el contenedor full significa que el contenedor trae solamente productos para foros.
+{Person1}{00:00:15:19} Cuando se trata de una carga LCL, son en un mismo contenedor. Vienen varios importadores. Entonces,
+{Person1}{00:00:15:27} cuando el contenedor llega a Chile, se desconsolida y ahí se va retirando por separado
+{Person1}{00:00:15:31} cada una de las cargas. Entonces, ¿por qué les estoy diciendo esto? Porque en este caso en
+{Person1}{00:00:15:38} particular, cuando la mercadería se programa al centro de distribución, se programa por contenedor,
+{Person1}{00:00:15:46} cuando es una carga full. Y cuando se trata de una carga LCL o consolidada, se programa por VL,
+{Person1}{00:00:15:58} porque se van retirando los VL por separado. Entonces, en este caso, voy a anotar el número
+{Person1}{00:00:16:05} del contenedor, 158.98.79. Lo voy a buscar por contenedor. Aquí ven que también se puede hacer
+{Person1}{00:00:16:16} de esa forma. SNU 158.98.79. Acá está. Entonces, aparece que el contenedor, que está con todo este
+{Person1}{00:00:16:30} detalle que ya venía de la pantalla de ARSN, arribó el 3 de OCtubre, que es lo que vimos hace
+{Person1}{00:00:16:36} un rato, y las fechas de programación fueron estas. Inicialmente se había programado para el 8 de
+{Person1}{00:00:16:42} OCtubre, se reprogramó para el 15 de OCtubre, y luego llegó definitivamente el 15 de OCtubre.
+{Person1}{00:00:16:51} Las siglas son FPE, que es fecha de programación estimada, FRE, fecha de programación estimada,
+{Person1}{00:00:16:59} y FPC, que es la fecha de programación confirmada. Aquí aparecen datos como el centro de distribución,
+{Person1}{00:00:17:06} el lugar donde se entregó la mercadería, el clase de la OC, en este caso viene
+{Person1}{00:00:17:11} accesorio, vestuario. En este contenedor, las cantidades de cada una de las órdenes de compra,
+{Person1}{00:00:17:17} la marca, qué estatus está el producto. En este caso, cuando recién se carga una SN en la antorcha,
+{Person1}{00:00:17:26} queda en estatus sin originales, en este estatus, que es el estatus 1, entonces quedaría sin
+{Person1}{00:00:17:32} originales. Después puede pasar a secuencia, que tiene que ver con el desconsolidado del
+{Person1}{00:00:17:39} contenedor, con los contenedores LCL, como les comentaba hace un rato, tienen que abrirlo y
+{Person1}{00:00:17:44} desconsolidarlo, entonces ahí aparece el estatus secuencia. También puede aparecer el anticipo de
+{Person1}{00:00:17:50} dOCumentos, que significa que se enviaron dOCumentos a la agencia, pero aún falta
+{Person1}{00:00:17:55} alguno, ya por eso es anticipo dOCumento. Y cuando ya está todo disponible, enviado 100% a la agencia,
+{Person1}{00:00:18:02} se indica, ok, ya en este caso, que es el estatus 2, existe el no prioridad, el prioridad y el pronto
+{Person1}{00:00:18:12} retiro. El no prioridad, obviamente, nos va a tener, nosotros COMEX, no le damos prioridad
+{Person1}{00:00:18:19} porque la marca no nos pidió que así fuera. Prioridad es porque efectivamente tenemos que
+{Person1}{00:00:18:25} dar un mayor importancia y el pronto retiro es cuando necesitamos retirar la carga desde el
+{Person1}{00:00:18:31} puerto de manera urgente. Ya hay unas gestiones que se realizan con el agente de aduana para que
+{Person1}{00:00:18:36} así sea. Aquí aparece la colección, toda esta información la trae desde la OC.
+{Person1}{00:00:18:42} Bueno, y aquí aparecen datos también como el cartón, el volumen y el peso, que en este caso no
+{Person1}{00:00:18:47} existe información. Debería estar ingresado, pero en este caso no existe información.
+{Person1}{00:00:18:54} Esa es la pantalla de programación, bueno, y aquí muestra un resumen. Un resumen de,
+{Person1}{00:00:19:00} ¿cómo se llama? De lo que está mencionado aquí arriba. Ahora, si yo presiono aquí,
+{Person1}{00:00:19:07} me permite seleccionar todos los registros.
+{Person1}{00:00:19:12} Así se programa la mercadería. Estoy en programación, entonces me dice fecha de
+{Person1}{00:00:19:19} programación exprimada y la fecha confirmada, ya que el centro de distribución se fue.
+{Person1}{00:00:19:25} ¿Ya? Esa es una forma que tenemos. Y la otra sería en el estatus, que aquí cambian los estatus,
+{Person1}{00:00:19:33} que era lo que les comentaba hace un rato. En el caso del estímulo 1, que sería el estatus 1,
+{Person1}{00:00:19:39} estatus 1, acá tenemos sin originales, con problemas, secuencia, anticipo dOCumentos y ok,
+{Person1}{00:00:19:47} ya que es el caso que está acá. Había olvidado el con problema. Y en el estatus 2 tenemos no
+{Person1}{00:00:19:54} prioridad, prioridad, pronto retiro y retiro directo. Eso también había olvidado. Esos son
+{Person1}{00:00:20:00} los estatus que se pueden indicar en cada uno de estos campos. Vamos a salir. Después nos vamos
+{Person1}{00:00:20:08} a reportes y consulta, que es súper importante, porque a través de esta pantalla podemos buscar
+{Person1}{00:00:20:15} información o generar un reporte. Entonces, si me voy aquí y digito el número del contenedor,
+{Person1}{00:00:20:23} que era el que estábamos trabajando, 9, 8, 7, 9, 8. Podemos generar un reporte resumido con ciertos
+{Person1}{00:00:20:33} campos o el general de alcance, que esté el formato amplio. Ahora, esta pantalla,
+{Person1}{00:00:20:42} si bien se llama reportes o consultas, cada vez que uno realiza una búsqueda va a generar este
+{Person1}{00:00:20:47} reporte. Uno puede ver la información directamente acá o bajar un reporte, aunque siempre va a ser
+{Person1}{00:00:20:55} mejor el reporte, porque es muy difícil manejarlo directamente acá. Este reporte tiene varias
+{Person1}{00:00:21:01} columnas. Es una sábana, la verdad, de información, pero nosotros cómics nos sirve un montón porque
+{Person1}{00:00:21:07} nos permite tener decidiría de la operación. Aquí aparece mucha de la información que está
+{Person1}{00:00:21:13} contenida en la OC y se adicionan algunas otras. Como, por ejemplo, lo que tiene
+{Person1}{00:00:21:19} que ver con... Aquí aparece la composición del producto, qué tipo de producto es, la clase ya
+{Person1}{00:00:21:27} la habíamos visto, el género también. Y aquí aparecen las tareas. Si se fijan, el código o el
+{Person1}{00:00:21:34} SKU tiene seis dígitos. Y aquí aparece una talla, que no es una talla usual, porque no es la conOCida
+{Person1}{00:00:21:42} SML, y dice K401. Significa que esta tarea agrupa cuatro tallas. Cuatro tallas, que asumo que es la
+{Person1}{00:00:21:54} SMLXL, porque ese producto viene en esas cuatro tallas. Entonces, se le pide al proveedor que
+{Person1}{00:00:22:02} mande juntas esas tallas. Y en otros casos las manda por separado. Cuando las manda por separado
+{Person1}{00:00:22:08} tenemos un SKU de sólido, que es el que yo estoy mostrando acá. Después, si nos vamos más hacia el
+{Person1}{00:00:22:16} lado, tenemos con el puerto, que eso ya lo vimos antes. Aparece información como tipo de ASN, si es
+{Person1}{00:00:22:31} una ASN manual o un automático. Fecha de entrega de la gente, eso es lo que ya habíamos visto antes.
+{Person1}{00:00:22:39} La prioridad. Y eso. Y al final, al final que está acá, se le da un nuevo estatus, pero está solo a
+{Person1}{00:00:22:48} nivel de reporte. Por el estatus de si la mercadería está en el CD, está programada, está embarcada,
+{Person1}{00:00:22:56} en puerto o por embarcar. Esos son otros otros estatus que también hay que considerar. Y bueno,
+{Person1}{00:00:23:11} hay distintas formas. Aquí se puede buscar órdenes de compra, código, contenedor, número de VL,
+{Person1}{00:00:23:16} nave, clases y todas las que están mencionadas acá. Y aquí se pueden mencionar, por ejemplo,
+{Person1}{00:00:23:22} todas las clases etar y se define un rango de fecha y va a aparecer todo el detalle. Por ejemplo,
+{Person1}{00:00:23:29} vamos a poner la fecha de arriba de carga, el 1 del 1 del 2025 hasta el 15 del 1 del 2025.
+{Person1}{00:00:23:38} Le damos enter. Vamos a generar el reporte completo.
+{Person1}{00:00:23:50} A ver, vamos a buscar una marca en particular. Esto debería haber funcionado.
+{Person1}{00:00:23:55} 0101 2025 hasta el 3101 2025.
+{Person1}{00:00:24:08} Está buscando información.
+{Person1}{00:00:24:15} Entonces dice que de la marca Saleya arribaron desde el 1 de enero del 25 hasta el 31 de enero
+{Person1}{00:00:24:22} del 2025. 28 contenedores equivalente a 120.516 pares. Entonces, como les decía hace un rato,
+{Person1}{00:00:24:32} si yo quiero trabajar esta información, necesariamente la tengo que bajar a Excel.
+{Person1}{00:00:24:36} Entonces presiona este botoncito y se baja a Excel. Ahora, no lo voy a hacer porque como la
+{Person1}{00:00:24:43} versión en la que se armó este sistema es antiguo, tendría que tener instalada en mi equipo una
+{Person1}{00:00:24:51} máquina virtual. Máquina que no tengo instalada y, por tanto, no puedo bajar el reporte. Si lo
+{Person1}{00:00:24:58} bajo, prácticamente no muestra correctamente los datos. Pero en el fondo funciona así.
+{Person1}{00:00:25:05} Pues tenemos un ícono que nos permite ver. Ahí aparece un resumen de la OC. Y en
+{Person1}{00:00:25:16} el historial de aprobación aparece un error. La verdad que es una pantalla que no utilizamos
+{Person1}{00:00:25:21} muy habitualmente. Después tenemos el detalle de pago. Aquí se ingresan todos los pagos respecto
+{Person1}{00:00:25:28} a las operaciones que nosotros traemos a Chile. Cada vez que nosotros importamos un producto,
+{Person1}{00:00:25:34} se van generando ciertos gastos. Todos esos gastos, como les digo, aparecen acá. Ahora,
+{Person1}{00:00:25:39} esta información la está ingresando actualmente un bot. Y ese bot es el que registra la información.
+{Person1}{00:00:25:46} Ahora, tenemos la posibilidad también de eliminar algún dOCumento que hayamos ingresado.
+{Person1}{00:00:25:57} Aquí hay otros botones que de verdad que no sé mucho, pero más adelante se va a explicar en
+{Person1}{00:00:26:02} detalle cómo se hace el ingreso de esta información. Yo lo estoy mostrando a grandes rasgos.
+{Person1}{00:00:26:11} Después tenemos el ícono de borrar, que es lo que revisamos hace un rato. También tenemos la
+{Person1}{00:00:26:18} anulación. En este caso, la anulación, por la importancia que tiene, necesita una clave. Y la
+{Person1}{00:00:26:24} pantalla muestra, puedo seleccionar una marca, azalella y una colección. Entonces me va a mostrar,
+{Person1}{00:00:26:36} por ejemplo, si yo me voy a invierno 25, me va a mostrar todas las órdenes de compra que están
+{Person1}{00:00:26:47} abiertas y nosotros tenemos la posibilidad de poder anular. Aquí lo tenemos que bajar en un
+{Person1}{00:00:26:54} formato CSV y después en el formato se tiene que trabajar indicando sí o no. Y después se carga
+{Person1}{00:00:27:03} ese archivo acá donde dice importar archivo y en ese minuto quedan los códigos anulados. También
+{Person1}{00:00:27:13} esto lo vamos a revisar en detalle más adelante porque no es tan amigable esta pantalla, la verdad,
+{Person1}{00:00:27:20} funciona pero no es tan amigable. Así que la vamos a revisar más adelante. Y el último que tiene que
+{Person1}{00:00:27:27} ver con el Royalty, como les dije antes, una pantalla que nos permite poder pagar Royalty.
+{Person1}{00:00:27:35} Acá solamente se prOCesan dos, o sea, es un proveedor pero con dos marcas que es CAT y
+{Person1}{00:00:27:47} Merrill. Entonces se va ingresando información acá de manera de cuando se paga el dOCumento,
+{Person1}{00:00:27:53} se registra el valor de lo que se va a pagar, pero existe una retención y esto nos permite
+{Person1}{00:00:28:02} después generar un reporte con esos pagos. Así que eso también lo vamos a revisar más adelante.
+{Person1}{00:00:28:10} Anticipo que les dije que esto ya no está visible y creo que eso es todo. Me estaba olvidando,
+{Person1}{00:00:28:19} también tenemos este botoncito y si lo presiono puedo modificar algunos datos dentro de la
+{Person1}{00:00:28:27} cabecera de la OC. Todos los datos que quedan en color celeste,
+{Person1}{00:00:28:32} eso lo puedo modificar. Voy a hacer una prueba, por ejemplo decía 15,
+{Person1}{00:00:28:42} ahora vamos a poner 20, 20 del 07 del 2024, 25 07 del 2024 y yo voy a grabar con esto grabo.
+{Person1}{00:00:28:54} Confirmación, ok, y dice que se grabó exitosamente. Entonces si yo le doy un
+{Person1}{00:00:29:00} enter a la OC, va a aparecer el cambio, 20. Entonces ahora, como esa no es la
+{Person1}{00:00:29:09} fecha correcta sino que fue solamente una prueba, voy a cambiarla nuevamente. La de abajo
+{Person1}{00:00:29:19} también la cambio porque en OCasiones no queda bien y marca un error que es una fecha la verdad
+{Person1}{00:00:29:25} bastante extraña. Entonces aquí aparece con las mismas fechas iniciales, le doy ok.
+{Person1}{00:00:29:31} Listo. Y se graba. Entonces ahora va a aparecer de nuevo el 15 de julio. Ahí está, 15 de julio.
+{Person1}{00:00:29:41} Y con eso hemos revisado a grandes rasgos la pantalla de seguimiento con sus distintos
+{Person1}{00:00:29:47} íconos y vamos a profundizar en aquellas pantallas para hacerle saber cómo se debe
+{Person1}{00:00:29:56} ingresar la información. Así que voy a dejar de proyectar, dejar de compartir y
+{Person1}{00:00:30:04} voy a finalizar la reunión. Muchas gracias.

@@ -1,64 +1,74 @@
-Feature: Seguimiento de Importaciones
+Feature: Seguimiento de importaciones  
+  Como usuario del sistema  
+  Quiero visualizar y gestionar la información de las órdenes de compra (OC)  
+  Para asegurar el correcto seguimiento y procesamiento de las importaciones  
 
-Scenario: Visualizar información técnica de la pantalla
+Scenario: Visualizar la pantalla de seguimiento de importaciones  
+  Dado que accedo a la pantalla de seguimiento de importaciones  
+  Cuando ingreso una orden de compra con número "425.376"  
+  Entonces se despliega toda la información asociada a la OC  
 
-  Dado que el área de COMEX utiliza la pantalla principal de seguimiento de importaciones  
-  Y la OC aprobada en Oracle se muestra en esta pantalla  
+Scenario: Visualizar el detalle de campos de la OC  
+  Dado que la pantalla muestra tres secciones de información  
+  Cuando observo los datos de empresa, destinos, proveedores y proforma o planilla Excel  
+  Entonces se muestran los detalles completos para respaldar la compra  
 
-  Cuando el usuario accede a la pantalla de seguimiento de importaciones  
+Scenario: Ingresar datos de embarque y costos  
+  Dado que la creación de la OC requiere información de embarque  
+  Cuando selecciono el país de origen, el puerto de embarque y la vía (por ejemplo, marítimo)  
+  Entonces se calcula un factor sobre el precio para estimar el costo de poner la mercadería en destino  
 
-  Entonces se muestran los datos de la compañía  
-    • Mostrar nombre (Foros S.A.)  
-    • Mostrar dirección antigua y bodegas de entrega  
-    • Mostrar RUT, marca, colección y fecha de emisión de la orden de compra  
+Scenario: Visualizar formas de pago y forwarder  
+  Dado que se requiere definir la forma de pago  
+  Cuando se muestra la sección con WP, LC (Letter of Credit), cobranza y WT  
+  Entonces se visualizan las opciones de pago y el forwarder (por ejemplo, Expeditors o THL)  
 
-  Entonces se muestran los datos del proveedor  
-    • Mostrar nombre y RUT ficticio  
-    • Mostrar correlativo y número asignado (por ejemplo, Shanghai Soho: 100 días 678)  
-    • Mostrar dirección y otros datos relevantes  
+Scenario: Visualizar detalles de productos en la OC  
+  Dado que la OC contiene información de productos  
+  Cuando observo la clase, género, modelo, color, talla, código de barra, cantidad y precio  
+  Entonces se distinguen los productos comprados por “sólido” (una talla por SKU) o “tarea” (agrupación de tallas)  
 
-  Entonces se muestran los datos de la proforma del proveedor  
-    • Mostrar país de origen  
-    • Mostrar puertos de embarque y vía de embarque  
-    • Mostrar factor (porcentaje para determinar costo de puesta de mercadería en Chile)  
-    • Mostrar cláusula de compra, cláusula FOP y comisión si existen  
-    • Permitir seleccionar la cláusula de compra y consultar base de datos de puertos  
+Scenario: Visualizar la pantalla ASN  
+  Dado que accedo al icono ASN desde la OC  
+  Cuando visualizo los datos del barco, viaje, VL, contenedor, sello, origen, destino y fecha de embarque  
+  Entonces se muestra un resumen de los productos embarcados y el total de cantidades  
 
-  Entonces se muestran las fechas y forma de pago  
-    • Mostrar factory date (fecha en que el proveedor debe entregar la mercadería)  
-    • Mostrar último plazo de embarque  
-    • Mostrar fecha de necesidad (fecha de llegada al centro de distribución)  
-    • Mostrar forma de pago (WT, LC, transfer, cobranza)  
+Scenario: Revisar facturas del proveedor  
+  Dado que el VL de la pantalla ASN contiene información de facturación  
+  Cuando presiono Enter sobre el VL  
+  Entonces se despliegan las facturas emitidas por el proveedor  
+  Y se muestran los montos facturados y las diferencias comparados con la OC  
 
-  Entonces se muestran los datos del forward, expeditors y condiciones de embarque  
-    • Mostrar si el embarque es parcial  
-    • Mostrar la moneda empleada (dólar)  
-    • Mostrar gastos adicionales si existen  
+Scenario: Programar y verificar embarque  
+  Dado que accedo a la pantalla de programación  
+  Cuando ingreso el número de contenedor o VL  
+  Entonces se muestra la información de programación (incluyendo fechas estimadas y confirmadas)  
+  Y se visualizan datos del centro de distribución, cantidades, estatus y modalidad de retiro  
 
-  Entonces se muestran los datos relacionados a carta de crédito  
-    • No mostrar si la cláusula de compra es WT  
+Scenario: Generar reportes y consultar información  
+  Dado que la pantalla de reportes y consultas permite filtrar información  
+  Cuando filtro por contenedor, VL, marca, clase, o defino un rango de fechas  
+  Entonces se genera un reporte resumido o detallado de la OC  
+  Y se permite descargar el reporte en formato Excel  
 
-  Entonces se muestra el detalle de la orden de compra  
-    • Mostrar número de OC y detalles asociados  
-    • Mostrar clase de producto (accesorios, calzado, vestuario, perfumería en pocos casos)  
-    • Mostrar género (hombre, mujer, niño o unisex)  
-    • Mostrar modelo, nombre del producto, color, código, código color, talla y número de la barra  
-    • Diferenciar entre pedidos sólidos y tareas  
-    • Mostrar cantidad comprada, cantidad embarcada y precio  
-    • Confirmar que la diferencia entre cantidad comprada y embarcada es cero  
+Scenario: Modificar datos de la cabecera de la OC  
+  Dado que la cabecera de la OC muestra datos modificables en color celeste  
+  Cuando modifico las fechas u otros datos y grabo los cambios  
+  Entonces se actualiza la información de la OC en pantalla  
 
-  Entonces se muestran los íconos de acción en la pantalla  
-    • Mostrar ícono Factura para ingresar la factura relacionada al embarque  
-    • Mostrar ícono ASN para ingresar datos del embarque  
-    • Mostrar ícono Programa para programar la redundancia de mercadería en el centro de distribución  
-    • Mostrar ícono Envío para registrar el envío de documentos a la agencia de aduana  
-    • Mostrar ícono Reportes para consultar y ver resumen de operación  
-    • Mostrar área de Pagos para ingresar información de todos los gastos de la importación  
-    • Mostrar ícono Borrar para eliminar una OC desde esta pantalla  
-    • Mostrar ícono Anulación para anular una OC que no será embarcada  
-    • Mostrar ícono Royalty para marcas que operan con este concepto (por ejemplo, Wolverine)  
-    • Mostrar opciones de anticipos (actualmente desactivado) y funciones de carga B y ver B en el booking  
+Scenario: Eliminar y anular información  
+  Dado que el sistema permite eliminar invoice o anular la OC  
+  Cuando selecciono eliminar una invoice o anular una OC utilizando la clave de validación  
+  Entonces se elimina o anula la información de forma parcial o completa  
 
-  Entonces se muestra un resumen de la compra  
-    • Mostrar total de tareas, unidades equivalentes, sólidos y total de la compra  
-    • Confirmar que la diferencia es cero cuando la cantidad comprada es igual a la embarcada
+Scenario: Gestionar pagos y Royalty  
+  Dado que se registran los pagos y se procesa Royalty para ciertos proveedores  
+  Cuando ingreso el valor a pagar y se aplica la retención correspondiente  
+  Entonces se muestra el detalle de los pagos y se genera un reporte para Royalty  
+
+  
+# Notas:  
+# - Todas las acciones de selección se combinan en un único paso, por ejemplo:  
+#   "Seleccionar apartado 'País de origen' y seleccionar 'Puerto X'"  
+# - Se han eliminado todas las referencias temporales y fechas específicas  
+# - Cada paso es corto, directo y refleja una acción o resultado esperado  

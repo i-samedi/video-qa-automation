@@ -8,39 +8,13 @@ import json
 import re
 from service.generation.extract_scenary import *
 from service.generation.generate_definition import generate_step_definitions
-
+from service.utils.config import setup_page_config
 
 # Cargar variables de entorno
 load_dotenv()
 
 # Configuración de la aplicación
-def setup_page_config():
-    st.set_page_config(
-        page_title="Video QA Automation",
-        page_icon="🎥",
-        layout="wide",
-        initial_sidebar_state="expanded"
-    )
-    
-    # Configurar estilos sin fondo blanco
-    st.markdown("""
-        <style>
-        .stButton>button {
-            width: 100%;
-            margin-top: 5px;
-        }
-        .stTextArea>div>div>textarea {
-            font-family: monospace;
-        }
-        .stMarkdown {
-            font-size: 1.1em;
-        }
-        img {
-            width: 100% !important;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-    
+setup_page_config()  
 
 def main():
     setup_page_config()
